@@ -1,5 +1,5 @@
-#Materials for Text as Data Class
+# Materials for Text as Data Class
 
-##Syllabus
+## Syllabus
 
 Spring 2019 Syllabus
