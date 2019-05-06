@@ -11,6 +11,7 @@
  * Representing, Exploring, and Comparing Text
      * Vector Space for Documents; Bag of Words; Term Weighting
      * Vector Space for Words: Embeddings and Vector Semantics
+     * Cosine similarity and matrix decomposition; 
  * Dictionaries, Lexicons, & Keywords (Sentiment Analysis 1)
  * Supervised Learning & Classification (Sentiment Analysis 2)
  * Topic Modeling & Related Unsupervised Methods
@@ -24,6 +25,7 @@
      * Convolutional neural nets
  * Information extraction; event data
  * Multilingual text analysis; Transfer Learning
+ * Causal inference and text
   
 
 ## Tutorials / Notebooks
