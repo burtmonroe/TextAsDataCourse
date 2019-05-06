@@ -4,6 +4,28 @@
 
 [Spring 2019 Syllabus](https://burtmonroe.github.io/TADA/Materials/TADASyllabus-Spring2019.pdf)
 
+## Slides
+ * Overview of Text-as-Data and NLP
+ * Manipulating and Preprocessing Text
+ * Regular Expressions
+ * Representing, Exploring, and Comparing Text
+     * Vector Space for Documents; Bag of Words; Term Weighting
+     * Vector Space for Words: Embeddings and Vector Semantics
+ * Dictionaries, Lexicons, & Keywords (Sentiment Analysis 1)
+ * Supervised Learning & Classification (Sentiment Analysis 2)
+ * Topic Modeling & Related Unsupervised Methods
+ * Scaling and "Regression"
+ * Neural Networks and Deep Learning
+     * Logistic regression / shallow networks (Sentiment Analysis 3)
+     * Deep feedforward networks (Sentiment Analysis 4)
+     * Embeddings revisited
+     * Recurrent neural nets, LSTMs, bi-LSTMs (Stance classification)
+     * Language modeling and entity recognition
+     * Convolutional neural nets
+ * Information extraction; event data
+ * Multilingual text analysis; Transfer Learning
+  
+
 ## Tutorials / Notebooks
 
 ### NLP / Text as Data in R
