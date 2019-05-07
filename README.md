@@ -11,7 +11,10 @@ Burt Monroe
  * Manipulating and preprocessing text
     * Regular expressions
     * Text normalization
- * Practical issues: scraping, encodings, pdfs, etc.
+ * Practical issues
+     * Text as Data and NLP in Python
+     * Text as Data and NLP in R
+     * Scraping, encodings, pdfs, etc.
  * Ethical and legal issues: privacy, copyright, TOS/robots.txt, etc.
  * Representing, exploring, and comparing text
      * Vector space for documents; bag of words; term weighting
@@ -44,7 +47,6 @@ Burt Monroe
  * Introduction to tidytext (R)
  
 ### NLP / Text as Data in Python
-  * Python tools for text-as-data and NLP
   * Introduction to NLP with TextBlob, nltk, and pattern (Python)
   * Introduction to NLP with spaCy (Python)
   
