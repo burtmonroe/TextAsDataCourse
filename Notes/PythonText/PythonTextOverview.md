@@ -8,11 +8,11 @@
   * For the most part, if you are learning Python new, you should be working in Python 3, at this writing 3.6+. But be aware a great deal has been written in Python 2, typically 2.7, and there are important differences. In addition to some general syntax differences, the main issue in text analysis is the handling of encoding (e.g., UTF-8).
   * You should also learn how to set up "environments" for particular combinations of Python version and packages. This can aid replicability and help with trying different packages without breaking something else that is working.
   * The "NumPy stack" - the basic libraries for numerical computing, scientific computing, and data science in Python. Automatically installed with Anaconda.
-  ..* NumPy - provides array / matrix objects and modules for operations on them. (see also Numba - turns NumPy and related code into machine code for much faster processing.) (see also CuPy, a NumPy alternative with NVIDIA CUDA acceleration.)(see also PyTorch, discussed below)
-  ..* SciPy ("Sigh Pie") - scientific computing ... linear algebra, optimization, integration, signal processing
-  ..* pandas - DataFrame tabular objects and manipulations (file i/o, reshaping data, split-apply-combine); time series and econometrics models. (see also Dask - parallel computing; "Big Data" objects extending NumPy, pandas objects; workflow manager)
-  ..* matplotlib - plotting / graphics. Other visualization libraries, installed with Anaconda, include Bokeh (interactive, for browsers), Datashader (for big data), HoloViews (high level front end to matplotlib, Bokeh, etc can also use Datashader), GeoViews (for geographic data). These and others are incorporated in the "PyViz ecosystem" project supported by Anaconda.
-  ..* SymPy - symbolic computation (algebra, calculus). (Not generally used in text / NLP work.)
+      * NumPy - provides array / matrix objects and modules for operations on them. (see also Numba - turns NumPy and related code into machine code for much faster processing.) (see also CuPy, a NumPy alternative with NVIDIA CUDA acceleration.)(see also PyTorch, discussed below)
+      * SciPy ("Sigh Pie") - scientific computing ... linear algebra, optimization, integration, signal processing
+      * pandas - DataFrame tabular objects and manipulations (file i/o, reshaping data, split-apply-combine); time series and econometrics models. (see also Dask - parallel computing; "Big Data" objects extending NumPy, pandas objects; workflow manager)
+      * matplotlib - plotting / graphics. Other visualization libraries, installed with Anaconda, include Bokeh (interactive, for browsers), Datashader (for big data), HoloViews (high level front end to matplotlib, Bokeh, etc can also use Datashader), GeoViews (for geographic data). These and others are incorporated in the "PyViz ecosystem" project supported by Anaconda.
+      * SymPy - symbolic computation (algebra, calculus). (Not generally used in text / NLP work.)
   * Cython - technically its own language. A mix of Python and C. Produces Python modules that are implemented in C/C++, and so are much faster. SpaCy, for example, is written in Cython, as are many parts of SciPy, pandas, and scikit-learn.
 
 
@@ -42,14 +42,14 @@
   * "Scalable solutions for text representation and classification." Open-source by Facebook AI Research (FAIR) lab.
   * We are using components of this in our multilingual work.
 
-#### StanfordNLP -
-    * Stanford NLP Group's "Python NLP Library for Many Human Languages."
-    * Tokenization, multi-word tokens, lemmatization, POS tagging, dependency parsing
-    * Also includes wrapper for (Java) Stanford CoreNLP
+#### StanfordNLP 
+  * Stanford NLP Group's "Python NLP Library for Many Human Languages."
+  * Tokenization, multi-word tokens, lemmatization, POS tagging, dependency parsing
+  * Also includes wrapper for (Java) Stanford CoreNLP
 
 #### Polyglot
-    * NLP for large number of languages ("16-196 for different tasks."). Small community.
-    * Language detection (196 languages), tokenization (196), named entity recognition (40), POS tagging (16), sentiment analysis (136), word embeddings (137), morphology (137), transliteration (69)
+  * NLP for large number of languages ("16-196 for different tasks."). Small community.
+  * Language detection (196 languages), tokenization (196), named entity recognition (40), POS tagging (16), sentiment analysis (136), word embeddings (137), morphology (137), transliteration (69)
 
 #### Gensim (aka "gensim") - https://radimrehurek.com/gensim
   * "Topic modelling for humans"
@@ -58,14 +58,14 @@
   * Tutorials and notebooks: https://radimrehurek.com/gensim/tutorial.html
 
 #### pattern https://clips.uantwerpen.be/pages/pattern
-    * "web mining module" - Google, Bing, Twitter, and Wikipedia API, web crawler, HTML DOM parser.
-    * NLP - POS tagging, n-gram search, sentiment analysis, WordNet - six European languages
-    * Some machine learning - vector space model, clustering, SVM.
-    * Has database wrappers, network analysis, javascript visualization
+  * "web mining module" - Google, Bing, Twitter, and Wikipedia API, web crawler, HTML DOM parser.
+  * NLP - POS tagging, n-gram search, sentiment analysis, WordNet - six European languages
+  * Some machine learning - vector space model, clustering, SVM.
+  * Has database wrappers, network analysis, javascript visualization
 
 #### Flair
-    * New "very simple framework for state-of the-art NLP." In the PyTorch ecosystem.
-    * I have not used Flair.
+  * New "very simple framework for state-of the-art NLP." In the PyTorch ecosystem.
+  * I have not used Flair.
 
 ### Web crawling and scraping
 
@@ -112,6 +112,7 @@
 
 #### H2O.ai
   * "Democratizing Artificial Intelligence"
+  * Has GUI network builder.
 
 #### Chainer - https://chainer.org
   * "A Powerful, Flexible, and Intuitive Framework for Neural Networks"
@@ -125,6 +126,5 @@ Other language tools that can be wrapped from Python. These require installation
   * Wrap through package StanfordNLP
 
 #### Apache OpenNLP
-  * Wrap through package opennlp-python or opennlp_python. (I haven't ever done either.)
+  * Wrap through package opennlp-python or opennlp_python.
 
-####
