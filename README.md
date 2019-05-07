@@ -1,33 +1,37 @@
 # Materials for Text as Data class, PLSC 597, at Penn State.
 
-# Materials for Text as Data Class
+Burt Monroe
 
 ## Syllabus
 
 [Spring 2019 Syllabus](https://burtmonroe.github.io/TextAsDataCourse/TADASyllabus-Spring2019.pdf)
 
-## Slides
+## Slides & Notes
  * Overview of Text-as-Data and NLP
- * Manipulating and Preprocessing Text
- * Regular Expressions
- * Representing, Exploring, and Comparing Text
-     * Vector Space for Documents; Bag of Words; Term Weighting
-     * Vector Space for Words: Embeddings and Vector Semantics
+ * Manipulating and preprocessing text
+    * Regular expressions
+    * Text normalization
+ * Practical issues: scraping, encodings, pdfs, etc.
+ * Ethical and legal issues: privacy, copyright, TOS/robots.txt, etc.
+ * Representing, exploring, and comparing text
+     * Vector space for documents; bag of words; term weighting
+     * Vector space for words: embeddings and vector semantics
      * Cosine similarity and matrix decomposition;
      * Parse trees
- * Dictionaries, Lexicons, & Keywords (Sentiment Analysis 1)
- * Supervised Learning & Classification (Sentiment Analysis 2)
- * Topic Modeling & Related Unsupervised Methods
- * Scaling and "Regression"
- * Neural Networks and Deep Learning
-     * Logistic regression / shallow networks (Sentiment Analysis 3)
-     * Deep feedforward networks (Sentiment Analysis 4)
+ * Dictionaries, lexicons, & keywords (Sentiment analysis 1)
+ * Supervised learning & classification (Sentiment analysis 2)
+ * Topic modeling & related unsupervised Methods
+ * Scaling and "regression"
+ * Neural networks and deep learning
+     * Logistic regression / shallow networks (Sentiment analysis 3)
+     * Deep feedforward networks (Sentiment analysis 4)
      * Embeddings revisited
-     * Recurrent neural nets, LSTMs, bi-LSTMs (Stance classification)
+     * Recurrent neural nets, LSTMs, bi-LSTMs
      * Language modeling and entity recognition
      * Convolutional neural nets
+     * Transformer network
  * Information extraction; event data
- * Multilingual text analysis; Transfer Learning
+ * Multilingual text analysis; Transfer learning
  * Causal inference and text
   
 
