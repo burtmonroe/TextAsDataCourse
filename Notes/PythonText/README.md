@@ -94,20 +94,26 @@
   * Slower than working directly with TensorFlow or PyTorch.
   * Has R implementation.
 
+#### fastai
+  * Keras-like interface to PyTorch (from machine learning education company Fast.ai)
+
 #### TensorFlow
-  * The most widely used deep learning framework. Many use through Keras.
+  * Generally described as the most widely used deep learning framework. Many use through Keras.
 
 #### Theano - https://pypi.org/project/Theano
   * "Optimizing compiler for evaluating mathematical expressions on CPUs and GPUs." Especially matrices and tensors.
   * Abstract hybrid of numpy-like array operations and sympy-like algebra operations. Can be used to implement deep learning algorithms. See: http://deeplearning.net.tutorial
   * I've never used Theano. See http://deeplearning.net/software/theano/
 
-#### PyTorch - https://pytorch.org
+#### PyTorch - https://pytorch.org (from Facebook)
   * Deep learning platform. "PyTorch enables fast, flexible experimentation and efficient production through a hybrid front-end, distributed training and ecosystem of tools and libraries." Very Pythonic. Only Linux / OSx.
   * Tensor computation (a la NumPy) based on GPUs
   * Has "PyTorch" ecosystem of libraries. Includes fast deep learning (fastai, Horovod, Ignite, PySyft, TensorLy), NLP (Flair, AllenNLP), and machine translation (Translate), dialog models (ParlAI)
   * Absorbed Caffe and Caffe2, deep learning libraries that focus on images.
-
+  * We have several projects in C-SoDA using PyTorch.
+  * See https://github.com/huggingface/pytorch-transformers for PyTorch implementations of pre-trained Transformer language models, currently BERT, (OpenAI) GPT, (OpenAI) GPT-2, Transformer-XL
+  * See http://nlp.seas.harvard.edu/2018/04/03/attention.html for (annotated) PyTorch implementation of original Transformer from "Attention is All You Need."
+  
 #### H2O.ai
   * "Democratizing Artificial Intelligence"
   * Has GUI network builder.
@@ -118,6 +124,10 @@
   * Pythonic, CUDA computation.
   * I've never used Chainer. See https://docs.chainer.org/en/stable/
 
+#### Google Colab
+  * Access to FREE GPU resources for Python deep learning through interactive Jupyter notebooks.
+  * Interfaces with TensorFlow, Keras, PyTorch (and OpenCV - computer vision)
+  
 Other language tools that can be wrapped from Python. These require installation of Java.            
 
 #### Stanford CoreNLP
