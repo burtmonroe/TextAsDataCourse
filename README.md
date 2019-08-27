@@ -4,6 +4,8 @@ Burt Monroe
 
 ## Syllabus
 
+[Fall 2019 Syllabus](https://burtmonroe.github.io/TextAsDataCourse/TADASyllabus-Fall2019.pdf)
+
 [Spring 2019 Syllabus](https://burtmonroe.github.io/TextAsDataCourse/TADASyllabus-Spring2019.pdf)
 
 ## Slides & Notes
