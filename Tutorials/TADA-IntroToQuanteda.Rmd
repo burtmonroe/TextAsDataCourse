@@ -1,0 +1,267 @@
+---
+title: "An Introduction to Text Processing with Quanteda"
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+  html_notebook:
+    code_folding: show
+    highlight: tango
+    theme: united
+    toc: yes
+---
+
+
+# Introduction #
+
+We are going to use the Quanteda R package in this section. If you need to, run this command (minus the #) to install quanteda:
+
+```{r}
+# install.packages("quanteda", dependencies = TRUE)
+```
+
+Now load it:
+```{r}
+library(quanteda)
+```
+
+# A first corpus #
+
+Quanteda comes with several corpora included. Lets load in the corpus of presidential inaugural addresses and see what it looks like:
+
+```{r}
+corp <- quanteda::data_corpus_inaugural
+
+summary(corp)
+```
+
+# Simple qualitative questions #
+
+## What's a document look like? ##
+
+Let's look at one document (Washington's first inaugural)
+
+```{r}
+texts(data_corpus_inaugural)[1]
+```
+
+## How is "word" used? (Key Words in Context - KWIC) ##
+
+Let's get a sense of how words have been used with the "kwic" command. KWIC stands for "key words in context."
+
+```{r}
+kwic(data_corpus_inaugural, "humble", window=4)
+
+kwic(data_corpus_inaugural, "tombstones", window=4)
+```
+
+# Simple quantitative questions #
+
+## A document-term matrix ##
+
+A very common goal of text preprocessing is to generate a document-term matrix (or document-feature matrix), where each row represents a document, each column represents a "term" (or other textual feature like a punctuation mark or a bigram) and the entries are the counts of the term in the current document.
+
+For this we will use quanteda's "dfm" command with some commonly chosen preprocessing options.
+
+```{r}
+doc_term_matrix <- quanteda::dfm(corp,
+                                 tolower = TRUE,               # make all letters lower case
+                                 stem = FALSE,                 # do not stem
+                                 remove_punct = TRUE,          # remove punctuation
+                                 remove = stopwords("english"), # ignore common words on a "stop" list
+                                 ngrams = 1)                   # count unigrams
+```
+
+
+What kind of object is doc_term_matrix? 
+
+```{r}
+class(doc_term_matrix)
+```
+
+
+Typing the dfm's name will show an object summary. This is a matrix, so how many rows does it have? How many columns? What does "92.6% sparse" mean?
+
+```{r}
+doc_term_matrix
+```
+
+Let's peak inside it a bit:
+```{r}
+doc_term_matrix[1:5,1:5]
+```
+
+Why did it count "fellow-citizens" as a single term?
+
+## What are the most frequent terms? ##
+
+What are the most frequent terms?
+```{r}
+topfeatures(doc_term_matrix,40)
+```
+
+## How is this document different from those documents? ##
+
+Besides "tombstones," what other words made their inaugural debut in 2017?
+
+```{r}
+unique_to_trump <- as.vector(colSums(doc_term_matrix) == doc_term_matrix["2017-Trump",])
+colnames(doc_term_matrix)[unique_to_trump]
+```
+
+## Can I draw those slick wordclouds? ##
+
+Ugh, well, yes. Wordclouds are an abomination -- I'll rant about that at a later date -- but ...
+
+```{r}
+set.seed(100)
+textplot_wordcloud(doc_term_matrix, min_count = 100, random_order = FALSE,
+                   rotation = .25, 
+                   color = RColorBrewer::brewer.pal(8,"Dark2"))
+
+set.seed(100)
+textplot_wordcloud(doc_term_matrix["2017-Trump",], min_count = 3, random_order = FALSE,
+                   rotation = .25, 
+                   color = RColorBrewer::brewer.pal(8,"Dark2"))
+```
+
+# The impact of preprocessing decisions #
+
+We can also change the settings. What happens if we don't lower case and don't remove punctuation?
+
+```{r}
+doc_term_matrix <- quanteda::dfm(corp,
+                                 tolower = FALSE,
+                                 stem = FALSE,
+                                 remove_punct = FALSE,
+                                 remove = stopwords("english"),
+                                 ngrams = 1)
+doc_term_matrix
+topfeatures(doc_term_matrix,40)
+```
+
+How big is it now? How sparse is it now?
+
+
+What happens if we lower case, remove punctuation, and stem?
+
+```{r}
+doc_term_matrix <- quanteda::dfm(corp,
+                                 tolower = TRUE,
+                                 stem = TRUE,
+                                 remove_punct = TRUE,
+                                 remove = stopwords("english"),
+                                 ngrams = 1)
+doc_term_matrix
+topfeatures(doc_term_matrix,40)
+```
+
+
+What happens if we lower case, remove punctuation, don't stem and don't remove stop words?
+
+```{r}
+doc_term_matrix <- quanteda::dfm(corp,
+                                 tolower = TRUE,
+                                 stem = FALSE,
+                                 remove_punct = TRUE,
+                                 #remove = stopwords("english"),
+                                 ngrams = 1)
+doc_term_matrix
+topfeatures(doc_term_matrix,40)
+```
+
+# Zipf's Law and a power law #
+
+It's somewhat difficult to get your head around these sorts of things but there are statistical regularities here. For example, these frequencies tend to be distributed by "Zipf's Law" and by a (related) "power law."
+```{r}
+plot(1:ncol(doc_term_matrix),sort(colSums(doc_term_matrix),dec=T), main = "Zipf's Law?", ylab="Frequency", xlab = "Frequency Rank")
+plot(1:ncol(doc_term_matrix),sort(colSums(doc_term_matrix),dec=T), main = "Zipf's Law?", ylab="Frequency", xlab = "Frequency Rank", log="xy")
+
+# For power law, we need the number of words that appear at any given frequency
+# We'll get this by getting a vector of total frequencies (I probably should have done this before since I've used it multiple times
+word_freq <-colSums(doc_term_matrix)
+# Now we'll treat those like a categorical variable by making it a "factor". The categories are "1", "2", ..."17" ...etc.
+# Summary gives us counts of each "category" (maxsum is used to be sure it doesn't stop at 100 and lump everything else as "Other"
+words_with_freq <- summary(as.factor(word_freq),maxsum=10000)
+freq_bin <- as.integer(names(words_with_freq))
+
+plot(freq_bin, words_with_freq, main="Power Law?", xlab="Word Frequency", ylab="Number of Words")
+plot(freq_bin, words_with_freq, main="Power Law?", xlab="Word Frequency", ylab="Number of Words", log="xy")
+
+```
+
+
+# A step toward word order mattering: n-grams #
+
+Let's go back to preprocessing choices. What happens if we count bigrams?
+```{r}
+doc_term_matrix <- quanteda::dfm(corp,
+                                 tolower = TRUE,
+                                 stem = FALSE,
+                                 remove_punct = TRUE,
+                                 remove = stopwords("english"),
+                                 ngrams = 2)
+doc_term_matrix
+topfeatures(doc_term_matrix,40)
+```
+
+How big is it? How sparse? Why are the stop words still there?
+
+# Exercise #2 - Due 7:00 am, Tuesday morning, September 10
+
+Rename this .Rmd file "Exercise2_YourName.Rmd" substituting your name in. Edit the Rmd file to answer the questions below, inserting and editing "code chunks" as necessary. Anything labeled "Challenge" requires a little more than I demonstrated above and is completely optional. Click "Preview" above to examine your formatted answers. When you're happy with it, choose "Knit to html" in the Preview tab above, which creates an ".html" file. Email me your .Rmd and .html files. (You have probably along the way also created a ".nb.html" file. You don't need to send that.)
+
+**1)** Define a word's "context" as a window of five words/tokens before and after a word's usage. In what contexts does the word "Roman" appear in this corpus?  
+
+
+
+**2)** Which president used the most exclamation points in his inaugural address?
+
+
+
+**3)** Make a document-term matrix with the original settings above, and call it `exercise_dtm`:
+```{r}
+exercise_dtm    <- quanteda::dfm(corp,
+                                 tolower = TRUE,               # make all letters lower case
+                                 stem = FALSE,                 # do not stem
+                                 remove_punct = TRUE,          # remove punctuation
+                                 remove = stopwords("english"), # ignore common words on a "stop" list
+                                 ngrams = 1)                   # count unigrams
+```
+
+**a)** What terms appear **only** in the document containing Abraham Lincoln's first inaugural address?
+
+
+**Challenge:** How many terms appeared **first** in Abraham Lincoln's first inaugural address?
+
+
+**b)** How many times has the word "slave" been used in inaugural addresses?
+
+
+**Challenge:** How many times has a word that **included** "slave" (like "slavery" or "enslaved") been used in inaugural addresses?
+
+
+**c)** Plot a word cloud of President Kennedy's 1961 inaugural address.
+
+
+
+**4)** Construct a dfm of **trigrams** (lower case, not stemmed, no stop words removed).
+
+**a)** How big is the matrix? How sparse is it?
+
+
+**b)** What are the 50 most frequent trigrams?
+
+**Challenge:** How many trigrams appear only once?
+
+**c)** Plot a "word" cloud of trigrams in President Kennedy's 1961 inaugural address.
+
+**Challenge:** Why is it so different from the unigram cloud?
+
+
+
+
+
+
+
+
