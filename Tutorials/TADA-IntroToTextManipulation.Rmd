@@ -1,32 +1,20 @@
 ---
-title: "Text as Data Tutorial - Intro to String Manipulation and Regular Expressions"
-output: html_notebook
+title: "An Introduction to String Manipulation and Regular Expressions in R"
+author: "Burt L. Monroe"
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+  html_notebook:
+    code_folding: show
+    highlight: tango
+    theme: united
+    toc: yes
 ---
 
-(NB: This is adopted from a workshop co-written and delivered by Matt Denny and myself.)
+(NB: This has its roots in a workshop co-written and delivered by Matt Denny and myself.)
 
 
-<!-- Before we get to regular expressions, let's look at how to do some basic text manipulation operations in various languages. -->
-
-<!-- No ... all of these but lower involve rxs. -->
-<!-- lower case -->
-<!-- punctuation -->
-<!-- numbers -->
-<!-- stemming -->
-<!-- stop words -->
-
-<!-- Concatenate (paste) strings together. -->
-<!-- Split strings up. -->
-<!-- Extract part of a string. -->
-<!-- Search for a pattern -->
-<!--   return whether it matched -->
-<!--   return where it matched -->
-<!--   return what it matched -->
-<!-- Substitute one pattern for another. -->
-
-<!-- Then regular expressions. Can go in Jurafsky order. -->
-
-<!-- Exercises -->
 
 
 For text manipulation in R, I recommend the `stringr` package, which is part of the "tidyverse." There is a fantastic "cheat sheet" available [here](https://github.com/rstudio/cheatsheets/blob/master/strings.pdf). All `stringr` functions start with `str_`.
@@ -39,6 +27,8 @@ Install `stringr` if you need to, and load it:
 #install.packages("stringr", dependencies = TRUE)
 library(stringr)
 ```
+
+# Strings
 
 The basic thing we want to manipulate are "strings." These are "character" objects in R, and can be specified using double quotes (") or single quotes ('):
 
@@ -72,7 +62,7 @@ This can get a little bit confusing. For example, since the backslash character 
 ```{r}
 a_string_with_backslashes = "To indicate a backslash, \\, you have to type two: \\\\. Just there, to indicate two backslashes, I had to type four: \\\\\\\\."
 a_string_with_backslashes
-writeLines(my_string_with_backslashes)
+writeLines(a_string_with_backslashes)
 ```
 
 
@@ -90,7 +80,7 @@ a_vector_of_strings <- c("abcde", "123", "chicken of the sea")
 a_vector_of_strings
 ```
 
-Base R comes with a few built in vectors -- `letters`, `LETTERS`, `month.abb`, and `month.name`. Loading `stringr` also loads a few more: `fruit`, `words`, and `sentences`. We'll use these for a few examples, so let's look at them. The last two are long, so we'll just look at the first few entries of each of those.
+Base R comes with a few built in string vectors -- `letters`, `LETTERS`, `month.abb`, and `month.name`. Loading `stringr` also loads a few more: `fruit`, `words`, and `sentences`. We'll use these for a few examples, so let's look at them. The last two are long, so we'll just look at the first few entries of each of those.
 
 ```{r}
 letters
@@ -122,6 +112,7 @@ length(sentences)
 sentences[1:5]
 ```
 
+## Basic string operations
 
 You can combine, or "concatenate", two strings with the `stringr` command `str_c` or the syntactically identical base R command `paste`.
 
@@ -195,6 +186,8 @@ str_sub(zebra_fruit,2,3) <- "--ZEBRA!!--"
 zebra_fruit[1:10]
 ```
 
+## Cleaning and normalizing strings
+
 You can do case-folding with `str_to_lower` (or`str_to_upper`). Base R commaned is `tolower`.
 
 ```{r}
@@ -210,7 +203,7 @@ str_trim(a_string_vector)
 ```
 
 
-## Search for a pattern
+## Searching for a pattern
 
 What are the locations of the fruits with "berry" in their name?
 ```{r}
@@ -266,15 +259,16 @@ For each fruit, give me the first substring that matches "berry."
 str_extract(fruit,"berry")
 ```
 
-In this instance, we get the same answer in matrix form from `str_match`. `str_match` is mainly helpful when we have multiple things we're trying to match. We'll see examples below.
+In this instance, we get the same answer in matrix form from `str_match`:
+
 ```{r}
 str_match(fruit[1:10],"berry")
 ```
 
-`str_match` is mainly helpful when we want to use a larger pattern to isolate smaller pieces. We'll see examples below.
+`str_match` is mainly helpful when we want to match multiple things or use a larger pattern to isolate smaller pieces. We'll see examples below.
 
 
-Get a visual for where your matches are occurring. (You will see something in the RStudio Viewer.)
+To get a visual for where your matches are occurring, you can use `str_view_all`. (You will see something in the RStudio Viewer.)
 ```{r}
 str_view_all(fruit,"berry")
 ```
@@ -290,33 +284,43 @@ str_replace(fruit[1:10],"a", "ZZ")
 str_replace_all(fruit[1:10],"a", "ZZ")
 ```
 
-## Regular expressions
+# Regular expressions
 
 So far, I've only searched for patterns that are only alphabetic characters like `"berry"`. But we can use make much more elaborate and flexible patterns using **regular expressions**.
 
 Regular expressions come in a variety of flavors and R has a somewhat unusual one. I recommend you reference the cheat sheet and the online regex tool <https://regex101.com> in parallel.
 
-#### Square brackets for "or" (disjunction) of characters. Match "any one of" the characters in the square brackets.
+### This or that, not this or that, this or that or anything in between
+
+#### Square brackets for "or" (disjunction) of characters
+
+Match "any one of" the characters in the square brackets.
 ```{r}
 str_subset(sentences, ' [bhp]eat ')
 ```
 
-#### Square brackets with `^` for negation. Match "anything but one of" the characters in the square brackets.
+#### Square brackets with `^` for negation.
+
+Match "anything but one of" the characters in the square brackets.
 ```{r}
 str_subset(sentences, ' [^bhp]eat ')
 ```
 
-#### Square brackets for "or" over a *range* of characters
+#### Square brackets with `-` for "or" over a *range* of characters
 ```{r}
 str_subset(sentences, ' [b-p]eat ')
 ```
+
+#### Parentheses and pipe operator for multi-character patterns
 
 When we need an "or" over multi-character patterns, we can use the "pipe" operator, using parentheses as necessary to identify what's with what.
 ```{r}
 str_subset(fruit, '(black|blue|red)(currant|berry)')
 ```
 
-### Special characters
+The parentheses also define a "capture group", a concept we'll explain below.
+
+### Special characters and escaping
 
 In addition to the backslash, there are at least 16 characters that have special meaning in R regexes, and (may) have to be escaped in order to match the literal character. They are ^ $ . * + | ! ? ( ) [ ] { } < >.
 
@@ -336,7 +340,7 @@ str_extract_all(combined_string,"!")
 str_extract_all(combined_string,"\\!")
 ```
 
-#### Class shorthands
+### Class shorthands: \\w \\W \\s \\S \\d \\D and POSIX classes
 
 Conversely, there are a number of characters that have special meaning *only* when escaped. The main ones for now are "\\w" (any alphanumeric character), "\\s" (any space character), and "\\d" (any numeric digit), The capitalized versions of these are used to mean "anything but" that class.
 
@@ -349,7 +353,7 @@ str_extract_all(combined_string,"\\d") # any digit
 str_extract_all(combined_string,"\\D") # any nondigit character
 ```
 
-### "POSIX" classes
+#### "POSIX" classes
 
 There are other predefined classes in a computing standard called "POSIX" that some regex engines recognize. The ones for R are listed on the cheat sheet. These can mostly be mimicked with the shorthand listed above. The main one I find handy is "[:punct:]" for "any punctuation character."
 
@@ -360,7 +364,9 @@ str_extract_all(combined_string,"[:punct:]") # any "punctuation" character
 Note that when characters stray beyond the limited ASCII character set -- other languages, specialized characters like emojis -- there's not complete consistency in what may be considered an alphanumeric character or punctuation.
 
 
-#### Quantifiers: * -- zero or more of the previous
+## Quantifiers: * . ?
+
+#### Quantifiers: * (zero or more of the previous)
 
 This is also known as the "Kleene star" (pronounced clean-ee), after its original user (Kleene) who introduced the notation in formal logic.
 
@@ -368,14 +374,14 @@ This is also known as the "Kleene star" (pronounced clean-ee), after its origina
 str_extract_all(combined_string,"\\d*") #  
 ```
 
-#### Quantifiers: + -- one or more of the previous
+#### Quantifiers: + (one or more of the previous)
 
 This is also known as the "Kleene plus."
 ```{r}
 str_extract_all(combined_string,"\\d+") #  
 ```
 
-# Quantifiers -- {}
+#### Quantifiers: {}
 
 {n} = "exactly n" of the previous
 {n,m} = "between n and m" of the previous
@@ -391,12 +397,14 @@ Were all of those what you expected? Use `str_view_all` to see what's happening.
 str_view_all("x xx xxx xxxx xxxxx","x{3}") #  
 ```
 
-#### Question Mark as Quantifier - zero or one of the previous
+#### Question Mark as Quantifier (zero or one of the previous)
 
 ```{r}
 str_extract_all(combined_string,"\\d?") # 0 or 1 digit
 str_subset(sentences," [bp]?eat")
 ```
+
+## Greedy vs. non-greedy matching
 
 #### Question Mark as Nongreedy Modifier to Quantifier - smallest match of previous possible
 
@@ -407,6 +415,8 @@ str_extract_all("(First bracketed statement) Other text (Second bracketed statem
 str_extract_all("x xx xxx xxxx xxxxx","x.+x") # defaults to greedy - largest match
 str_extract_all("x xx xxx xxxx xxxxx","x.+?x") # nongreedy - not what you expect - why?
 ```
+
+## Anchors and word boundaries: ^ $ \\b
 
 #### Anchors: ^ (beginning of string), $ (end of string)
 
@@ -425,7 +435,7 @@ str_extract_all("x xx xxx xxxx xxxxx","\\bx.*?\\b") #
 str_extract_all(combined_string,"\\b\\w+?\\b") # 
 ```
 
-#### Capture Groups
+## Capture groups
 
 We've seen parentheses used with the pipe operator. They are also used to indicate smaller parts of the pattern that we want to "capture." `str_match` will give us a matrix in which the first column is the match to the *entire* pattern, what we've seen before. Each subsequent column holds the part of the match in each pair of parentheses.
 
@@ -444,7 +454,7 @@ newmotn
 ```
 That looks for the (1) `n't` pattern followed by the (2) end of the string, another punctuation mark, or a whitespace. It then replaces that with `nt` followed by whatever the following character was. This avoids replacing other accidental instances of the `n't` pattern that aren't clearly contractions.
 
-# An example
+# Using regular expressions to extract data from text: an example
 
 Let's start with some example text:
 ```{r}
@@ -594,7 +604,7 @@ appropriations_data
 
 
 
-# Other languages
+#### Other languages
 
 Remember ... other programming languages handle regular expressions slightly differently. In particlar, Python does not use the "double escape" idiom.
 ```
