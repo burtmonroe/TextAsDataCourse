@@ -11751,7 +11751,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Text-as-Data-Tutorial----Intro-to-String-Manipulation-and-Regular-Expressions-in-Python">Text as Data Tutorial -- Intro to String Manipulation and Regular Expressions in Python<a class="anchor-link" href="#Text-as-Data-Tutorial----Intro-to-String-Manipulation-and-Regular-Expressions-in-Python">&#182;</a></h1><p>This tutorial parallels a similar tutorial in R. In most cases, the task achieved is identical or very similar in both.</p>
+<h1 id="Text-as-Data-Tutorial----Intro-to-String-Manipulation-and-Regular-Expressions-in-Python">Text as Data Tutorial -- Intro to String Manipulation and Regular Expressions in Python<a class="anchor-link" href="#Text-as-Data-Tutorial----Intro-to-String-Manipulation-and-Regular-Expressions-in-Python">&#182;</a></h1><h2 id="Penn-State,-Text-as-Data-(PLSC-597),-Fall-2019">Penn State, Text as Data (PLSC 597), Fall 2019<a class="anchor-link" href="#Penn-State,-Text-as-Data-(PLSC-597),-Fall-2019">&#182;</a></h2><h3 id="Burt-L.-Monroe">Burt L. Monroe<a class="anchor-link" href="#Burt-L.-Monroe">&#182;</a></h3><p>This tutorial parallels a similar tutorial in R. In most cases, the task achieved is identical or very similar in both.</p>
 <p>Many string manipulation methods below are provided in base Python.  When we get to regular expressions, you'll need the "re" library.</p>
 
 </div>
@@ -11769,7 +11769,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">a_string</span> <span class="o">=</span> <span class="s1">&#39;Example STRING, with numbers (12, 15 and also 10.2)?!&#39;</span>
@@ -11784,7 +11784,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -11809,7 +11809,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_double_quoted_string</span> <span class="o">=</span> <span class="s2">&quot;He asked, &#39;Why would you use double quotes?&#39;&quot;</span>
@@ -11824,7 +11824,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -11849,7 +11849,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_string_with_double_quotes</span> <span class="o">=</span> <span class="s2">&quot;She answered, </span><span class="se">\&quot;</span><span class="s2">Convenience, but you never really have to.</span><span class="se">\&quot;</span><span class="s2">&quot;</span>
@@ -11864,7 +11864,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -11889,7 +11889,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">my_double_quoted_string</span><span class="p">)</span>
@@ -11916,7 +11916,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">my_string_with_double_quotes</span><span class="p">)</span>
@@ -11953,7 +11953,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">a_string_with_backslashes</span> <span class="o">=</span> <span class="s2">&quot;To indicate a backslash, </span><span class="se">\\</span><span class="s2">, you have to type two: </span><span class="se">\\\\</span><span class="s2">. Just there, to indicate two backslashes, I had to type four: </span><span class="se">\\\\\\\\</span><span class="s2">.&quot;</span>
@@ -11968,7 +11968,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -11983,7 +11983,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a_string_with_backslashes</span><span class="p">)</span>
@@ -12020,7 +12020,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_string</span> <span class="o">=</span> <span class="s2">&quot;abc ABC 123</span><span class="se">\t</span><span class="s2">.!?</span><span class="se">\\</span><span class="s2">()</span><span class="si">{}</span><span class="se">\n</span><span class="s2">  </span><span class="se">\n</span><span class="s2">third line&quot;</span>
@@ -12035,7 +12035,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12050,7 +12050,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">test_string</span><span class="p">)</span>
@@ -12082,6 +12082,48 @@ third line
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>If you want to define a multiline string without using escaped newline characters, use triple quotation marks:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_string2</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;abc ABC 123</span><span class="se">\t</span><span class="s2">.!?</span><span class="se">\\</span><span class="s2">()</span><span class="si">{}</span><span class="s2"></span>
+<span class="s2">  </span>
+<span class="s2">third line&quot;&quot;&quot;</span>
+<span class="n">test_string2</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;abc ABC 123\t.!?\\(){}\n  \nthird line&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>As with pretty much everything in Python, you can have a list of strings.</p>
 
 </div>
@@ -12089,7 +12131,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">a_list_of_strings</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;abcde&quot;</span><span class="p">,</span> <span class="s2">&quot;123&quot;</span><span class="p">,</span> <span class="s2">&quot;chicken of the sea&quot;</span><span class="p">]</span>
@@ -12104,7 +12146,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12123,17 +12165,17 @@ third line
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the R tutorial, we made use of a few collections of strings provided in base R or stringr. To make this comparable, we'll create or load these here.</p>
-<p>The letters of the alphabet are available as a basic string method.</p>
+<p>The letters of the alphabet are available in the string module.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[70]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import string</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">string</span>
 <span class="n">letters_string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span>
 <span class="n">letters_string</span>
 </pre></div>
@@ -12146,7 +12188,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[70]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12161,7 +12203,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[71]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">letters_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">letters_string</span><span class="p">)</span>
@@ -12176,7 +12218,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[71]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12216,7 +12258,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">LETTERS_string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span>
@@ -12231,7 +12273,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[72]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12246,7 +12288,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[73]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">LETTERS_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">LETTERS_string</span><span class="p">)</span>
@@ -12261,7 +12303,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[73]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12311,7 +12353,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">month_abb</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Jan&quot;</span><span class="p">,</span> <span class="s2">&quot;Feb&quot;</span><span class="p">,</span> <span class="s2">&quot;Mar&quot;</span><span class="p">,</span> <span class="s2">&quot;Apr&quot;</span><span class="p">,</span> <span class="s2">&quot;May&quot;</span><span class="p">,</span> <span class="s2">&quot;Jun&quot;</span><span class="p">,</span> <span class="s2">&quot;Jul&quot;</span><span class="p">,</span> <span class="s2">&quot;Aug&quot;</span><span class="p">,</span> <span class="s2">&quot;Sep&quot;</span><span class="p">,</span> <span class="s2">&quot;Oct&quot;</span><span class="p">,</span> <span class="s2">&quot;Nov&quot;</span><span class="p">,</span> <span class="s2">&quot;Dec&quot;</span><span class="p">]</span>
@@ -12326,7 +12368,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[30]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12352,7 +12394,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">month_name</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;January&quot;</span><span class="p">,</span> <span class="s2">&quot;February&quot;</span><span class="p">,</span> <span class="s2">&quot;March&quot;</span><span class="p">,</span> <span class="s2">&quot;April&quot;</span><span class="p">,</span> <span class="s2">&quot;May&quot;</span><span class="p">,</span> <span class="s2">&quot;June&quot;</span><span class="p">,</span> <span class="s2">&quot;July&quot;</span><span class="p">,</span> <span class="s2">&quot;August&quot;</span><span class="p">,</span> <span class="s2">&quot;September&quot;</span><span class="p">,</span> <span class="s2">&quot;October&quot;</span><span class="p">,</span> <span class="s2">&quot;November&quot;</span><span class="p">,</span> <span class="s2">&quot;December&quot;</span><span class="p">]</span>
@@ -12367,7 +12409,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[32]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12393,7 +12435,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[109]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># REQUIRES file &quot;fruit.txt&quot; be in the same directory</span>
@@ -12423,7 +12465,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># REQUIRES file &quot;words.txt&quot; be in the same directory</span>
@@ -12440,7 +12482,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[39]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12466,7 +12508,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">words</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
@@ -12480,7 +12522,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[38]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[20]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12495,7 +12537,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">words</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
@@ -12509,7 +12551,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[40]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12534,7 +12576,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[149]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># REQUIRES file &quot;sentences.txt&quot; be in the same directory</span>
@@ -12551,7 +12593,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[149]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12566,7 +12608,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[150]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
@@ -12580,7 +12622,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[150]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[23]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12609,7 +12651,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">second_string</span> <span class="o">=</span> <span class="s2">&quot;Wow, two sentences.&quot;</span>
@@ -12625,7 +12667,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[44]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[24]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12650,7 +12692,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">a_string</span><span class="p">,</span><span class="n">second_string</span><span class="p">])</span> 
@@ -12664,7 +12706,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[49]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[25]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12689,7 +12731,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[75]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="s2">&quot; then &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">month_name</span><span class="p">)</span>
@@ -12703,7 +12745,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[75]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[26]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12729,7 +12771,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[57]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">month_explanations</span> <span class="o">=</span> <span class="p">[]</span>
@@ -12747,7 +12789,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[57]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[27]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12783,7 +12825,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">month_abb</span><span class="p">,</span> <span class="n">month_name</span><span class="p">))</span>
@@ -12797,7 +12839,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[58]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[28]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12833,7 +12875,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[59]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="s2">&quot; stands for &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">abbrev</span><span class="p">,</span><span class="n">name</span><span class="p">])</span> <span class="k">for</span> <span class="n">abbrev</span><span class="p">,</span><span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">month_abb</span><span class="p">,</span> <span class="n">month_name</span><span class="p">)]</span>
@@ -12847,7 +12889,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[59]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[29]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12884,7 +12926,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[60]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> stands for </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">abbrev</span><span class="p">,</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">abbrev</span><span class="p">,</span><span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">month_abb</span><span class="p">,</span> <span class="n">month_name</span><span class="p">)]</span>
@@ -12898,7 +12940,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[60]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[30]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12934,7 +12976,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[89]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">letterpairs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">lower</span><span class="p">,</span><span class="n">upper</span><span class="p">])</span> <span class="k">for</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">letters_list</span><span class="p">,</span> <span class="n">LETTERS_list</span><span class="p">)]</span>
@@ -12972,7 +13014,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[77]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="s2">&quot; then &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">abbrev</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span><span class="n">abbrev</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">month_name</span><span class="p">,</span><span class="n">month_abb</span><span class="p">)])</span>
@@ -12986,7 +13028,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[77]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[32]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13011,7 +13053,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[78]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">combined_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">)</span>
@@ -13025,7 +13067,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[78]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[33]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13060,7 +13102,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[88]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">substringfromfruit</span> <span class="o">=</span> <span class="p">[</span><span class="n">eachfruit</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="k">for</span> <span class="n">eachfruit</span> <span class="ow">in</span> <span class="n">fruit</span><span class="p">]</span>
@@ -13098,7 +13140,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[87]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">subfromend</span> <span class="o">=</span> <span class="p">[</span><span class="n">eachfruit</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">eachfruit</span> <span class="ow">in</span> <span class="n">fruit</span><span class="p">]</span>
@@ -13136,7 +13178,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[86]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">some_dates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;1999/01/01&quot;</span><span class="p">,</span><span class="s2">&quot;1998/12/15&quot;</span><span class="p">,</span><span class="s2">&quot;2001/09/03&quot;</span><span class="p">]</span>
@@ -13165,7 +13207,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[90]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">months</span> <span class="o">=</span> <span class="p">[</span><span class="n">date</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span> <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">some_dates</span><span class="p">]</span>
@@ -13203,7 +13245,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[94]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">apple</span> <span class="o">=</span> <span class="s2">&quot;apple&quot;</span>
@@ -13220,7 +13262,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[94]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[38]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13245,7 +13287,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[95]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">zebrafruit</span> <span class="o">=</span> <span class="p">[</span><span class="n">fr</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">zebra</span> <span class="o">+</span> <span class="n">fr</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span> <span class="k">for</span> <span class="n">fr</span> <span class="ow">in</span> <span class="n">fruit</span><span class="p">]</span>
@@ -13283,7 +13325,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[96]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">combined_string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -13297,7 +13339,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[96]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[40]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13312,7 +13354,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">combined_string</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -13326,7 +13368,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[97]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[41]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13351,7 +13393,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[102]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lotsofspace</span> <span class="o">=</span> <span class="s1">&#39;   Why   so much  space?   &#39;</span>
@@ -13366,7 +13408,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[102]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[42]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13381,7 +13423,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[100]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lotsofspace</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span>
@@ -13395,7 +13437,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[100]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[43]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13410,7 +13452,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[101]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lotsofspace</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
@@ -13424,7 +13466,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[101]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[44]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13449,7 +13491,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[113]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="s2">&quot;strawberry&quot;</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;berry&quot;</span><span class="p">)</span>
@@ -13463,7 +13505,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[113]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[45]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13488,7 +13530,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[116]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="s2">&quot;apple&quot;</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;berry&quot;</span><span class="p">)</span>
@@ -13502,7 +13544,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[116]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[46]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13527,7 +13569,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[117]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="s2">&quot;berryberryboberrybananafanafoferrymemymomerry berry&quot;</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;berry&quot;</span><span class="p">)</span>
@@ -13541,7 +13583,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[117]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[47]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13559,14 +13601,14 @@ third line
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can usr this in a list comprehension, with the addition of an "if" condition, to extract a list of all matching fruits.</p>
+<p>We can use this in a list comprehension, with the addition of an "if" condition, to extract a list of all matching fruits.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[119]:</div>
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">fr</span> <span class="k">for</span> <span class="n">fr</span> <span class="ow">in</span> <span class="n">fruit</span> <span class="k">if</span> <span class="n">fr</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;berry&quot;</span><span class="p">)</span><span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -13580,7 +13622,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[119]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[48]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13618,7 +13660,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[120]:</div>
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="s2">&quot;strawberry&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;berry&quot;</span><span class="p">,</span><span class="s2">&quot;fish&quot;</span><span class="p">)</span>
@@ -13632,7 +13674,7 @@ third line
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[120]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[49]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13647,7 +13689,7 @@ third line
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[121]:</div>
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fishfruit</span> <span class="o">=</span> <span class="p">[</span><span class="n">fr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;berry&quot;</span><span class="p">,</span><span class="s2">&quot;fish&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">fr</span> <span class="ow">in</span> <span class="n">fruit</span><span class="p">]</span>
@@ -13680,9 +13722,6 @@ third line
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Searching-for-patterns-with-regular-expressions">Searching for patterns with regular expressions<a class="anchor-link" href="#Searching-for-patterns-with-regular-expressions">&#182;</a></h2><p>So far, I’ve only searched for patterns that are only alphabetic characters like "berry". But we can use make much more elaborate and flexible patterns using regular expressions. For this we need to import the "re" module.</p>
 <p>I recommend you reference the cheat sheet and the online regex tool <a href="https://regex101.com">https://regex101.com</a> in parallel.</p>
-<p>Regular expressions work a little differently in Python than in R.</p>
-<p>Square brackets for “or” (disjunction) of characters. Match “any one of” the characters in the square brackets.
-str_subset(sentences, ' [bhp]eat ')</p>
 <p>Just for comparison's sake, let's start with a search for the same pattern as above: "berry".</p>
 
 </div>
@@ -13690,14 +13729,11 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[123]:</div>
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
-
-<span class="n">pattern</span> <span class="o">=</span> <span class="s1">r&#39;berry&#39;</span> <span class="c1">#Define the pattern you are looking for.</span>
-<span class="n">reo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;berry&#39;</span><span class="p">)</span> <span class="c1"># compile the pattern into a regular expression object</span>
-<span class="n">mo</span> <span class="o">=</span> <span class="n">reo</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;strawberry&#39;</span><span class="p">)</span> <span class="c1"># search for the pattern and return a match object</span>
+<span class="n">mo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;berry&#39;</span><span class="p">,</span> <span class="s1">&#39;strawberry&#39;</span><span class="p">)</span>
 <span class="n">mo</span>
 </pre></div>
 
@@ -13709,7 +13745,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[123]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[51]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13727,14 +13763,14 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The start and end positions of the match are in the "span" attribute:</p>
+<p>The start and end positions of the match object are in the "span" attribute:</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[124]:</div>
+<div class="prompt input_prompt">In&nbsp;[52]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">mo</span><span class="o">.</span><span class="n">span</span><span class="p">()</span>
@@ -13748,7 +13784,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[124]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[52]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13773,7 +13809,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[128]:</div>
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
@@ -13787,7 +13823,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[128]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[53]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13812,11 +13848,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[130]:</div>
+<div class="prompt input_prompt">In&nbsp;[54]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;berry&#39;</span><span class="p">)</span>
-<span class="n">mo_miss</span> <span class="o">=</span> <span class="n">reo</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mo_miss</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;berry&#39;</span><span class="p">,</span><span class="s1">&#39;apple&#39;</span><span class="p">)</span>
 <span class="n">mo_miss</span>
 </pre></div>
 
@@ -13827,7 +13862,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[131]:</div>
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">mo_miss</span><span class="p">)</span>
@@ -13854,7 +13889,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[135]:</div>
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">mo</span><span class="p">:</span>
@@ -13884,7 +13919,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[136]:</div>
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">mo_miss</span><span class="p">:</span>
@@ -13924,10 +13959,49 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[144]:</div>
+<div class="prompt input_prompt">In&nbsp;[58]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">berries</span> <span class="o">=</span> <span class="p">[</span><span class="n">itsaberry</span> <span class="k">for</span> <span class="n">itsaberry</span> <span class="ow">in</span> <span class="n">fruit</span> <span class="k">if</span> <span class="n">reo</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">itsaberry</span><span class="p">)]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">berries</span> <span class="o">=</span> <span class="p">[</span><span class="n">itsaberry</span> <span class="k">for</span> <span class="n">itsaberry</span> <span class="ow">in</span> <span class="n">fruit</span> <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;berry&#39;</span><span class="p">,</span><span class="n">itsaberry</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">berries</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;bilberry&#39;, &#39;blackberry&#39;, &#39;blueberry&#39;, &#39;boysenberry&#39;, &#39;cloudberry&#39;, &#39;cranberry&#39;, &#39;elderberry&#39;, &#39;goji berry&#39;, &#39;gooseberry&#39;, &#39;huckleberry&#39;, &#39;mulberry&#39;, &#39;raspberry&#39;, &#39;salal berry&#39;, &#39;strawberry&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As a sidebar, this "compiles" the regular expression every time through the loop. It's more efficient to compile it once before the loop using a slightly different syntax:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[59]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;berry&#39;</span><span class="p">)</span> <span class="c1"># compile the pattern into a regular expression object</span>
+<span class="n">berries</span> <span class="o">=</span> <span class="p">[</span><span class="n">itsaberry</span> <span class="k">for</span> <span class="n">itsaberry</span> <span class="ow">in</span> <span class="n">fruit</span> <span class="k">if</span> <span class="n">reo</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">itsaberry</span><span class="p">)]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">berries</span><span class="p">)</span>
 </pre></div>
 
@@ -13962,10 +14036,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[145]:</div>
+<div class="prompt input_prompt">In&nbsp;[60]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mo_many</span> <span class="o">=</span> <span class="n">reo</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;berryberryboberrybananafanafoferrymemymomerry berry&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mo_many</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;berry&#39;</span><span class="p">,</span><span class="s2">&quot;berryberryboberrybananafanafoferrymemymomerry berry&quot;</span><span class="p">)</span>
 <span class="n">mo_many</span>
 </pre></div>
 
@@ -13977,7 +14051,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[145]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[60]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14002,10 +14076,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[146]:</div>
+<div class="prompt input_prompt">In&nbsp;[61]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mo_many2</span> <span class="o">=</span> <span class="n">reo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;berryberryboberrybananafanafoferrymemymomerry berry&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mo_many2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;berry&#39;</span><span class="p">,</span><span class="s2">&quot;berryberryboberrybananafanafoferrymemymomerry berry&quot;</span><span class="p">)</span>
 <span class="n">mo_many2</span>
 </pre></div>
 
@@ -14017,7 +14091,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[146]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[61]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14042,10 +14116,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[147]:</div>
+<div class="prompt input_prompt">In&nbsp;[62]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mo_iter</span> <span class="o">=</span> <span class="n">reo</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="s2">&quot;berryberryboberrybananafanafoferrymemymomerry berry&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mo_iter</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="s1">r&#39;berry&#39;</span><span class="p">,</span><span class="s2">&quot;berryberryboberrybananafanafoferrymemymomerry berry&quot;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">moi</span> <span class="ow">in</span> <span class="n">mo_iter</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">moi</span><span class="p">)</span>
 </pre></div>
@@ -14085,7 +14159,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[156]:</div>
+<div class="prompt input_prompt">In&nbsp;[63]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39; [bhp]eat &#39;</span><span class="p">)</span>
@@ -14101,7 +14175,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[156]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[63]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14132,7 +14206,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[157]:</div>
+<div class="prompt input_prompt">In&nbsp;[64]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39; [^bhp]eat &#39;</span><span class="p">)</span>
@@ -14148,7 +14222,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[157]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[64]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14172,7 +14246,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[158]:</div>
+<div class="prompt input_prompt">In&nbsp;[65]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39; [b-p]eat &#39;</span><span class="p">)</span>
@@ -14188,7 +14262,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[158]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[65]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14220,7 +14294,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[159]:</div>
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;(black|blue|red)(currant|berry)&#39;</span><span class="p">)</span>
@@ -14236,7 +14310,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[159]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[66]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14262,11 +14336,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[161]:</div>
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reo_anychar</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;.&#39;</span><span class="p">)</span>
-<span class="n">allchars</span> <span class="o">=</span> <span class="n">reo_anychar</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">allchars</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;.&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">allchars</span><span class="p">)</span>
 </pre></div>
 
@@ -14291,11 +14364,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[162]:</div>
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reo_justperiod</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\.&#39;</span><span class="p">)</span>
-<span class="n">allperiods</span> <span class="o">=</span> <span class="n">reo_justperiod</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">allperiods</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\.&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">allperiods</span><span class="p">)</span>
 </pre></div>
 
@@ -14320,11 +14392,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[165]:</div>
+<div class="prompt input_prompt">In&nbsp;[69]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;a.&#39;</span><span class="p">)</span> <span class="c1"># a followed by any character</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;a.&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14349,11 +14420,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[166]:</div>
+<div class="prompt input_prompt">In&nbsp;[70]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;a\.&#39;</span><span class="p">)</span> <span class="c1"># a followed by a period</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;a\.&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14389,11 +14459,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[167]:</div>
+<div class="prompt input_prompt">In&nbsp;[71]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\!&#39;</span><span class="p">)</span> <span class="c1"># literal !</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\!&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14418,11 +14487,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[169]:</div>
+<div class="prompt input_prompt">In&nbsp;[72]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;!&#39;</span><span class="p">)</span> <span class="c1"># special character ! isn&#39;t meaningful in this context so it assumes just !</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;!&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span> <span class="c1"># Not special char in this context, so still finds it</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14457,11 +14525,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[170]:</div>
+<div class="prompt input_prompt">In&nbsp;[73]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\w&#39;</span><span class="p">)</span> <span class="c1"># any alphanumeric character</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\w&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span> <span class="c1"># any alphanumeric character</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14486,11 +14553,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[171]:</div>
+<div class="prompt input_prompt">In&nbsp;[74]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\W&#39;</span><span class="p">)</span> <span class="c1"># any non-alphanumeric character</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\W&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span> <span class="c1"># any non-alphanumeric character</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14515,11 +14581,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[172]:</div>
+<div class="prompt input_prompt">In&nbsp;[75]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\s&#39;</span><span class="p">)</span> <span class="c1"># any whitespace character</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\s&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span> <span class="c1"># any whitespace character</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14544,11 +14609,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[174]:</div>
+<div class="prompt input_prompt">In&nbsp;[76]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\S&#39;</span><span class="p">)</span> <span class="c1"># any non-whitespace character</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\S&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span> <span class="c1"># any non-whitespace character</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14573,11 +14637,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[175]:</div>
+<div class="prompt input_prompt">In&nbsp;[77]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\d&#39;</span><span class="p">)</span> <span class="c1"># any numeric digit</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\d&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span> <span class="c1"># any digit character</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14602,11 +14665,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[176]:</div>
+<div class="prompt input_prompt">In&nbsp;[78]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\D&#39;</span><span class="p">)</span> <span class="c1"># any non-digit character</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\D&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span> <span class="c1"># any non-digit character</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14651,11 +14713,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[178]:</div>
+<div class="prompt input_prompt">In&nbsp;[79]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\d*&#39;</span><span class="p">)</span> <span class="c1"># any string of zero or more digits</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;\d*&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span> <span class="c1"># any string of zero or more digits</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14691,11 +14752,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[179]:</div>
+<div class="prompt input_prompt">In&nbsp;[80]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\d+&#39;</span><span class="p">)</span> <span class="c1"># any string of one or more digits</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span> <span class="c1"># any string of zero or more digits</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14732,11 +14792,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[180]:</div>
+<div class="prompt input_prompt">In&nbsp;[81]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;x</span><span class="si">{3}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># 3 x&#39;s</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;x xx xxx xxxx xxxxx&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;x</span><span class="si">{3}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;x xx xxx xxxx xxxxx&#39;</span><span class="p">)</span> <span class="c1"># 3 x&#39;s</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14761,11 +14820,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[181]:</div>
+<div class="prompt input_prompt">In&nbsp;[82]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;x{3,4}&#39;</span><span class="p">)</span> <span class="c1"># 3 or 4 x&#39;s</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;x xx xxx xxxx xxxxx&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;x{3,4}&#39;</span><span class="p">,</span><span class="s1">&#39;x xx xxx xxxx xxxxx&#39;</span><span class="p">)</span> <span class="c1"># 3 or 4 x&#39;s</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14790,11 +14848,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[182]:</div>
+<div class="prompt input_prompt">In&nbsp;[83]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;x{3,}&#39;</span><span class="p">)</span> <span class="c1"># 3 or more x&#39;s</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;x xx xxx xxxx xxxxx&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;x{3,}&#39;</span><span class="p">,</span><span class="s1">&#39;x xx xxx xxxx xxxxx&#39;</span><span class="p">)</span> <span class="c1"># 3 or more x&#39;s</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14838,11 +14895,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[183]:</div>
+<div class="prompt input_prompt">In&nbsp;[84]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\d?&#39;</span><span class="p">)</span> <span class="c1"># any string of zero or one digits</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\d?&#39;</span><span class="p">,</span> <span class="n">combined_string</span><span class="p">)</span> <span class="c1"># any string of zero or one digits</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14867,7 +14923,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[184]:</div>
+<div class="prompt input_prompt">In&nbsp;[85]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39; [bp]?eat &#39;</span><span class="p">)</span>
@@ -14883,7 +14939,7 @@ str_subset(sentences, ' [bhp]eat ')</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[184]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[85]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14911,11 +14967,11 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[186]:</div>
+<div class="prompt input_prompt">In&nbsp;[86]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\(.+\)&#39;</span><span class="p">)</span> <span class="c1"># greedy - roughly, longest match</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;(First bracketed statement) Other text (Second bracketed statement)&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># greedy - roughly, longest match</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\(.+\)&#39;</span><span class="p">,</span><span class="s1">&#39;(First bracketed statement) Other text (Second bracketed statement)&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14940,11 +14996,11 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[187]:</div>
+<div class="prompt input_prompt">In&nbsp;[87]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\(.+?\)&#39;</span><span class="p">)</span> <span class="c1"># nongreedy - roughly, smallest matches</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;(First bracketed statement) Other text (Second bracketed statement)&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># nongreedy - roughly, smallest matches</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\(.+?\)&#39;</span><span class="p">,</span><span class="s1">&#39;(First bracketed statement) Other text (Second bracketed statement)&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14969,11 +15025,11 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[188]:</div>
+<div class="prompt input_prompt">In&nbsp;[88]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;x.+x&#39;</span><span class="p">)</span> <span class="c1"># greedy - matches whole string</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;x xx xxx xxxx xxxxx&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># greedy - matches whole string</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;x.+x&#39;</span><span class="p">,</span><span class="s1">&#39;x xx xxx xxxx xxxxx&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -14998,11 +15054,11 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[189]:</div>
+<div class="prompt input_prompt">In&nbsp;[89]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;x.+?x&#39;</span><span class="p">)</span> <span class="c1"># nongreedy - minimal match as placeholder moves across string</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;x xx xxx xxxx xxxxx&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># nongreedy - minimal match as placeholder moves across string</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;x.+?x&#39;</span><span class="p">,</span><span class="s1">&#39;x xx xxx xxxx xxxxx&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -15036,11 +15092,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[190]:</div>
+<div class="prompt input_prompt">In&nbsp;[90]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;^\w+&#39;</span><span class="p">)</span> <span class="c1"># ^ is beginning of string</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;^\w+&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span> <span class="c1"># ^ is beginning of string</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -15065,11 +15120,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[191]:</div>
+<div class="prompt input_prompt">In&nbsp;[91]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\w+$&#39;</span><span class="p">)</span> <span class="c1"># $ is end of string</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\w+$&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span> <span class="c1"># $ is end of string</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -15094,11 +15148,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[192]:</div>
+<div class="prompt input_prompt">In&nbsp;[92]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\W+$&#39;</span><span class="p">)</span> <span class="c1"># $ is end of string</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\W+$&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span> <span class="c1"># $ is end of string</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -15142,11 +15195,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[194]:</div>
+<div class="prompt input_prompt">In&nbsp;[93]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\bx.*?\b&#39;</span><span class="p">)</span> <span class="c1"># </span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;x xx xxx xxxx xxxxx&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\bx.*?\b&#39;</span><span class="p">,</span><span class="s1">&#39;x xx xxx xxxx xxxxx&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -15171,11 +15223,10 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[195]:</div>
+<div class="prompt input_prompt">In&nbsp;[94]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reodemo</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;\b\w+?\b&#39;</span><span class="p">)</span> <span class="c1"># still a little dumb</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">reodemo</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">combined_string</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\b\w+?\b&#39;</span><span class="p">,</span><span class="n">combined_string</span><span class="p">)</span> <span class="c1"># still a little dumb</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 
@@ -15198,15 +15249,562 @@ str_subset(sentences, ' [bhp]eat ')</p>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Capture-groups">Capture groups<a class="anchor-link" href="#Capture-groups">&#182;</a></h4><p>When we use parentheses, it tells the regex engine to capture the part of the match enclosed in parentheses. Each set of parentheses defines its own "capture group" and these are held in the group() attribute of the match object. Whether there are parentheses are not, the entire match is held in group(0). Smaller parts are in group(1), group(2), etc.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[95]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;^(.+?)(berry|fruit)$&#39;</span><span class="p">,</span><span class="n">fr</span><span class="p">)</span> <span class="k">for</span> <span class="n">fr</span> <span class="ow">in</span> <span class="n">fruit</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>bilberry bil berry
+blackberry black berry
+blueberry blue berry
+boysenberry boysen berry
+breadfruit bread fruit
+cloudberry cloud berry
+cranberry cran berry
+dragonfruit dragon fruit
+elderberry elder berry
+goji berry goji  berry
+gooseberry goose berry
+grapefruit grape fruit
+huckleberry huckle berry
+jackfruit jack fruit
+kiwi fruit kiwi  fruit
+mulberry mul berry
+passionfruit passion fruit
+raspberry rasp berry
+salal berry salal  berry
+star fruit star  fruit
+strawberry straw berry
+ugli fruit ugli  fruit
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="An-example">An example<a class="anchor-link" href="#An-example">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[96]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SEC. 101. FISCAL YEAR 2017.</span>
+<span class="s2">(a) In General.--There are authorized to be appropriated to NASA</span>
+<span class="s2">for fiscal year 2017 $19,508,000,000, as follows:</span>
+<span class="s2">(1) For Exploration, $4,330,000,000.</span>
+<span class="s2">(2) For Space Operations, $5,023,000,000.</span>
+<span class="s2">(3) For Science, $5,500,000,000.</span>
+<span class="s2">(4) For Aeronautics, $640,000,000.</span>
+<span class="s2">(5) For Space Technology, $686,000,000.</span>
+<span class="s2">(6) For Education, $115,000,000.</span>
+<span class="s2">(7) For Safety, Security, and Mission Services,</span>
+<span class="s2">$2,788,600,000.</span>
+<span class="s2">(8) For Construction and Environmental Compliance and</span>
+<span class="s2">Restoration, $388,000,000.</span>
+<span class="s2">(9) For Inspector General, $37,400,000.</span>
+<span class="s2">(b) Exception.--In addition to the amounts authorized to be</span>
+<span class="s2">appropriated for each account under subsection (a), there are</span>
+<span class="s2">authorized to be appropriated additional funds for each such account,</span>
+<span class="s2">but only if the authorized amounts for all such accounts are fully</span>
+<span class="s2">provided for in annual appropriation Acts, consistent with the</span>
+<span class="s2">discretionary spending limits in section 251(c) of the Balanced Budget</span>
+<span class="s2">and Emergency Deficit Control Act of 1985.&quot;&quot;&quot;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[97]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;SEC. 101. FISCAL YEAR 2017.\n(a) In General.--There are authorized to be appropriated to NASA\nfor fiscal year 2017 $19,508,000,000, as follows:\n(1) For Exploration, $4,330,000,000.\n(2) For Space Operations, $5,023,000,000.\n(3) For Science, $5,500,000,000.\n(4) For Aeronautics, $640,000,000.\n(5) For Space Technology, $686,000,000.\n(6) For Education, $115,000,000.\n(7) For Safety, Security, and Mission Services,\n$2,788,600,000.\n(8) For Construction and Environmental Compliance and\nRestoration, $388,000,000.\n(9) For Inspector General, $37,400,000.\n(b) Exception.--In addition to the amounts authorized to be\nappropriated for each account under subsection (a), there are\nauthorized to be appropriated additional funds for each such account,\nbut only if the authorized amounts for all such accounts are fully\nprovided for in annual appropriation Acts, consistent with the\ndiscretionary spending limits in section 251(c) of the Balanced Budget\nand Emergency Deficit Control Act of 1985.&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We're going to try to use regular expressions to make data out of the appropriations dollars and purposes in bullets 1-9.</p>
+<p>Lets play around with a few things. Extract all contiguous sequences of one or more numbers.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[98]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">digitmatches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;[0-9]+&#39;</span><span class="p">,</span><span class="n">text</span><span class="p">)</span> <span class="c1"># one or more consecutive digits</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">digitmatches</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;101&#39;, &#39;2017&#39;, &#39;2017&#39;, &#39;19&#39;, &#39;508&#39;, &#39;000&#39;, &#39;000&#39;, &#39;1&#39;, &#39;4&#39;, &#39;330&#39;, &#39;000&#39;, &#39;000&#39;, &#39;2&#39;, &#39;5&#39;, &#39;023&#39;, &#39;000&#39;, &#39;000&#39;, &#39;3&#39;, &#39;5&#39;, &#39;500&#39;, &#39;000&#39;, &#39;000&#39;, &#39;4&#39;, &#39;640&#39;, &#39;000&#39;, &#39;000&#39;, &#39;5&#39;, &#39;686&#39;, &#39;000&#39;, &#39;000&#39;, &#39;6&#39;, &#39;115&#39;, &#39;000&#39;, &#39;000&#39;, &#39;7&#39;, &#39;2&#39;, &#39;788&#39;, &#39;600&#39;, &#39;000&#39;, &#39;8&#39;, &#39;388&#39;, &#39;000&#39;, &#39;000&#39;, &#39;9&#39;, &#39;37&#39;, &#39;400&#39;, &#39;000&#39;, &#39;251&#39;, &#39;1985&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That does two things we don't like ... separates numbers at the 1000s separating comma and gets numbers ("101", "2017", etc.) that aren't dollar amounts. So, let's try getting everything that:</p>
+<ul>
+<li>Starts with a "$" (which needs to be escaped)</li>
+<li>Followed by one or more strings of commas or digits.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[99]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dollarmatches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\$[,0-9]+&#39;</span><span class="p">,</span><span class="n">text</span><span class="p">)</span> <span class="c1"># $ followed by one or more digits or commas</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dollarmatches</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;$19,508,000,000,&#39;, &#39;$4,330,000,000&#39;, &#39;$5,023,000,000&#39;, &#39;$5,500,000,000&#39;, &#39;$640,000,000&#39;, &#39;$686,000,000&#39;, &#39;$115,000,000&#39;, &#39;$2,788,600,000&#39;, &#39;$388,000,000&#39;, &#39;$37,400,000&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Almost ... don't like that extra comma on the first number. Let's require it to end with a number.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[100]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dollarmatches2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\$[,0-9]+[0-9]&#39;</span><span class="p">,</span><span class="n">text</span><span class="p">)</span> <span class="c1"># $ followed by one or more digits or commas AND ENDS IN A NUMBER</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dollarmatches2</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;$19,508,000,000&#39;, &#39;$4,330,000,000&#39;, &#39;$5,023,000,000&#39;, &#39;$5,500,000,000&#39;, &#39;$640,000,000&#39;, &#39;$686,000,000&#39;, &#39;$115,000,000&#39;, &#39;$2,788,600,000&#39;, &#39;$388,000,000&#39;, &#39;$37,400,000&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The things we want are demarcated by numbered items in parentheses. Let's see if we can extract those:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[101]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bulletmatches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\([0-9]\)&#39;</span><span class="p">,</span><span class="n">text</span><span class="p">)</span> <span class="c1"># ( followed by a digit followed by )</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bulletmatches</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;(1)&#39;, &#39;(2)&#39;, &#39;(3)&#39;, &#39;(4)&#39;, &#39;(5)&#39;, &#39;(6)&#39;, &#39;(7)&#39;, &#39;(8)&#39;, &#39;(9)&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's go back to the original and get rid of the newlines. Note that the string.replace() method doesn't accept regular expressions and you need to use re.sub().</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[102]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">one_line</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
+<span class="n">one_line</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[102]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;SEC. 101. FISCAL YEAR 2017. (a) In General.--There are authorized to be appropriated to NASA for fiscal year 2017 $19,508,000,000, as follows: (1) For Exploration, $4,330,000,000. (2) For Space Operations, $5,023,000,000. (3) For Science, $5,500,000,000. (4) For Aeronautics, $640,000,000. (5) For Space Technology, $686,000,000. (6) For Education, $115,000,000. (7) For Safety, Security, and Mission Services, $2,788,600,000. (8) For Construction and Environmental Compliance and Restoration, $388,000,000. (9) For Inspector General, $37,400,000. (b) Exception.--In addition to the amounts authorized to be appropriated for each account under subsection (a), there are authorized to be appropriated additional funds for each such account, but only if the authorized amounts for all such accounts are fully provided for in annual appropriation Acts, consistent with the discretionary spending limits in section 251(c) of the Balanced Budget and Emergency Deficit Control Act of 1985.&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>and find all the matches from "(number)" to a period, lazily rather than greedily:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[103]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">item_strings</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;\(\d\).+?\.&#39;</span><span class="p">,</span> <span class="n">one_line</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">item_strings</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;(1) For Exploration, $4,330,000,000.&#39;, &#39;(2) For Space Operations, $5,023,000,000.&#39;, &#39;(3) For Science, $5,500,000,000.&#39;, &#39;(4) For Aeronautics, $640,000,000.&#39;, &#39;(5) For Space Technology, $686,000,000.&#39;, &#39;(6) For Education, $115,000,000.&#39;, &#39;(7) For Safety, Security, and Mission Services, $2,788,600,000.&#39;, &#39;(8) For Construction and Environmental Compliance and Restoration, $388,000,000.&#39;, &#39;(9) For Inspector General, $37,400,000.&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can use a capture group to gather just the "for what" data ...</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[104]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">for_matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;For (.+), \$&#39;</span><span class="p">,</span> <span class="n">item_string</span><span class="p">)</span> <span class="k">for</span> <span class="n">item_string</span> <span class="ow">in</span> <span class="n">item_strings</span><span class="p">]</span>
+<span class="n">for_strings</span> <span class="o">=</span> <span class="p">[</span><span class="n">for_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">for_match</span> <span class="ow">in</span> <span class="n">for_matches</span> <span class="k">if</span> <span class="n">for_match</span><span class="p">]</span>
+<span class="n">for_strings</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[104]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;Exploration&#39;,
+ &#39;Space Operations&#39;,
+ &#39;Science&#39;,
+ &#39;Aeronautics&#39;,
+ &#39;Space Technology&#39;,
+ &#39;Education&#39;,
+ &#39;Safety, Security, and Mission Services&#39;,
+ &#39;Construction and Environmental Compliance and Restoration&#39;,
+ &#39;Inspector General&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can also use a capture group just for the money data</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[105]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">money_matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;\$([,\d]+)&#39;</span><span class="p">,</span> <span class="n">item_string</span><span class="p">)</span> <span class="k">for</span> <span class="n">item_string</span> <span class="ow">in</span> <span class="n">item_strings</span><span class="p">]</span>
+<span class="n">money_strings</span> <span class="o">=</span> <span class="p">[</span><span class="n">money_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">money_match</span> <span class="ow">in</span> <span class="n">money_matches</span> <span class="k">if</span> <span class="n">money_match</span><span class="p">]</span>
+<span class="n">money_strings</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[105]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;4,330,000,000&#39;,
+ &#39;5,023,000,000&#39;,
+ &#39;5,500,000,000&#39;,
+ &#39;640,000,000&#39;,
+ &#39;686,000,000&#39;,
+ &#39;115,000,000&#39;,
+ &#39;2,788,600,000&#39;,
+ &#39;388,000,000&#39;,
+ &#39;37,400,000&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We'll probably want those just to be numbers, so we'll strip the $ sign and commas:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[106]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">money_strings_clean</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;[\$,]&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">moneystring</span><span class="p">)</span> <span class="k">for</span> <span class="n">moneystring</span> <span class="ow">in</span> <span class="n">money_strings</span><span class="p">]</span>
+<span class="n">money_strings_clean</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[106]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;4330000000&#39;,
+ &#39;5023000000&#39;,
+ &#39;5500000000&#39;,
+ &#39;640000000&#39;,
+ &#39;686000000&#39;,
+ &#39;115000000&#39;,
+ &#39;2788600000&#39;,
+ &#39;388000000&#39;,
+ &#39;37400000&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, we can format the data. We'll just print to screen here, but we could write this out to a file or put it in a pandas dataframe for later processing.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[107]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">datalines</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">moneystring</span><span class="p">,</span><span class="n">forstring</span><span class="p">])</span> <span class="k">for</span> <span class="n">moneystring</span><span class="p">,</span> <span class="n">forstring</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">money_strings_clean</span><span class="p">,</span> <span class="n">for_strings</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">dataline</span> <span class="ow">in</span> <span class="n">datalines</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">dataline</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>4330000000	Exploration
+5023000000	Space Operations
+5500000000	Science
+640000000	Aeronautics
+686000000	Space Technology
+115000000	Education
+2788600000	Safety, Security, and Mission Services
+388000000	Construction and Environmental Compliance and Restoration
+37400000	Inspector General
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
