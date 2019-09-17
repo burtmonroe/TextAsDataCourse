@@ -1,0 +1,124 @@
+---
+title: "Text as Data Tutorial - Cosine similarity and tf-idf weighting."
+author: "Burt L. Monroe"
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+  html_notebook:
+    code_folding: show
+    highlight: tango
+    theme: united
+    toc: yes
+---
+
+If you need to, run this command to install quanteda:
+
+```{r}
+# install.packages("quanteda", dependencies = TRUE)
+```
+
+Now load it:
+```{r}
+library(quanteda)
+```
+
+Lets again load in the corpus of presidential inaugural addresses and see what it looks like:
+
+```{r}
+corp <- quanteda::data_corpus_inaugural
+
+summary(corp)
+```
+
+As a reminder, we previously used quanteda's `dfm` command to generate a document-term matrix from this corpus, e.g.:
+
+```{r}
+dtm <- quanteda::dfm(corp,
+                                 tolower = TRUE,    # casefold
+                                 stem = FALSE,                 # do not stem
+                                 remove_punct = TRUE,          # remove punctuation
+                                 #remove = stopwords("english"), # ignore common words on a "stop" list
+                                 ngrams = 1)                   # count unigrams
+```
+
+Let's calculate the cosine similarity between documents using just counts. First, let's make a regular matrix object out of our dtm, for pedagogical purposes. (That is, it's easier to understand what's going on if we make this a "dense" matrix, but it's not something we would normally do.)
+
+```{r}
+dtmat <- as.matrix(dtm)
+```
+
+ Then let's "norm" the documents to length 1 using the L2 norm. The L2 norm is the square root of the sum of squares for each document:
+
+```{r}
+ l2.dtmat <- sqrt(rowSums(dtmat^2))
+```
+
+Now divide the rows by the norm. The row sum of squares should now be one.
+
+```{r}
+dtmat.l2normed <- sweep(dtmat,1,l2.dtmat,"/")
+summary(rowSums(dtmat.l2normed^2))
+```
+
+
+To find the cosine similarity between any two, calculate the dot product of these vectors (multiply the two vectors element by element, and then sum those up).
+
+```{r}
+cos.obama1.obama2 <- sum(dtmat.l2normed["2009-Obama",]*dtmat.l2normed["2013-Obama",])
+cos.obama1.obama2
+
+cos.obama1.trump1 <- sum(dtmat.l2normed["2009-Obama",]*dtmat.l2normed["2017-Trump",])
+cos.obama1.trump1
+```
+
+To find the cosine similarity for all pairs, take the matrix crossproduct. (That is, calculate the dot product of every row / document with every other row / document -- this will result in a 58 $\times$ 58 matrix.) This matrix has all ones on its diagonal -- why? This matrix is symmetric -- why?
+
+```{r}
+cos.dtmat <- dtmat.l2normed %*% t(dtmat.l2normed)
+dim(cos.dtmat)
+
+sort(cos.dtmat[,"1961-Kennedy"],dec=T)
+```
+
+A couple things are strange here. It looks like most inaugurals are relatively similar to one another (.8 + seems like a pretty high number) and it seems odd that Coolidge would be the most similar to Kennedy. Let's break down what words are contributing the most to the similarity rankings:
+
+```{r}
+sort(dtmat.l2normed["1961-Kennedy",]*dtmat.l2normed["1925-Coolidge",], dec=T)[1:20]
+```
+
+Ahhhh! The cosine similarity is being driven by the relative use of common words ... the, of, and, to, and so on. This is arguably what we want in some applications like stylometry, where we are trying to guess authorship for example, but almost definitely not what we're after here.
+
+A common approach is to instead represent documents by tf-idf weighted counts of words. Quanteda has this as a built in function.
+
+Calculate the tf-idf weighted dfm and do the same:
+
+```{r}
+dtm.w <- dfm_tfidf(dtm)
+dtmat.w <- as.matrix(dtm.w)
+
+sort(dtmat["2009-Obama",],dec=T)[1:40]
+sort(dtmat.w["2009-Obama",],dec=T)[1:40]
+
+l2.dtmat.w <- sqrt(rowSums(dtmat.w^2))
+dtmat.w.l2normed <- sweep(dtmat.w,1,l2.dtmat.w,"/")
+
+cos.dtmat.w <- dtmat.w.l2normed %*% t(dtmat.w.l2normed)
+dim(cos.dtmat.w)
+
+sort(cos.dtmat.w[,"1961-Kennedy"],dec=T)
+
+```
+
+Similarities are lower, but they reflect similarity among distinctive content. So, why is Reagan the most similar to Kennedy?
+
+```{r}
+sort(dtmat.w.l2normed["1961-Kennedy",]*dtmat.w.l2normed["1981-Reagan",], dec=T)[1:20]
+```
+
+This suggests they both framed their presidencies as an opportunity to "begin" something new, for example, and were relatively unusual in doing so.
+
+```{r}
+kwic(data_corpus_inaugural,"begin", window=4)
+```
+
