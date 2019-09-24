@@ -1,0 +1,323 @@
+---
+title: "Text as Data Tutorial - Sentiment Analysis with Dictionaries"
+author: "Burt L. Monroe"
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+  html_notebook:
+    code_folding: show
+    highlight: tango
+    theme: united
+    toc: yes
+---
+
+We are going to use the Quanteda R package. If you need to, run this command to install quanteda:
+
+```{r}
+#install.packages("quanteda", dependencies = TRUE)
+```
+
+Now load it:
+```{r}
+library(quanteda)
+```
+
+Lets again load in the corpus of presidential inaugural addresses and see what it looks like:
+
+```{r}
+corp <- quanteda::data_corpus_inaugural
+
+summary(corp)
+```
+
+As a reminder, we previously used quanteda's `dfm` command to generate a document-term matrix from this corpus, e.g.:
+
+```{r}
+dtm <- quanteda::dfm(corp,
+                                 tolower = TRUE,    # casefold
+                                 stem = FALSE,                 # do not stem
+                                 remove_punct = TRUE,          # remove punctuation
+                                 remove = stopwords("english"), # ignore common words on a "stop" list
+                                 ngrams = 1)                   # count unigrams
+```
+
+
+For illustration purposes, we're going to create a second copy of the corpus and apply Lexicoder's recommended preprocessing scripts to it:
+
+```{r}
+#source("http://www.lexicoder.com/docs/LSDprep_jan2018.R")
+source("LSDprep_jan2018.R")
+
+corp.pp <- corp
+
+texts.pp <- texts(corp)
+texts.pp <- LSDprep_contr(texts.pp)  #expands contractions
+texts.pp <- LSDprep_dict_punct(texts.pp) # Removes misleading words that have markers in punctuation
+texts.pp <- remove_punctuation_from_acronyms(texts.pp) #
+texts.pp <- remove_punctuation_from_abbreviations(texts.pp)
+texts.pp <- mark_proper_nouns(texts.pp)
+texts.pp <- LSDprep_punctspace(texts.pp) # put spaces around punctuation
+texts.pp <- LSDprep_negation(texts.pp) # normalizes negations, e.g "not very" -> not
+texts.pp <- LSDprep_dict(texts.pp) # Alters misleading words e.g "may very xwell"
+
+texts(corp.pp) <- texts.pp
+
+dfm.lsd <- dfm(corp, 
+                    tolower = TRUE,    # casefold
+                    stem = FALSE,                 # do not stem
+                    remove_punct = TRUE,          # remove punctuation
+                    #remove = stopwords("english"), # ignore common words on a "stop" list
+                    #ngrams = 1
+                    dictionary = data_dictionary_LSD2015)
+
+dfm.lsd.pp <- dfm(corp.pp, 
+                    tolower = TRUE,    # casefold
+                    stem = FALSE,                 # do not stem
+                    remove_punct = TRUE,          # remove punctuation
+                    #remove = stopwords("english"), # ignore common words on a "stop" list
+                    #ngrams = 1
+                    dictionary = data_dictionary_LSD2015)
+
+dfmat.lsd <- as.matrix(dfm.lsd)
+dfmat.lsd.pp <- as.matrix(dfm.lsd.pp)
+
+lsd.df <- data.frame(cbind(dfmat.lsd,dfmat.lsd.pp))
+names(lsd.df) <- c("neg","pos","neg_pos","neg_neg","neg.pp","pos.pp","neg_pos.pp", "neg_neg.pp")
+rownames(lsd.df) <- docnames(corp) 
+
+lsd.df$adj_pos <- lsd.df$pos - lsd.df$neg_pos
+lsd.df$adj_neg <- lsd.df$neg - lsd.df$neg_neg
+lsd.df$adj_pos.pp <- lsd.df$pos.pp - lsd.df$neg_pos.pp
+lsd.df$adj_neg.pp <- lsd.df$neg.pp - lsd.df$neg_neg.pp
+
+summary(lsd.df)
+
+plot(c(1789,2017),c(0,600),type="n", main="Raw Dictionary Counts", xlab="Year", ylab = "Count")
+lines(docvars(corp)$Year,lsd.df$pos, col="blue", lty=1)
+lines(docvars(corp)$Year,lsd.df$pos.pp, col="blue", lty=2)
+lines(docvars(corp)$Year,lsd.df$adj_pos, col="blue", lty=3)
+lines(docvars(corp)$Year,lsd.df$adj_pos.pp, col="blue", lty=4)
+
+lines(docvars(corp)$Year,lsd.df$neg, col="red", lty=1)
+lines(docvars(corp)$Year,lsd.df$neg.pp, col="red", lty=2)
+lines(docvars(corp)$Year,lsd.df$adj_neg, col="red", lty=3)
+lines(docvars(corp)$Year,lsd.df$adj_neg.pp, col="red", lty=4)
+```
+
+In this corpus, then, it makes virtually no difference whether you apply the recommended preprocessing scripts, account for negations, or both. The dictionary counts are correlated at .997 or higher. So, for the remainder of this example, we will keep it simple and use the unadjusted counts from the texts without the preprocessing scripts (`pos` and `neg`).
+```{r}
+cor(lsd.df[,c('pos','adj_pos','pos.pp','adj_pos.pp')])
+
+cor(lsd.df[,c('neg','adj_neg','neg.pp','adj_neg.pp')])
+
+```
+
+So, our first possible measure of positive sentiment is something like the counts of positive tokens. That indicates that the most positive speech was that of William Henry Harrison in 1841. Harrison died 31 days into his presidency.
+
+```{r}
+sent.absposcount <- lsd.df$pos
+names(sent.absposcount) <- docnames(corp)
+sort(sent.absposcount, dec=T)[1:10]
+```
+
+Conversely, using absolute negative counts suggests that the most negative speech was also that of William Henry Harrison.
+
+```{r}
+sent.absnegcount <- lsd.df$neg
+names(sent.absnegcount) <- docnames(corp)
+sort(sent.absnegcount, dec=T)[1:10]
+```
+
+Of course, Harrison's was the *longest* inaugural speech. A longer speech has more positive and negative and neutral tokens, all else equal. Of course, this means the positive and negative counts are *also* highly correlated.
+
+```{r}
+lsd.df$tot_affect <- lsd.df$pos + lsd.df$neg
+lsd.df$tot_tokens <- rowSums(dtm)
+
+cor(lsd.df[,c('pos','neg','tot_affect','tot_tokens')])
+```
+
+We tend to think of positive and negative affect as on the same scale, so perhaps we can just use the absolute difference as a measure of sentiment?
+
+```{r}
+sent_absdiff <- lsd.df$pos - lsd.df$neg
+names(sent_absdiff) <- docnames(corp)
+
+sort(sent_absdiff, dec=T)[1:10] # Most positive?
+sort(sent_absdiff, dec=F)[1:10] # Most negative?
+
+```
+
+Harrison again. At least he's not the most positive *and* the most negative. But the shortest speech, Washington's second inaugural at just 135 tokens, is the second most negative? And the most negative is Lincoln's second inaugural, the third shortest?
+
+Length is having a couple of effects here. The most obvious is that the base rates for positive tokens and negative tokens are different -- inaugurals are more positive than negative, which makes sense -- so the longer the speech is, the greater is the likely difference in positive and negative counts:
+
+```{r}
+plot(lsd.df$tot_tokens,sent_absdiff,pch=19, col=rgb(0,0,0,.5), log="x",main="Sentiment Measured by Absolute Difference in Counts", xlab = "Total Tokens", ylab = "Sentiment")
+```
+
+So this leads us to the first constructed measure of sentiment actually recommended by Soroka and Young. The fraction (percentage would be the same x100) of affect tokens that are positive minus the fraction of affect tokens that are negative.  
+
+```{r}
+lsd.df$posfrac <- lsd.df$pos/lsd.df$tot_affect
+lsd.df$negfrac <- lsd.df$neg/lsd.df$tot_affect
+
+sent_fracdiff <- lsd.df$posfrac - lsd.df$negfrac
+names(sent_fracdiff) <- docnames(corp)
+sort(sent_fracdiff, dec=T)[1:10]
+sort(sent_fracdiff, dec=F)[1:10]
+
+summary(sent_fracdiff)
+
+mn.sent_fracdiff <- mean(sent_fracdiff)
+
+plot(docvars(corp)$Year,sent_fracdiff, type="l", main="Sentiment by Fraction Difference", xlab="Year", ylab = "Sentiment", ylim=c(-1,1))
+lines(c(1700,3000),c(0,0), col="gray")
+lines(c(1700,3000),c(mn.sent_fracdiff,mn.sent_fracdiff), col="gray", lty=2)
+```
+
+(Note that since affect tokens = positive tokens + negative tokens, this is functionally equivalent to just the fraction of affect tokens that are positive. The former is centered on 0 and runs from -1 to 1; this is centered at .5 and runs from 0 to 1. They are correlated, by definition, at +1)
+
+```{r}
+sent_frac <- lsd.df$posfrac
+names(sent_frac) <- docnames(corp)
+sort(sent_frac, dec=T)[1:10]
+sort(sent_frac, dec=F)[1:10]
+
+summary(sent_frac)
+
+mn.sent_frac <- mean(sent_frac)
+
+plot(docvars(corp)$Year,sent_frac, type="l", main="Sentiment by Fraction", xlab="Year", ylab = "Sentiment", ylim=c(0,1))
+lines(c(1700,3000),c(0.5,0.5), col="gray")
+lines(c(1700,3000),c(mn.sent_frac,mn.sent_frac), col="gray", lty=2)
+
+```
+
+```{r}
+plot(lsd.df$tot_tokens,sent_fracdiff,pch=19, col=rgb(0,0,0,.5), ylim = c(-1,1), log="x",main="Sentiment Measured by Fraction Difference", xlab = "Total Tokens", ylab = "Sentiment")
+lines(c(1,10000),c(0,0), col="gray")
+lines(c(1,10000),c(mn.sent_fracdiff,mn.sent_fracdiff), col="gray", lty=2)
+```
+
+Or we can start down the Fightin Words logical path and look at the logratio:
+
+```{r}
+sent_logratio <- log(lsd.df$pos+1) - log(lsd.df$neg +1)
+names(sent_logratio) <- docnames(corp)
+sort(sent_logratio, dec=T)[1:10]
+sort(sent_logratio, dec=F)[1:10]
+
+summary(sent_logratio)
+
+mn.sent_logratio <- mean(sent_logratio)
+
+plot(docvars(corp)$Year,sent_logratio, type="l", main="Sentiment by Logratio", xlab="Year", ylab = "Sentiment", ylim=c(-2,2))
+lines(c(1700,3000),c(0,0), col="gray")
+lines(c(1700,3000),c(mn.sent_logratio,mn.sent_logratio), col="gray", lty=2)
+
+```
+
+The logratio measure is correlated with the fraction measure at .99; there are more substantial differences when the fractions involved are more extreme.
+
+An advantage of the logratio is that we can remove the base rates if that's a desirable thing to do.
+```{r}
+tot_pos_count <- sum(lsd.df$pos+1)
+tot_neg_count <- sum(lsd.df$neg+1)
+sent_rellogratio <- log(lsd.df$pos+1) - log(tot_pos_count) - (log(lsd.df$neg +1) - log(tot_neg_count))
+names(sent_rellogratio) <- docnames(corp)
+sort(sent_rellogratio, dec=T)[1:10]
+sort(sent_rellogratio, dec=F)[1:10]
+
+summary(sent_rellogratio)
+
+mn.sent_rellogratio <- mean(sent_rellogratio)
+
+plot(docvars(corp)$Year,sent_rellogratio, type="l", main="Sentiment by Relative Logratio", xlab="Year", ylab = "Sentiment", ylim=c(-1,1))
+lines(c(1700,3000),c(0,0), col="gray")
+lines(c(1700,3000),c(mn.sent_rellogratio,mn.sent_rellogratio), col="gray", lty=2)
+
+
+```
+
+A bigger advantage is the "Fightin Words" logic that allows us to correct for the heteroskedasticity arising from document length. The standard error for the log((a/b)/(c/d)) when a,b,c, and d are Poisson distributed counts is ~ sqrt(1/a + 1/b + 1/c + 1/d).
+
+```{r}
+se.sent_rellogratio = sqrt(1/(lsd.df$pos+1) + 1/tot_pos_count + 1/(lsd.df$neg+1) + 1/tot_neg_count)
+
+sent_zlogratio = sent_rellogratio / se.sent_rellogratio
+
+summary(sent_zlogratio)
+
+plot(lsd.df$tot_tokens,sent_zlogratio,pch=19, col=rgb(0,0,0,.5), ylim = c(-6,6), log="x",main="Sentiment Measured by Relative Logratio Z-Score", xlab = "Total Tokens", ylab = "Sentiment")
+lines(c(1,10000),c(0,0), col="gray")
+#lines(c(1,10000),c(mn.sent_fracdiff,mn.sent_fracdiff), col="gray", lty=2)
+                         
+sort(sent_zlogratio,dec=T)[1:10]
+sort(sent_zlogratio,dec=F)[1:10]
+```
+
+So ... four of the five most negative (or least positive) inaugural addresses are Lincoln's two, Kennedy's, and Obama's first? All of those are considered among the most inspirational, uplifting, hopeful inaugurals ever. What gives?
+
+Maybe it's Lexicoder. OK, let's drop $10 and try the LIWC dictionaries ...
+
+time passes ... money flows
+
+
+```{r}
+liwc.df <- read.csv("LIWC-Inaugurals.csv", header=TRUE)
+sent_liwc <- liwc.df$Tone
+names(sent_liwc) <- docnames(corp)
+
+plot(lsd.df$tot_tokens,sent_liwc,pch=19, col=rgb(0,0,0,.5), ylim = c(0,100), log="x",main="Tone Measured by LIWC", xlab = "Total Tokens", ylab = "Sentiment")
+lines(c(1,10000),c(50,50), col="gray")
+```
+
+Somewhat similar to sent_fracdiff from Lexicoder. Correlated at .67, higher in variability for shorter documents, and in agreement that Lincoln's and Kennedy's inaugurals were among the most negative. LIWC seems to saturate on the positive end, making it difficult to see relative differences among the most positive.
+```{r}
+cor(sent_liwc, sent_fracdiff) # correlated .67
+
+sort(sent_liwc,dec=T)[1:10]
+sort(sent_liwc,dec=F)[1:10]
+```
+
+So, again, what gives? What gives is that sentiment analysis based on dictionaries, especially dictionaries built for different contexts than the application, is often so noisy as to be effectively useless.
+
+```{r}
+lincolnlines <- c("With malice toward none;", "with charity for all;","let us strive on to finish the work we are in;", "to bind up the nation’s wounds;","to care for him who shall have borne the battle, and for his widow, and his orphan—")
+lincolnlines
+dfm(lincolnlines,
+    tolower = TRUE,    # casefold
+    stem = FALSE,                 # do not stem
+    remove_punct = TRUE,          # remove punctuation
+    dictionary = data_dictionary_LSD2015)
+
+
+```
+
+Consider this Kennedy line:
+
+```{r}
+dfm("Let us never negotiate out of fear. But let us never fear to negotiate.",
+    tolower = TRUE,    # casefold
+    stem = FALSE,                 # do not stem
+    remove_punct = TRUE,          # remove punctuation
+    dictionary = data_dictionary_LSD2015)
+```
+
+Or these:
+
+```{r}
+jfklines <- c("The graves of young Americans who answered the call to service surround the globe.", "Now the trumpet summons us again", "-- not as a call to bear arms, though arms we need;", "not as a call to battle, though embattled we are"," -- but a call to bear the burden of a long twilight struggle, year in and year out,", '\"rejoicing in hope, patient in tribulation\"', "-- a struggle against the common enemies of man: tyranny, poverty, disease, and war itself.","Can we forge against these enemies a grand and global alliance, North and South, East and West, that can assure a more fruitful life for all mankind?")
+jfklines
+dfm(jfklines,
+    tolower = TRUE,    # casefold
+    stem = FALSE,                 # do not stem
+    remove_punct = TRUE,          # remove punctuation
+    dictionary = data_dictionary_LSD2015)
+```
+
+It's very difficult to build a dictionary that captures more signal than noise, especially across different sorts of contexts.
+
+
