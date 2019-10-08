@@ -1,0 +1,182 @@
+---
+title: "Text as Data Tutorial - Introduction to Text Classification Using Naive Bayes (in R)"
+author: "Burt L. Monroe"
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+  html_notebook:
+    code_folding: show
+    highlight: tango
+    theme: united
+    toc: yes
+---
+
+
+Remove the comment and install the quanteda.corpora package from github:
+```{r}
+# devtools::install_github("quanteda/quanteda.corpora")
+```
+
+We'll use these packages:
+
+```{r}
+library(dplyr)
+library(quanteda)
+library(quanteda.corpora)
+library(caret)
+```
+
+Read in the Pang and Lee dataset of 2000 movie reviews. (I think this is the same 2000 reviews you used in the dictionary exercise, but in a different order.
+
+```{r}
+corpus <- data_corpus_movies
+summary(corpus,5)
+```
+
+Shuffle the rows to randomize the order.
+```{r}
+set.seed(1234)
+id_train <- sample(1:2000,1500, replace=F)
+head(id_train, 10)
+```
+
+Use the 1500 for a training set and the other 500 as your test set. Create dfms for each.
+```{r}
+docvars(corpus, "id_numeric") <- 1:ndoc(corpus)
+
+dfmat_train <- corpus_subset(corpus, id_numeric %in% id_train) %>% dfm() #%>% dfm_weight(scheme="boolean")
+
+dfmat_test <- corpus_subset(corpus, !(id_numeric %in% id_train)) %>% dfm() #%>% dfm_weight(scheme="boolean")
+```
+
+Naive Bayes is a built in model for quanteda, so it's easy to use:
+
+```{r}
+sentmod.nb <- textmodel_nb(dfmat_train, docvars(dfmat_train, "Sentiment"), distribution = "Bernoulli")
+summary(sentmod.nb)
+```
+
+Use the dfm_match command to limit dfmat_test to features (words) that appeared in the training data:
+```{r}
+dfmat_matched <- dfm_match(dfmat_test, features=featnames(dfmat_train))
+```
+
+How did we do? Let's look at a "confusion" matrix.
+```{r}
+actual_class <- docvars(dfmat_matched, "Sentiment")
+predicted_class <- predict(sentmod.nb, newdata=dfmat_matched)
+tab_class <- table(actual_class,predicted_class)
+tab_class
+```
+
+Not bad, considering. Let's put some numbers on that:
+```{r}
+confusionMatrix(tab_class, mode="everything")
+```
+
+Let's do some sniff tests. What are the most positive and negative words?
+```{r}
+#Most positive words
+sort(sentmod.nb$PcGw[2,],dec=T)[1:20]
+
+#Most negative words
+sort(sentmod.nb$PcGw[2,],dec=F)[1:20]
+```
+
+Let's get a birds-eye view.
+```{r, fig.width=7, fig.height=6}
+# Plot weights
+plot(colSums(dfmat_train),sentmod.nb$PcGw[2,], pch=19, col=rgb(0,0,0,.3), cex=.5, log="x", main="Posterior Probabilities, Naive Bayes Classifier, IMDB", ylab="<--- Negative Reviews --- Positive Reviews --->", xlab="Total Appearances")
+text(colSums(dfmat_train),sentmod.nb$PcGw[2,], colnames(dfmat_train),pos=4,cex=5*abs(.5-sentmod.nb$PcGw[2,]), col=rgb(0,0,0,1.5*abs(.5-sentmod.nb$PcGw[2,])))
+```
+
+Look a little closer at the negative.
+```{r, fig.width=7, fig.height=6}
+# Plot weights
+plot(colSums(dfmat_train),sentmod.nb$PcGw[2,], pch=19, col=rgb(0,0,0,.3), cex=.5, log="x", main="Posterior Probabilities, Naive Bayes Classifier, IMDB", ylab="<--- Negative Reviews --- Positive Reviews --->", xlab="Total Appearances", xlim=c(10,1000),ylim=c(0,.25))
+text(colSums(dfmat_train),sentmod.nb$PcGw[2,], colnames(dfmat_train),pos=4,cex=5*abs(.5-sentmod.nb$PcGw[2,]), col=rgb(0,0,0,1.5*abs(.5-sentmod.nb$PcGw[2,])))
+```
+
+And a little more closely at the positive words:
+
+```{r, fig.width=7, fig.height=6}
+# Plot weights
+plot(colSums(dfmat_train),sentmod.nb$PcGw[2,], pch=19, col=rgb(0,0,0,.3), cex=.5, log="x", main="Posterior Probabilities, Naive Bayes Classifier, IMDB", ylab="<--- Negative Reviews --- Positive Reviews --->", xlab="Total Appearances", xlim=c(10,1000),ylim=c(0.75,1.0))
+text(colSums(dfmat_train),sentmod.nb$PcGw[2,], colnames(dfmat_train),pos=4,cex=5*abs(.5-sentmod.nb$PcGw[2,]), col=rgb(0,0,0,1.5*abs(.5-sentmod.nb$PcGw[2,])))
+```
+
+
+Let's look a little more closely at the document predictions.
+
+```{r}
+predicted_prob <- predict(sentmod.nb, newdata=dfmat_matched, type="probability")
+
+dim(predicted_prob)
+head(predicted_prob)
+summary(predicted_prob)
+```
+
+You can see there one problem with the "naive" part of naive Bayes. By taking all of the features (words) as independent, it thinks it has seen far more information than it really has, and therefore is far more confident about its predictions than is warranted.
+
+What's the most positive review in the test set according to this?
+
+```{r}
+# sort by *least negative* since near zero aren't rounded
+sort.list(predicted_prob[,1], dec=F)[1]
+```
+
+```{r}
+id_test <- !((1:2000) %in% id_train)
+texts(corpus)[id_test][440]
+```
+Looks like ``Amistad.''
+
+```{r}
+# sort by *least neg* since near zero aren't rounded
+sort.list(predicted_prob[,2], dec=F)[1]
+```
+
+```{r}
+texts(corpus)[id_test][211]
+```
+
+Schwarzenegger's ``End of Days''
+
+It also should be clear enough that more words means more votes, so longer documents are more clearly positive or negative. There's an argument for that. It also would underplay a review that read in it's entirety: ``terrible.'' That even though the review is 100% clear in its sentiment.
+
+What is it most confused about?
+
+```{r}
+sort.list(abs(predicted_prob - .5), dec=F)[1]
+```
+
+```{r}
+predicted_prob[212,]
+```
+
+So ... the model says 45% chance negative, 55% positive.
+
+```{r}
+texts(corpus)[id_test][212]
+```
+
+``Mafia!'' A spoof movie I'd never heard of.
+
+Let's look at a mistake. 
+```{r}
+sort.list(predicted_prob[1:250,1],dec=F)[1]
+```
+```{r}
+predicted_prob[196,]
+```
+So ... the model says *DEFINITELY* positive.
+
+```{r}
+texts(corpus)[id_test][196]
+```
+
+A clearly negative review of "Saving Private Ryan."
+
+This is probably partly an "overfitting" mistake. It probably learned other "Saving Private Ryan" or "Spielberg movies" words -- it looks like "Spielberg's" was number #3 on our list above -- and learned that "reviews that talk about Saving Private Ryan are probably positive."
+
