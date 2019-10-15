@@ -1,0 +1,524 @@
+---
+title: "An Introduction to the Structural Topic Model (STM)"
+output:
+  html_notebook:
+    code_folding: show
+    highlight: tango
+    theme: united
+    toc: yes
+  html_document:
+    df_print: paged
+    toc: yes
+---
+
+THIS IS INCOMPLETE AND HAS A FEW VERY LONG RUN TIME COMMANDS. PROCEED WITH CAUTION.
+
+This tutorial uses the example from the **stm** vignette as a starting point.
+
+```{r}
+# install the following packages as necessary
+library(lda)
+library(slam)
+library(stm)
+```
+
+## Reading and preparing data in **stm**
+
+For this example, we will use a variant of the "PoliBlogs08" data set (Eisenstein and Xing 2010), an example used in the **stm** vignette. The original data consists of 13246 blogposts scraped from 6 blogs, along with a "rating" as "Conservative" or "Liberal."
+```{r}
+poliblogsFull <- read.csv("poliblogs2008.csv", colClasses = c("character", "character", "character", "factor", "integer", "factor"))
+summary(poliblogsFull)
+```
+
+For exposition purposes later, it will help to note some basics here. The `day` variable indicates the day of 2008 the blog was written, running from 1 to 366 since 2008 was a leap year. The `blog` variable indicates which one of the following six blogs posted the text for that observation: 
+
+* db: Digby (Liberal, single author [? not sure that's true])
+* tp: Think Progress (Liberal, multiple authors)
+* tpm: Talking Points Memo (Liberal, multiple authors)
+* mm: Michelle Malkin (Conservative, single author)
+* at: American Thinker (Conservative, multiple authors)
+* ha: Hot Air (Conservative, single author)
+
+
+Variants of this example are available in different places, for STM as well as LDA, SAGE, and a variety of topic models. It's easy to get confused. There are a variety of prefit STM models for this data that you can download from http://www.princeton.edu/~bms4/VignetteObjects.RData. These are stored in `poliblogPrevFit`, `poliblogContent`, and `poliblogInteraction` and a prerun STM model selection object stored in `poliblogSelect`. They are run on the object `out` that is created on page 9 of the **stm** vignette, and includes 13426 documents and 9244 terms (the terms that appear in more than 15 documents). We will avoid reusing these variable names (running commands directly from the provided vignette will do so). 
+
+Also provided in the package are the **stm** input objects for a *sample* of 5000 blogs, which we will use here for illustration purposes. These objects are stored in `poliblog5k.docs` (word counts in **stm** format), `poliblog5k.voc` (the vocabulary), and `poliblog5k.meta` (the metadata).
+
+The `meta` object also contains a small snippet - up to 50 characters - of the text in a (confusing) list column `poliblog5k.meta$text`. We will create our own slightly larger snippets - 200 characters - for use in diagnostics later.
+
+Let's take a look at the first three documents in all three of these formats:
+```{r}
+poliblog5k.sample <- as.integer(rownames(poliblog5k.meta))
+poliblog5k.fulltext <- poliblogsFull$documents[poliblog5k.sample] 
+poliblog5k.shorttext <- substr(poliblog5k.fulltext,1,200)
+poliblog5k.meta$text[1:3]
+poliblog5k.shorttext[1:3]
+poliblog5k.fulltext[1:3]
+```
+
+Note from the full text, especially the third one there from the "Digby" blog, that these were not parsed very carefully (by the original researchers in 2008). Most will tell you not to worry about that. They're wrong.
+
+### Preprocessing within the **stm** package
+
+The *stm* package converts a vector of text and a dataframe of metadata into **stm** formatted objects using the command `textProcessor` which calls the package **tm** for its preprocessing routines.
+
+```{r}
+# * default parameters
+poliblog5k.proc <- textProcessor(documents=poliblog5k.fulltext,
+                                 metadata = poliblog5k.meta,
+                                 lowercase = TRUE, #*
+                                 removestopwords = TRUE, #*
+                                 removenumbers = TRUE, #*
+                                 removepunctuation = TRUE, #*
+                                 stem = TRUE, #*
+                                 wordLengths = c(3,Inf), #*
+                                 sparselevel = 1, #*
+                                 language = "en", #*
+                                 verbose = TRUE, #*
+                                 onlycharacter = TRUE, # not def
+                                 striphtml = FALSE, #*
+                                 customstopwords = NULL, #*
+                                 v1 = FALSE) #*
+```
+
+The processed object is a list of four objects: `documents`, `vocab`, `meta`, and `docs.removed`. The `documents` object is a list, one per document, of 2 row matrices; the first row indicates the index of a word found in the document, and the second row indicates the (nonzero) counts. If preprocessing causes any documents to be empty, they are removed, as are the corresponding rows of the `meta` object.
+
+These objects are in turn passed to the `prepDocuments` function, which filters vocabulary, and again removes empty documents and corresponding rows in the metadata. The authors of **stm** say it struggles with extremely large vocabularies, and in the vignette example filter to under 10000 terms by eliminating those terms that don't appear in more than 15 documents. The data objects provided in the package or `poliblog5k` seem to filter out terms that don't appear in more than 50 documents, leaving about 2600-2800 terms.
+
+```{r}
+poliblog5k.out <- prepDocuments(poliblog5k.proc$documents, poliblog5k.proc$vocab, poliblog5k.proc$meta, lower.thresh=50)
+```
+
+(The number of terms, 2717, is more than the 2632 in the provided `poliblog5k.voc`. The mismatches seem to be in words with punctuation in the middle -- like "re-elect" or "you're" -- and I can't seem to make them match exactly with textProcessor options.)
+
+### Preprocessing within **quanteda**
+
+We've mostly read in and processed data with **quanteda**, so it's worth noting that you can do that and then use the `convert` function to convert to **stm** and a variety of other formats.
+
+```{r}
+library(quanteda)
+
+poliblog5k.fullmeta <- data.frame(doc_id=rownames(poliblog5k.meta), poliblog5k.meta, shorttext=poliblog5k.shorttext, fulltext=poliblog5k.fulltext, stringsAsFactors=FALSE)
+
+poliblog5k.corpus <- quanteda::corpus(poliblog5k.fullmeta, docid_field="doc_id",text_field="fulltext")
+
+poliblog5k.dfm <- quanteda::dfm(poliblog5k.corpus,
+                                tolower=TRUE,
+                                stem=TRUE,
+                                remove=stopwords("english"),
+                                remove_numbers=TRUE,
+                                remove_punct=TRUE,
+                                remove_symbols=TRUE,
+                                ngrams=1)
+dim(poliblog5k.dfm)
+```
+
+Again, let's trim that to words appearing in more than 50 documents.
+
+```{r}
+poliblog5k.dfm <- dfm_trim(poliblog5k.dfm, min_docfreq=51, docfreq_type="count")
+dim(poliblog5k.dfm)
+```
+
+Yet another slightly different count.
+
+In any case, we convert to **stm** format using 
+```{r}
+poliblog5k.dfm2stm <- quanteda::convert(poliblog5k.dfm, to = "stm")
+names(poliblog5k.dfm2stm)
+```
+
+## Modeling without metadata structure
+
+Let's start with running this like a topic model without structure. It's not exact, but this is very similar to the SAGE (Eisenstein, et al.) sparse estimation of a model with a correlated topic model (CTM) generative process (Blei, et al.)
+```{r}
+# Spectral initialization is advised by the authors
+#    Should replicate exactly under spectral initialization
+#
+# This takes about 70 seconds.
+poliblog5k.fit.nometa <- stm(documents = poliblog5k.docs, 
+                     vocab = poliblog5k.voc,
+                     K = 20,
+                     max.em.its = 75,
+                     data = poliblog5k.meta,
+                     init.type = "Spectral")
+## suppress all this output with verbose=FALSE
+```
+
+We can get a detailed overview of key terms for every topic (or some) using the `labelTopics` command. This command provides the top words according to four different statistics, "highest probability" (just $\beta$), "FREX", "Lift", and "Score." FREX is very similar to PMI and typically I find it most helpful. 
+```{r}
+labelTopics(poliblog5k.fit.nometa)
+```
+
+Going through these ... rough guesses at the topics seem to be.
+
+1. Law, esp re torture
+2. Political parties
+3. ???? Informal/personal, Digby, post junk (We'll come back to this)
+4. Seems to be a mixture: Religious issues (including abortion, gay rights, stem cells) and women / children / education
+5. ???? Contractions? Movies? (We'll come back to this)
+6. Obama campaign (including Jeremiah Wright, Bill Ayers)
+7. Senate
+8. Middle East (Israel, Iran, Gaza, Hamas)
+9. Joes? Biden / Lieberman.
+10. Energy, oil/gas prices
+11. General election polls
+12. Wars - Iraq/Afghanistan
+13. Mixture? Media/reporting and global warming
+14. Bush administration
+15. McCain campaign / Republican primary
+16. Foreign affairs
+17. Voting incl ACORN and voter fraud / illegal immigrants
+18. Rod Blagojevich scandal
+19. Financial crisis
+20. Hillary Clinton / Democratic primary
+
+Some of these look a bit "undercooked," meaning a model with more topics might have separated them (e.g., 4 and 13). Some may be spurious (e.g., 9, which may be about Senators, may be about vice presidential possibilities, may be about the democratic primary, or may just be triggering on correlations with the word "Joe"). Some of these appear at first blush to be "junk" (e.g., 3 and 5).
+
+We can get an overview of the distribution of these topics by plotting the fit object:
+```{r,fig.height=5, fig.width=5}
+plot(poliblog5k.fit.nometa)
+```
+
+We can find the top documents associated with a topic with the `findThoughts` function:
+```{r}
+findThoughts(poliblog5k.fit.nometa,texts = poliblog5k.fulltext, n = 2, topics = c(6))
+```
+These both appear to be conservative discussion of Obama and particularly associations with controversial people like Ayers and Wright. So that looks ok.
+
+We can look at multiple, or all, topics this way as well. For this we'll just look at the shorttext.
+
+```{r}
+findThoughts(poliblog5k.fit.nometa,texts = poliblog5k.shorttext, n = 3, topics = 1:20)
+```
+
+The first three in Topic 1 are about FISA and wiretapping ... not torture ... so that may be a more general "legislation / law" topic. The first three in Topic 13 are all about global warming, so that merits a closer inspection.
+
+The `plotQuote` function will give you similar information in a more graphical format.
+```{r, fig.height=5, fig.width=3}
+firstdocs.13 <- findThoughts(poliblog5k.fit.nometa,texts = poliblog5k.shorttext, n = 5, topics = c(13))$docs[[1]]
+plotQuote(firstdocs.13, main="Top Documents, Topic 13 - Global Warming?")
+```
+The default label of "report, new, time" -- which probably indicates a lot of "A New York Times report ..." -- may be misleading. These five are all criticisms of "global warmists" with several discussing the "coming ice age."
+
+Or we can go back to words and our old friend the wordcloud:
+
+```{r}
+cloud(poliblog5k.fit.nometa, topic=13, scale=c(2,.25))
+```
+Boy. It's tough to call that "global warming." The vast majority of those words are media related. We would really need to look closely at the documents to see what's going on.
+
+<!-- ## Removing topic correlation (more similar to LDA) -->
+
+<!-- ```{r} -->
+<!-- system.time( -->
+<!--   poliblog5k.fit.nocorr <- stm(documents = poliblog5k.docs,  -->
+<!--                      vocab = poliblog5k.voc, -->
+<!--                      K = 20, -->
+<!--                      max.em.its = 75, -->
+<!--                      data = poliblog5k.meta, -->
+<!--                      init.type = "Spectral", -->
+<!--                      sigma.prior = 1, #regularize toward indep -->
+<!--                      verbose=FALSE) -->
+<!-- ) -->
+<!-- ``` -->
+
+## Modeling with metadata
+
+But let's move on. STM's bread and butter is in incorporating "structure" by modeling on metadata.
+
+In the vignette example, the authors model "prevalence" of topics on "rating" and "s(day)". The latter calculates a smoothed function (a b-spline) across the variable, appropriate for a variable like `day` that takes on continuous or many values.
+
+Let's do that.
+
+```{r}
+poliblog5k.fit.rat_day <- stm(documents = poliblog5k.docs, 
+                     vocab = poliblog5k.voc,
+                     K = 20,
+                     prevalence =~ rating + s(day),
+                     max.em.its = 75,
+                     data = poliblog5k.meta,
+                     init.type = "Spectral",
+                     verbose=FALSE)
+```
+
+Or we might think just rating matters.
+
+```{r}
+poliblog5k.fit.rat_only <- stm(documents = poliblog5k.docs, 
+                     vocab = poliblog5k.voc,
+                     K = 20,
+                     prevalence =~ rating,
+                     max.em.its = 75,
+                     data = poliblog5k.meta,
+                     init.type = "Spectral",
+                     verbose=FALSE)
+```
+
+Or we might think just day matters.
+
+```{r}
+poliblog5k.fit.day_only <- stm(documents = poliblog5k.docs, 
+                     vocab = poliblog5k.voc,
+                     K = 20,
+                     prevalence =~ s(day),
+                     max.em.its = 75,
+                     data = poliblog5k.meta,
+                     init.type = "Spectral",
+                     verbose=FALSE)
+```
+
+Or maybe it's *blog* and day.
+
+
+```{r}
+poliblog5k.fit.blog_day <- stm(documents = poliblog5k.docs, 
+                     vocab = poliblog5k.voc,
+                     K = 20,
+                     prevalence =~ blog + s(day),
+                     max.em.its = 75,
+                     data = poliblog5k.meta,
+                     init.type = "Spectral",
+                     verbose=FALSE)
+```
+
+It turns out this makes almost no difference to the model. These documents are long enough that the influence of the prior from the covariate structure is imperceptible,
+
+```{r}
+# Beta for topic 1
+cor(poliblog5k.fit.nometa$beta[[1]][[1]][1,],poliblog5k.fit.rat_day$beta[[1]][[1]][1,])
+cor(poliblog5k.fit.nometa$beta[[1]][[1]][1,],poliblog5k.fit.blog_day$beta[[1]][[1]][1,])
+cor(poliblog5k.fit.nometa$beta[[1]][[1]][1,],poliblog5k.fit.day_only$beta[[1]][[1]][1,])
+cor(poliblog5k.fit.nometa$beta[[1]][[1]][1,],poliblog5k.fit.rat_only$beta[[1]][[1]][1,])
+```
+
+```{r}
+cor(poliblog5k.fit.nometa$theta[,1],poliblog5k.fit.rat_day$theta[,1])
+cor(poliblog5k.fit.nometa$theta[,1],poliblog5k.fit.blog_day$theta[,1])
+cor(poliblog5k.fit.nometa$theta[,1],poliblog5k.fit.rat_only$theta[,1])
+cor(poliblog5k.fit.nometa$theta[,1],poliblog5k.fit.day_only$theta[,1])
+
+```
+
+
+The STM model *does* differ considerably in this example if you also model the *content* of topics as a function of covariates.
+
+(This takes a bit longer, 2-3 minutes in this case.)
+```{r}
+poliblog5k.fit.cont.rat <- stm(documents = poliblog5k.docs, 
+                     vocab = poliblog5k.voc,
+                     K = 20,
+                     prevalence =~ rating + s(day),
+                     content =~ rating,
+                     max.em.its = 75,
+                     data = poliblog5k.meta,
+                     init.type = "Spectral",
+                     verbose=FALSE)
+```
+
+
+```{r}
+poliblog5k.labels_rat <- labelTopics(poliblog5k.fit.cont.rat)
+poliblog5k.labels_rat
+```
+
+```{r fig.height=4, fig.width=4}
+plot(poliblog5k.fit.cont.rat)
+```
+The overall topic words seem to indicate the topics are now:
+
+1. Rights? (Mixture of FISA/surveillance and Guantanamo/detention/torture)
+2. Political parties
+3. ???? "Garbage" ... Again, I'll come back to this.
+4. Abortion? Religion?
+5. Movies? Pop culture? (~= prev T5)
+6. Obama and friends (~= prev T6)
+7. Senate (~ prev T7)
+8. Middle East (~ prev T8)
+9. Joes? (~ prev T9)
+10. Energy (~ pre T10)
+11. Election horse race. (~ prev T11)
+12. Iraq war. (~ prev T12)
+13. Global warming / ice age (~ prev T13)
+14. Media (~prev T14 and some T13)
+15. Republican party / primary (~prev T15)
+16. Foreign affairs (~prev T16)
+17. Voter registration / fraud / ACORN
+18. Blagojevich scandal
+19. Financial crisis
+20. Democratic primary / Hillary Clinton
+
+We can estimate for multiple groups, like blog here. Be aware this takes considerably longer. About 8 minutes in the example below.
+```{r}
+system.time(
+  poliblog5k.fit.cont.blog <- stm(documents = poliblog5k.docs, 
+                     vocab = poliblog5k.voc,
+                     K = 20,
+                     prevalence =~ blog + s(day),
+                     content =~ blog,
+                     max.em.its = 75,
+                     data = poliblog5k.meta,
+                     init.type = "Spectral",
+                     verbose=FALSE)
+)
+```
+
+```{r}
+
+
+```
+
+We can also estimate metadata interactions, with a binary moderatng variable.
+```{r}
+poliblog5k.fit.ratday.int <- stm(documents = poliblog5k.docs, 
+                     vocab = poliblog5k.voc,
+                     K = 20,
+                     prevalence =~ rating * s(day),
+                     max.em.its = 75,
+                     data = poliblog5k.meta,
+                     init.type = "Spectral",
+                     verbose=FALSE)
+```
+
+
+```{r}
+poliblog5k.ratday.int.prep <- estimateEffect(formula = c(19) ~ rating*day, stmobj = poliblog5k.fit.ratday.int, metadata = poliblog5k.meta, uncertainty="None")
+```
+
+```{r fig.height=4, fig.width=4}
+plot(poliblog5k.ratday.int.prep, covariate = "day", model = poliblog5k.fit.ratday.int, method = "continuous", xlab = "Days", moderator = "rating", moderator.value = "Liberal", linecol = "blue", ylim = c(0, .12), printlegend = F)
+plot(poliblog5k.ratday.int.prep, covariate = "day", model = poliblog5k.fit.ratday.int, method = "continuous", xlab = "Days", moderator = "rating", moderator.value = "Conservative", linecol = "red", add = T, printlegend = F)
+legend(0, .08, c("Liberal", "Conservative"), lwd = 2, col = c("blue", "red"))
+```
+
+
+
+
+
+```{r}
+estEffpoliblog <- estimateEffect(1:20 ~ rating + s(day), poliblog5k.fit.rat_day, meta = poliblog5k.meta, uncertainty = "Global")
+summary(estEffpoliblog, topics=1)
+```
+
+```{r}
+poliblog5k.eff.day.nometa <- estimateEffect(1:20 ~ s(day), poliblog5k.fit.nometa, meta = poliblog5k.meta, uncertainty = "Global")
+summary(poliblog5k.eff.day.nometa, topics=19)
+```
+
+```{r fig.width=7, fig.height=6}
+plot(poliblog5k.eff.day.nometa, "day", method = "continuous", topics = 19,model = poliblog5k.fit.nometa, printlegend = FALSE, xaxt = "n", xlab = "Time (2008)")
+monthseq <- seq(from = as.Date("2008-01-01"), to = as.Date("2008-12-01"), by = "month")
+monthnames <- months(monthseq)
+axis(1,at = as.numeric(monthseq) - min(as.numeric(monthseq)), labels = monthnames)
+```
+
+
+```{r}
+poliblog5k.eff.day.rat_day <- estimateEffect(1:20 ~ s(day), poliblog5k.fit.rat_day, meta = poliblog5k.meta, uncertainty = "Global")
+summary(poliblog5k.eff.day.rat_day, topics=19)
+```
+
+```{r fig.width=7, fig.height=6}
+plot(poliblog5k.eff.day.rat_day, "day", method = "continuous", topics = 19,model = poliblog5k.fit.rat_day, printlegend = FALSE, xaxt = "n", xlab = "Time (2008)")
+monthseq <- seq(from = as.Date("2008-01-01"), to = as.Date("2008-12-01"), by = "month")
+monthnames <- months(monthseq)
+axis(1,at = as.numeric(monthseq) - min(as.numeric(monthseq)), labels = monthnames)
+```
+
+There is in fact a pattern to the garbage topics, if we model by blog.
+
+```{r}
+poliblog5k.eff.blog_day <- estimateEffect(1:20 ~ blog + s(day), poliblog5k.fit.blog_day, meta = poliblog5k.meta, uncertainty = "Global")
+summary(poliblog5k.eff.blog_day, topics=3)
+```
+
+```{r fig.width=4, fig.height=3}
+plot(poliblog5k.eff.blog_day, covariate = "blog", topics = c(3), model = poliblog5k.fit.blog_day, method = "pointestimate",
+     main = "Effect of Blog on Topic Proportion",
+     xlim = c(0, .25), labeltype = "custom",
+     custom.labels = c("Hot Air", "Digby", "American Thinker", "Talking Points Memo", "Michelle Malkin", "Think Progress"))
+```
+
+```{r fig.width=6, fig.height=3}
+plot(poliblog5k.eff.blog_day, covariate = "blog", topics = c(5), model = poliblog5k.fit.blog_day, method = "pointestimate",
+     main = "Effect of Blog on Topic Proportion",
+     xlim = c(0, .25), labeltype = "custom",
+     custom.labels = c("Hot Air", "Digby", "American Thinker", "Talking Points Memo", "Michelle Malkin", "Think Progress"))
+```
+
+What does this imply for our topics as "topics"?
+
+What does this imply for our estimates of "topic proportion"?
+
+What does this imply for topic concentration parameters?
+<!--      , -->
+<!-- +  cov.value1 = "Liberal", cov.value2 = "Conservative", -->
+<!-- +  xlab = "More Conservative ... More Liberal", -->
+<!-- +  -->
+<!-- ``` -->
+
+
+
+<!-- prep <- estimateEffect(1:20 ~ rating + s(day), poliblogPrevFit, -->
+<!-- +  meta = out$meta, uncertainty = "Global") -->
+
+## Methods for Estimating / Inspecting Multiple Models / Choosing K
+
+### Lee and Mimno's Technique: Anchor Words via t-SNE
+
+
+This takes about 6 *minutes* in this example.
+```{r}
+## requires installation of packages: Rtsne, rsvd, geometry 
+system.time(
+  poliblog5k.fit.lee_mimno <- stm(documents = poliblog5k.docs, 
+                     vocab = poliblog5k.voc,
+                     K = 0, # K=0 instructs STM to run Lee-Mimno
+                     seed = 1234, # randomness now, seed matters
+                     prevalence =~ rating + s(day),
+                     max.em.its = 75,
+                     data = poliblog5k.meta,
+                     init.type = "Spectral",
+                     verbose=TRUE)
+)
+```
+
+This finds a 55-topic model. I'm a little surprised they look as good as they do.
+
+```{r fig.height=10, fig.width=5}
+plot(poliblog5k.fit.lee_mimno)
+```
+
+```{r}
+labelTopics(poliblog5k.fit.lee_mimno)
+```
+
+### Exclusivity, Semantic Coherence, Heldout Likelihood, and Residual Dispersion
+
+NOTE: Running the six values of K below, and dedicating only one computer core to the task, the following takes **20 minutes** to run.
+```{r}
+system.time(
+  poliblog5k.searchK <- searchK(documents = poliblog5k.docs, 
+                     vocab = poliblog5k.voc,
+                     K = c(10,20,30,40,50,60), #specify K to try
+                     N = 500, # matches 10% default
+                     proportion = 0.5, # default
+                     heldout.seed = 1234, # optional
+                     M = 10, # default
+                     cores = 1, # default
+                     prevalence =~ rating + s(day),
+                     max.em.its = 75,
+                     data = poliblog5k.meta,
+                     init.type = "Spectral",
+                     verbose=TRUE)
+)
+```
+
+
+
+
+```{r fig.height=4, fig.width=4}
+plot(poliblog5k.searchK)
+```
+
+It's hard to argue there's a "true" $K$ in there.
