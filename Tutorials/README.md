@@ -21,8 +21,8 @@ Tutorials / Notebooks / Code
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-Classification.nb.html)
    * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-Classification.Rmd)
 * Introduction to the Structural Topic Model (R)
-   * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/Intro-STM.nb.html)
-   * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/Intro-STM.Rmd)
+   * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroSTM.nb.html)
+   * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroSTM.Rmd)
       * Requires [poliblogs2008.csv](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/poliblogs2008.csv.zip) (25M uncompressed)
       
 See also:
