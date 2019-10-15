@@ -40,11 +40,11 @@ Burt Monroe
  * Causal inference and text
   
 
-## Tutorials / Notebooks / Code
+## [Tutorials / Notebooks / Code](https://burtmonroe.github.io/TextAsDataCourse/Tutorials)
 
 ### NLP / Text as Data in R
 
- * [Introduction to quanteda (R)](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToQuanteda.nb.html)
+ * Introduction to quanteda (R)
  * Text manipulation and processing with quanteda (R)
  * Introduction to tidytext (R)
  
