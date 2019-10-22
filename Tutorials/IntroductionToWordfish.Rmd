@@ -1,0 +1,112 @@
+---
+title: "An Introduction to the Scaling with Wordfish"
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+  html_notebook:
+    code_folding: show
+    highlight: tango
+    theme: united
+    toc: yes
+---
+
+## Wordfish
+
+Wordfish is built into quanteda, so it's easy to run. We'll also compare the Wordfish output to that of a two-dimensional topic model, so we'll go ahead and load the stm package as well.
+
+```{r}
+library(quanteda)
+library(stm)
+```
+
+We'll use the example provided in the quanteda documentation, based on the speeches of 14 members of the Irish parliament on the 2010 budget.
+
+```{r}
+dfmat_irish <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
+tmod_wf <- textmodel_wordfish(dfmat_irish, dir = c(6,5))
+summary(tmod_wf)
+```
+
+There are some nice plotting functions that make visualizing the estimated ``ideal points'' and confidence intervals easy:
+
+```{r}
+textplot_scale1d(tmod_wf)
+```
+
+```{r}
+textplot_scale1d(tmod_wf, groups = docvars(dfmat_irish, "party"))
+```
+
+Those have a feature we would substantively expect. The members of the governing coalition Fianna Fáil (FF) and the Greens are at one end and the opposition parties Fine Gael (FG), Labour (LAB), and Sinn Féin (SF) are at the other, mostly grouped cleanly by party.
+
+We should also look at the *content* of this dimension estimated by Wordfish. The generic plotting device for this has a nice word highlighting feature:
+
+```{r}
+textplot_scale1d(tmod_wf, margin="features", highlighted = c("government", "global", "children", "bank", "economy", "the", "citizenship", "productivity", "deficit"))
+```
+
+That completely ignores the obvious relationship between beta and term frequency, obscuring the content. To a rough approximation, this can be corrected with part of the "Fightin Words" logic:
+
+```{r, fig.width=6, fig.height=4}
+zeta_wf <- tmod_wf$beta*sqrt(exp(tmod_wf$psi))
+names(zeta_wf) <- colnames(dfmat_irish)
+sort(zeta_wf,dec=T)[1:30]
+sort(zeta_wf,dec=F)[1:30]
+
+plot(tmod_wf$psi,zeta_wf, col=rgb(0,0,0,.5), pch=19, cex=.5)
+text(tmod_wf$psi,zeta_wf, names(zeta_wf), pos=4, cex=.6)
+```
+
+This captures more what the impact of each word here is.
+
+First, note that the most "governmenty" words are stop words, suggesting the dimension is partially based on length of document. Naturally the government talks more, as the are introducing the budget under debate.
+
+```{r}
+cor(log(rowSums(dfmat_irish)),tmod_wf$theta)
+```
+
+Second, though, it's not every stop word. The government uses "we", "our", "will", "have". The opposition uses "he", "his", "they", "not", "no".
+
+Beyond these, the government talks of its "schemes" and "investments" and "measures" and "public spending" and the growth of "jobs". The opposition puts titles and names to the "he" and "his" ... "taoiseach" (Prime minister), "deputy minister", etc., references higher abstractions like "election" and "citizenship" and people hurting from government policy, e.g., "mothers", "widows".
+
+So, in this case, Wordfish is capturing something resembling government / opposition contrasts. But it's not clear that this is based on things we care about, that this is meaningful for the parties in the "middle", or that this is meaningful for intraparty positions. And it's hopefully clear that this is *not* an ideological scaling.
+
+## Scaling with a two-topic model
+
+We've seen some indicators that a two-topic model can do a similar job. Let's try STM.
+
+```{r}
+dfmat_irish_stm <- quanteda::convert(dfmat_irish, to = "stm")
+names(dfmat_irish_stm)
+```
+
+Noting that it is cuckoo-bananas to run a topic model on 14 "documents" ...
+
+```{r}
+irish_stmfit <- stm(documents = dfmat_irish_stm$documents, 
+                     vocab = dfmat_irish_stm$vocab,
+                     K = 2,
+                     max.em.its = 75,
+                     data = dfmat_irish_stm$meta,
+                     init.type = "Spectral")
+```
+
+Let's look at those topics.
+
+```{r}
+labelTopics(irish_stmfit)
+```
+
+FREX in fact does seem to indicate similar concepts, at its extremes, to our zeta measure above, in its extremes.
+
+Note, however, that the equivalent of "positions" -- the thetas indicating topic proportion -- and they are also mostly shoved to the extremes.
+
+```{r}
+compare.df <- cbind(name=rownames(docvars(dfmat_irish)),wordfish = tmod_wf$theta, stm = irish_stmfit$theta[,2])
+compare.df
+```
+
+
+
+
