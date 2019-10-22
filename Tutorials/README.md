@@ -24,6 +24,9 @@ Tutorials / Notebooks / Code
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroSTM.nb.html)
    * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroSTM.Rmd)
       * Requires [poliblogs2008.csv](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/poliblogs2008.csv.zip) (25M uncompressed)
+* Introduction to Scaling with Wordfish (R)
+   * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroductionToWordfish.nb.html)
+   * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroductionToWordfish.Rmd)
       
 See also:
 * [Open Source Tools for Text as Data in Python](https://burtmonroe.github.io/TextAsDataCourse/Notes/PythonText/)
