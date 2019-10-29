@@ -4,7 +4,7 @@ NLP / Text as Data Frameworks in R and Python
 
 * R
    * Open Source Tools for Text as Data in R
-   * Introductino to Text Processing with Quanteda (R)
+   * Introduction to Text Processing with Quanteda (R)
       * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToQuanteda.nb.html)    
       * Notebook .Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToQuanteda.Rmd)
    * Introduction to tidytext (R)
