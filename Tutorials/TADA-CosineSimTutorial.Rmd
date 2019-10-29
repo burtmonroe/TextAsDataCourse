@@ -1,16 +1,20 @@
 ---
-title: "Text as Data Tutorial - Cosine similarity and tf-idf weighting."
+title: "Cosine Similarity and tf-idf Weighting"
+subtitle: "PLSC 597, Text as Data, Penn State"
 author: "Burt L. Monroe"
 output:
-  html_document:
-    df_print: paged
-    toc: yes
   html_notebook:
     code_folding: show
     highlight: tango
     theme: united
     toc: yes
+    df_print: paged
 ---
+# Introduction
+
+This is a brief look at how cosine similarity is calculated, how it can be used to compare documents, and the impact of tf-idf weighting.
+
+To keep things simple, we'll again use the inaugural speech corpus that comes with quanteda.
 
 If you need to, run this command to install quanteda:
 
@@ -42,11 +46,15 @@ dtm <- quanteda::dfm(corp,
                                  ngrams = 1)                   # count unigrams
 ```
 
+# Cosine similarity
+
 Let's calculate the cosine similarity between documents using just counts. First, let's make a regular matrix object out of our dtm, for pedagogical purposes. (That is, it's easier to understand what's going on if we make this a "dense" matrix, but it's not something we would normally do.)
 
 ```{r}
 dtmat <- as.matrix(dtm)
 ```
+
+## The L2-norm
 
  Then let's "norm" the documents to length 1 using the L2 norm. The L2 norm is the square root of the sum of squares for each document:
 
@@ -61,6 +69,7 @@ dtmat.l2normed <- sweep(dtmat,1,l2.dtmat,"/")
 summary(rowSums(dtmat.l2normed^2))
 ```
 
+## The dot product
 
 To find the cosine similarity between any two, calculate the dot product of these vectors (multiply the two vectors element by element, and then sum those up).
 
@@ -88,6 +97,8 @@ sort(dtmat.l2normed["1961-Kennedy",]*dtmat.l2normed["1925-Coolidge",], dec=T)[1:
 ```
 
 Ahhhh! The cosine similarity is being driven by the relative use of common words ... the, of, and, to, and so on. This is arguably what we want in some applications like stylometry, where we are trying to guess authorship for example, but almost definitely not what we're after here.
+
+# Tf-idf weighting
 
 A common approach is to instead represent documents by tf-idf weighted counts of words. Quanteda has this as a built in function.
 
