@@ -14,10 +14,10 @@ NLP / Text as Data Frameworks in R and Python
    * [Open Source Tools for Text as Data in Python](https://burtmonroe.github.io/TextAsDataCourse/Notes/PythonText/)
    
    * Introduction to NLP with spaCy (Python)
-      * Notebook html: [here](https://https://burtmonroe.github.io/TextAsDataCourse/Tutorials/Introduction%20to%20NLP%20with%20spaCy.html)
+      * Notebook html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/Introduction%20to%20NLP%20with%20spaCy.html)
       
    * Introduction to NLP with textblob, nltk, and pattern (Python)
-      * Notebook html: [here](https://https://burtmonroe.github.io/TextAsDataCourse/Tutorials/Introduction%20to%20NLP%20with%20TextBlob%2C%20NLTK%2C%20and%20pattern.html)
+      * Notebook html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/Introduction%20to%20NLP%20with%20TextBlob%2C%20NLTK%2C%20and%20pattern.html)
 
 * Introduction to String Manipulation and Regular Expressions in R
     * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToTextManipulation.nb.html)
