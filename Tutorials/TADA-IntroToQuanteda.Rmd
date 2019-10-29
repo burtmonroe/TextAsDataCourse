@@ -1,14 +1,14 @@
 ---
 title: "An Introduction to Text Processing with Quanteda"
+subtitle: "PLSC 597, Text as Data, Penn State"
+author: "Burt L. Monroe"
 output:
-  html_document:
-    df_print: paged
-    toc: yes
   html_notebook:
     code_folding: show
     highlight: tango
     theme: united
     toc: yes
+    df_print: paged
 ---
 
 
