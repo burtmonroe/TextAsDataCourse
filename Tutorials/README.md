@@ -74,11 +74,9 @@ Measuring and Modeling
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-SentimentAnalysisWithLexicoder.nb.html)
    * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-SentimentAnalysisWithLexicoder.Rmd)
 
-* Introduction to Text Classification with Naive Bayes (R)
+* Introduction to Text Classification (Naive Bayes, Logistic/ridge/LASSO, Support Vector Machine, Random Forests, and ensembling) (R)
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-Classification.nb.html)
    * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-Classification.Rmd)
-
-* Text Classification with Logistic Regression, Support Vector Machines, and Random Forests
 
 * Latent Dirichlet Allocation in R (topicmodels, lda, and MALLET)
 
