@@ -1,17 +1,18 @@
 ---
-title: "Text as Data Tutorial - Introduction to Text Classification Using Naive Bayes (in R)"
+title: "Text as Data Tutorial - Introduction to Text Classification (in R)"
+subtitle: "Text as Data, PLSC 597, Penn State"
 author: "Burt L. Monroe"
 output:
-  html_document:
-    df_print: paged
-    toc: yes
   html_notebook:
     code_folding: show
     highlight: tango
     theme: united
+    df_print: paged
     toc: yes
 ---
+In this notebook we will work through a basic classification problem, using the movie reviews data set. We know the "negative" or "positive" labels for each of the movies. We'll set some of these aside for a test set and train our models on the remainder as a training set, using unigram presence or counts as the features. Then we'll evaluate the predictions quantitatively as well as look at some ways to interpret what the models tell us.
 
+We'll start with Naive Bayes, move to logistic regression and its ridge and LASSO variants, then support vector machines and finally random forests. We'll also combine the models to examine an ensemble prediction.
 
 Remove the comment and install the quanteda.corpora package from github:
 ```{r}
@@ -27,7 +28,7 @@ library(quanteda.corpora)
 library(caret)
 ```
 
-Read in the Pang and Lee dataset of 2000 movie reviews. (I think this is the same 2000 reviews you used in the dictionary exercise, but in a different order.
+We'll start with the example given in the `quanteda` documentation. Read in the Pang and Lee dataset of 2000 movie reviews. (This appears to be the same 2000 reviews you used in the dictionary exercise, but in a different order.)
 
 ```{r}
 corpus <- data_corpus_movies
@@ -49,6 +50,8 @@ dfmat_train <- corpus_subset(corpus, id_numeric %in% id_train) %>% dfm() #%>% df
 
 dfmat_test <- corpus_subset(corpus, !(id_numeric %in% id_train)) %>% dfm() #%>% dfm_weight(scheme="boolean")
 ```
+
+## Naive Bayes
 
 Naive Bayes is a built in model for quanteda, so it's easy to use:
 
@@ -75,11 +78,18 @@ Not bad, considering. Let's put some numbers on that:
 confusionMatrix(tab_class, mode="everything")
 ```
 
+Given the balance in the data among negatives and positives, "Accuracy" isn't a bad place to start. Here we have Accuracy of 81.8%.
+
 Let's do some sniff tests. What are the most positive and negative words?
+
 ```{r}
 #Most positive words
 sort(sentmod.nb$PcGw[2,],dec=T)[1:20]
+```
 
+There's reasonable stuff there: "outstanding", "seamless", "lovingly", "flawless". There's also some evidence of overfitting: "spielberg's", "winslet", "gattaca", "mulan". We'll see support for the overfitting conclusion below.
+
+```{r}
 #Most negative words
 sort(sentmod.nb$PcGw[2,],dec=F)[1:20]
 ```
@@ -117,7 +127,7 @@ head(predicted_prob)
 summary(predicted_prob)
 ```
 
-You can see there one problem with the "naive" part of naive Bayes. By taking all of the features (words) as independent, it thinks it has seen far more information than it really has, and therefore is far more confident about its predictions than is warranted.
+You can see there one problem with the "naive" part of naive Bayes. By taking all of the features (words) as independent, it thinks it has seen far more information than it really has, and is therefore far more confident about its predictions than is warranted.
 
 What's the most positive review in the test set according to this?
 
@@ -130,7 +140,9 @@ sort.list(predicted_prob[,1], dec=F)[1]
 id_test <- !((1:2000) %in% id_train)
 texts(corpus)[id_test][440]
 ```
-Looks like ``Amistad.''
+Looks like ``Amistad.'' A genuinely positive review, but note how many times "spielberg" is mentioned. The prediction is biased toward positive just because Spielberg had positive reviews in the training set. We may not want that behavior.
+
+Note also that this is a very long review.
 
 ```{r}
 # sort by *least neg* since near zero aren't rounded
@@ -161,9 +173,9 @@ So ... the model says 45% chance negative, 55% positive.
 texts(corpus)[id_test][212]
 ```
 
-``Mafia!'' A spoof movie I'd never heard of.
+A negative review of "Mafia!" a spoof movie I'd never heard of. Satire, parody, sarcasm, and similar are notoriously difficult to correctly classify, so perhaps that's what happened here.
 
-Let's look at a mistake. 
+Let's look at a clear mistake. 
 ```{r}
 sort.list(predicted_prob[1:250,1],dec=F)[1]
 ```
@@ -176,7 +188,306 @@ So ... the model says *DEFINITELY* positive.
 texts(corpus)[id_test][196]
 ```
 
-A clearly negative review of "Saving Private Ryan."
+Aha! A clearly negative review of "Saving Private Ryan."
 
-This is probably partly an "overfitting" mistake. It probably learned other "Saving Private Ryan" or "Spielberg movies" words -- it looks like "Spielberg's" was number #3 on our list above -- and learned that "reviews that talk about Saving Private Ryan are probably positive."
+This is at least partly an "overfitting" mistake. It probably learned other "Saving Private Ryan" or "Spielberg movies" words -- it looks like "Spielberg's" was number #3 on our list above -- and learned that "reviews that talk about Saving Private Ryan are probably positive."
+
+Below, I'll give brief examples of some other classification models for this data.
+
+## Logistic regression, ridge regression, LASSO, and elasticnet
+
+We'll look at three (well really only two) variants of the relatively straightforward regularized logistic regression model.
+
+
+```{r}
+library(glmnet)
+library(doMC)
+```
+
+### Ridge regression (Logistic with L2-regularization)
+
+```{r}
+registerDoMC(cores=2) # parallelize to speed up
+sentmod.ridge <- cv.glmnet(x=dfmat_train,
+                   y=docvars(dfmat_train)$Sentiment,
+                   family="binomial", 
+                   alpha=0,  # alpha = 0: ridge regression
+                   nfolds=5, # 5-fold cross-validation
+                   parallel=TRUE, 
+                   intercept=TRUE,
+                   type.measure="class")
+plot(sentmod.ridge)
+```
+
+This shows classification error as $\lambda$ (the total weight of the regularization penalty) is increased from 0.
+The minimum error is at the leftmost dotted line, about $\log(\lambda) \approx 3$. This value is stored in `lambda.min`.
+
+```{r}
+# actual_class <- docvars(dfmat_matched, "Sentiment")
+predicted_value.ridge <- predict(sentmod.ridge, newx=dfmat_matched,s="lambda.min")[,1]
+predicted_class.ridge <- rep(NA,length(predicted_value.ridge))
+predicted_class.ridge[predicted_value.ridge>0] <- "pos"
+predicted_class.ridge[predicted_value.ridge<0] <- "neg"
+tab_class.ridge <- table(actual_class,predicted_class.ridge)
+tab_class.ridge
+```
+
+Accuracy of .818, exactly as with Naive Bayes. The misses are a little more even, with it being slightly more successful in identifying positive reviews and slightly less successful in identifying negative reviews.
+
+```{r}
+confusionMatrix(tab_class.ridge, mode="everything")
+```
+
+At first blush, the coefficients should tell us what t he model learned:
+
+```{r, fig.width=7, fig.height=6}
+plot(colSums(dfmat_train),coef(sentmod.ridge)[-1,1], pch=19, col=rgb(0,0,0,.3), cex=.5, log="x", main="Ridge Regression Coefficients, IMDB", ylab="<--- Negative Reviews --- Positive Reviews --->", xlab="Total Appearances", xlim = c(1,50000))
+text(colSums(dfmat_train),coef(sentmod.ridge)[-1,1], colnames(dfmat_train),pos=4,cex=200*abs(coef(sentmod.ridge)[-1,1]), col=rgb(0,0,0,75*abs(coef(sentmod.ridge)[-1,1])))
+```
+
+That's both confusing and misleading since the variance of coefficients is largest with the most obscure terms. (And, for plotting, the 40,000+ features include some very long one-off "tokens" that overlap with more common ones, e.g., "boy-drinks-entire-bottle-of-shampoo-and-may-or-may-not-get-girl-back," "props-strategically-positioned-between-naked-actors-and-camera," and "____________________________________________")
+
+With this model, it would be more informative to look at which coefficients have the most impact when making a prediction, by having larger coefficients *and* occurring more, or alternatively to look at which coefficients we are most certain of, downweighting by the inherent error. The impact will be proportional to $log(n_w)$ and the error will be roughly proportional to $1/sqrt(n_w)$.
+
+So, impact:
+
+```{r, fig.width=7, fig.height=6}
+plot(colSums(dfmat_train),log(colSums(dfmat_train))*coef(sentmod.ridge)[-1,1], pch=19, col=rgb(0,0,0,.3), cex=.5, log="x", main="Ridge Regression Coefficients (Impact Weighted), IMDB", ylab="<--- Negative Reviews --- Positive Reviews --->", xlab="Total Appearances", xlim = c(1,50000))
+text(colSums(dfmat_train),log(colSums(dfmat_train))*coef(sentmod.ridge)[-1,1], colnames(dfmat_train),pos=4,cex=50*abs(log(colSums(dfmat_train))*coef(sentmod.ridge)[-1,1]), col=rgb(0,0,0,25*abs(log(colSums(dfmat_train))*coef(sentmod.ridge)[-1,1])))
+```
+
+Most positive and negative features by impact:
+
+```{r}
+sort(log(colSums(dfmat_train))*coef(sentmod.ridge)[-1,1],dec=T)[1:20]
+```
+
+```{r}
+sort(log(colSums(dfmat_train))*coef(sentmod.ridge)[-1,1],dec=F)[1:20]
+```
+
+Regularization and cross-validation bought us a lot more general -- less overfit -- model than we saw with Naive Bayes.
+
+Alternatively, by certainty:
+
+```{r, fig.width=7, fig.height=6}
+plot(colSums(dfmat_train),sqrt(colSums(dfmat_train))*coef(sentmod.ridge)[-1,1], pch=19, col=rgb(0,0,0,.3), cex=.5, log="x", main="Ridge Regression Coefficients (Error Weighted), IMDB", ylab="<--- Negative Reviews --- Positive Reviews --->", xlab="Total Appearances", xlim = c(1,50000))
+text(colSums(dfmat_train),sqrt(colSums(dfmat_train))*coef(sentmod.ridge)[-1,1], colnames(dfmat_train),pos=4,cex=30*abs(sqrt(colSums(dfmat_train))*coef(sentmod.ridge)[-1,1]), col=rgb(0,0,0,10*abs(sqrt(colSums(dfmat_train))*coef(sentmod.ridge)[-1,1])))
+```
+
+Most positive and negative terms:
+
+```{r}
+sort(sqrt(colSums(dfmat_train))*coef(sentmod.ridge)[-1,1],dec=T)[1:20]
+```
+
+```{r}
+sort(sqrt(colSums(dfmat_train))*coef(sentmod.ridge)[-1,1],dec=F)[1:20]
+```
+
+This view implies some would-be "stop words" are important, and these seem to make sense on inspection. For example, "as" is indicative of phrases in positive reviews comparing movies to well-known and well-liked movies, e.g., "as good as." There's not a parallel "as bad as" that is as common in negative reviews.
+
+### LASSO (Logistic with L1-regularization)
+
+Ridge regression gives you a coefficient for every feature. At the other extreme, we can use the LASSO to get some feature selection.
+
+```{r}
+registerDoMC(cores=2) # parallelize to speed up
+sentmod.lasso <- cv.glmnet(x=dfmat_train,
+                   y=docvars(dfmat_train)$Sentiment,
+                   family="binomial", 
+                   alpha=1,  # alpha = 1: LASSO
+                   nfolds=5, # 5-fold cross-validation
+                   parallel=TRUE, 
+                   intercept=TRUE,
+                   type.measure="class")
+plot(sentmod.lasso)
+```
+
+
+```{r}
+# actual_class <- docvars(dfmat_matched, "Sentiment")
+predicted_value.lasso <- predict(sentmod.lasso, newx=dfmat_matched,s="lambda.min")[,1]
+predicted_class.lasso <- rep(NA,length(predicted_value.lasso))
+predicted_class.lasso[predicted_value.lasso>0] <- "pos"
+predicted_class.lasso[predicted_value.lasso<0] <- "neg"
+tab_class.lasso <- table(actual_class,predicted_class.lasso)
+tab_class.lasso
+```
+
+This gets one more right than the others for an accuracy of .82. The pattern of misses goes further in the other direction from Naive Bayes, overpredicting positive reviews.
+
+```{r}
+confusionMatrix(tab_class.lasso, mode="everything")
+```
+
+```{r, fig.width=7, fig.height=6}
+plot(colSums(dfmat_train),coef(sentmod.lasso)[-1,1], pch=19, col=rgb(0,0,0,.3), cex=.5, log="x", main="LASSO Coefficients, IMDB", ylab="<--- Negative Reviews --- Positive Reviews --->", xlab="Total Appearances", xlim = c(1,50000))
+text(colSums(dfmat_train),coef(sentmod.lasso)[-1,1], colnames(dfmat_train),pos=4,cex=2*abs(coef(sentmod.lasso)[-1,1]), col=rgb(0,0,0,1*abs(coef(sentmod.lasso)[-1,1])))
+```
+
+As we want when we run the LASSO, the vast majority of our coefficients are zero ... most features have no influence on the predictions.
+
+It's less necessary but let's look at impact:
+
+```{r, fig.width=7, fig.height=6}
+plot(colSums(dfmat_train),log(colSums(dfmat_train))*coef(sentmod.lasso)[-1,1], pch=19, col=rgb(0,0,0,.3), cex=.5, log="x", main="LASSO Coefficients (Impact Weighted), IMDB", ylab="<--- Negative Reviews --- Positive Reviews --->", xlab="Total Appearances", xlim = c(1,50000))
+text(colSums(dfmat_train),log(colSums(dfmat_train))*coef(sentmod.lasso)[-1,1], colnames(dfmat_train),pos=4,cex=.8*abs(log(colSums(dfmat_train))*coef(sentmod.lasso)[-1,1]), col=rgb(0,0,0,.25*abs(log(colSums(dfmat_train))*coef(sentmod.lasso)[-1,1])))
+```
+
+Most positive and negative features by impact:
+
+```{r}
+sort(log(colSums(dfmat_train))*coef(sentmod.lasso)[-1,1],dec=T)[1:20]
+```
+
+Interestingly, there are a few there that would be negative indicators in most sentiment dictionaries, like "flaws" and "war".
+
+```{r}
+sort(log(colSums(dfmat_train))*coef(sentmod.lasso)[-1,1],dec=F)[1:20]
+```
+
+Both lists also have words that indicate a transition from a particular negative or positive aspect, followed by a holistic sentiment in the opposite direction. "The pace dragged at times, but *overall* it is an astonishing act of filmmaking." "The performances are tremendous, but *unfortunately* the poor writing makes this movie fall flat." 
+
+### Elastic net
+
+The elastic net estimates not just $\lambda$ (the overall amount of regularization) but also $\alpha$ (the relative weight of the L1 loss relative to the L2 loss). In R, this can also be done with the `glmnet` package. "I leave that as an exercise."
+
+## A first ensemble
+
+We've got three sets of predictions now, so why don't we try a simple ensemble in which our prediction for each review is based on a majority vote of the three. Sort of like a Rotten Tomatoes rating. They each learned slightly different things, so perhaps the whole is better than its parts.
+
+```{r}
+predicted_class.ensemble3 <- rep("neg",length(actual_class))
+num_predicted_pos3 <- 1*(predicted_class=="pos") + 1*(predicted_class.ridge=="pos") + 1*(predicted_class.lasso=="pos")
+predicted_class.ensemble3[num_predicted_pos3>1] <- "pos"
+tab_class.ensemble3 <- table(actual_class,predicted_class.ensemble3)
+tab_class.ensemble3
+```
+
+Hey, that is better! Accuracy 83.8%!
+
+```{r}
+confusionMatrix(tab_class.ensemble3, mode="everything")
+```
+
+
+## Support vector machine
+
+Without explaining SVM at all, let's try a simple one.
+
+```{r}
+library(e1071)
+```
+
+```{r}
+sentmod.svm <- svm(x=dfmat_train,
+                   y=as.factor(docvars(dfmat_train)$Sentiment),
+                   kernel="linear", 
+                   cost=10,  # arbitrary regularization cost
+                   probability=TRUE)
+```
+
+Ideally, we would tune the cost parameter via cross-validation or similar, as we did with $\lambda$ above.
+
+```{r}
+# actual_class <- docvars(dfmat_matched, "Sentiment")
+predicted_class.svm <- predict(sentmod.svm, newdata=dfmat_matched)
+tab_class.svm <- table(actual_class,predicted_class.svm)
+tab_class.svm
+```
+
+That's actually a bit better than the others, individually if not combined, with accuracy of .834, and a bias toward overpredicting positives.
+
+```{r}
+confusionMatrix(tab_class.svm, mode="everything")
+```
+
+
+For a linear kernel, we can back out interpretable coefficients. This is not true with nonlinear kernels such as the "radial basis function."
+
+```{r}
+beta.svm <- drop(t(sentmod.svm$coefs)%*%dfmat_train[sentmod.svm$index,])
+```
+
+(Note the signs are reversed from our expected pos-neg.)
+
+```{r,fig.width=7,fig.height=6}
+plot(colSums(dfmat_train),-beta.svm, pch=19, col=rgb(0,0,0,.3), cex=.5, log="x", main="Support Vector Machine Coefficients (Linear Kernel), IMDB", ylab="<--- Negative Reviews --- Positive Reviews --->", xlab="Total Appearances", xlim = c(1,50000))
+text(colSums(dfmat_train),-beta.svm, colnames(dfmat_train),pos=4,cex=10*abs(beta.svm), col=rgb(0,0,0,5*abs(beta.svm)))
+```
+
+```{r}
+sort(-beta.svm,dec=T)[1:20]
+```
+
+```{r}
+sort(-beta.svm,dec=F)[1:20]
+```
+
+Looks a bit overfit to me and I would probably increase the regularization cost in further iterations.
+
+## Random Forests
+
+```{r}
+library(randomForest)
+```
+
+Random forests is a very computationally intensive algorithm, so I will cut the number of features way way down just so this can run in a reasonable amount of time.
+
+```{r}
+dfmat.rf <- corpus %>%
+  dfm() %>%
+  dfm_trim(min_docfreq=50,max_docfreq=300,verbose=TRUE)
+```
+
+```{r}
+dfmatrix.rf <- as.matrix(dfmat.rf)
+```
+
+```{r}
+set.seed(1234)
+sentmod.rf <- randomForest(dfmatrix.rf[id_train,], 
+                   y=as.factor(docvars(dfmat.rf)$Sentiment)[id_train],
+                   xtest=dfmatrix.rf[id_test,],
+                   ytest=as.factor(docvars(dfmat.rf)$Sentiment)[id_test],
+                   importance=TRUE,
+                   mtry=20,
+                   ntree=100
+                   )
+#sentmod.rf
+```
+
+```{r}
+predicted_class.rf <- sentmod.rf$test[['predicted']]
+tab_class.rf <- table(actual_class,predicted_class.rf)
+confusionMatrix(tab_class.rf, mode="everything")
+```
+
+That did a bit worse -- Accuracy .776 -- but we did give it considerably less information.
+
+Getting marginal effects from a random forest model requires more finesse than I'm willing to apply here. We can get the "importance" of the different features, but this alone does not tell us in what direction the feature pushes the predictions.
+
+```{r,fig.height=7,fig.width=6}
+varImpPlot(sentmod.rf)
+```
+
+Some usual suspects there, but we need our brains to fill in which ones are positive and negative. Some are ambiguous ("town") and some we have seen are subtle ("overall") or likely to be misleading ("war").
+
+## Another ensemble
+
+Now we've got five, so let's ensemble those.
+
+```{r}
+  predicted_class.ensemble5 <- rep("neg",length(actual_class))
+num_predicted_pos5 <- 1*(predicted_class=="pos") + 1*(predicted_class.ridge=="pos") + 1*(predicted_class.lasso=="pos") + 
+  1*(predicted_class.svm=="pos") + 
+  1*(predicted_class.rf=="pos")
+predicted_class.ensemble5[num_predicted_pos5>2] <- "pos"
+tab_class.ensemble5 <- table(actual_class,predicted_class.ensemble5)
+tab_class.ensemble5
+confusionMatrix(tab_class.ensemble5,mode="everything")
+```
+
+And like magic, now we're up to 85.8% Accuracy in the test set.
 
