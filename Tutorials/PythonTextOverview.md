@@ -1,4 +1,4 @@
-# Open source Tools for Text as Data / NLP
+# Open Source Tools for Text as Data / NLP
 
 ## Python
 
