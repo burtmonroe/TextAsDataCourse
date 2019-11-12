@@ -92,4 +92,9 @@ Measuring and Modeling
 * Introduction to Scaling with Wordfish (R)
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroductionToWordfish.nb.html)
    * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroductionToWordfish.Rmd)
+   
+* Introduction to Deep Learning with Keras and Tensorflow in R
+   * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroductionToKerasAndTensorflowInR.nb.html)
+   * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroductionToKerasAndTensorflowInR.Rmd)
+ 
 
