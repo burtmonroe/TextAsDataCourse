@@ -94,7 +94,7 @@ Measuring and Modeling
    * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroductionToWordfish.Rmd)
    
 * Introduction to Deep Learning with Keras and Tensorflow in R
-   * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToKerasAndTensorflowInR.nb.html)
-   * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToKerasAndTensorflowInR.Rmd)
+   * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToKerasAndTensflowInR.nb.html)
+   * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToKerasAndTensflowInR.Rmd)
  
 
