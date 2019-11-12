@@ -1,0 +1,483 @@
+---
+title: "An Introduction to Keras and Tensorflow in R"
+subtitle: Text as Data, PLSC 597, Penn State
+author: Burt L. Monroe
+output:
+  html_notebook:
+    code_folding: show
+    highlight: tango
+    theme: united
+    toc: yes
+    df_print: paged
+---
+This notebook is based on tutorials, including code, from Rstudio (https://tensorflow.rstudio.com/) as well as Chollet and Allaire's [Deep Learning with R](https://www.manning.com/books/deep-learning-with-r) (2018), currently accessible free to Penn State students through the Penn State library: https://learning.oreilly.com/library/view/deep-learning-with/9781617295546/. Notebooks for the originals of *Deep Learning with R* are available here: https://github.com/jjallaire/deep-learning-with-r-notebooks.
+
+We will be implementing neural models in R through the **keras** package, which itself, by default, uses the **tensorflow** "backend." You can access TensorFlow directly -- which provides more flexibility but requires more of the user -- and you can also use different backends, specifically **CNTK** and **Theano** through keras. (The R library keras is an *interface* to Keras itself, which offers an *API* to a *backend* like TensorFlow.) Keras is generally described as "high-level" or "model-level", meaning the researcher can build models using Keras building blocks -- which is probably all most of you would ever want to do.
+
+**Warning 1**: Keras (https://keras.io) is written in Python, so (a) installing keras and tensorflow creates a Python environment on your machine (in my case, it detects Anaconda and creates a conda environment called `r-tensorflow`), and (b) much of the keras syntax is Pythonic (like 0-based indexing in some contexts), as are the often untraceable error messages.
+
+```{r}
+# devtools::install_github("rstudio/keras")
+```
+
+I used the `install_keras` function to install a default CPU-based keras and tensorflow. There are more details for alternative installations here: https://tensorflow.rstudio.com/keras/ 
+
+**Warning 2**: There is currently an error in TensorFlow that manifested in the code that follows. The fix in my case was installing the "nightly" build which also back installs Python 3.6 instead of 3.7 in a new `r-tensorflow` environment. By the time you read this, the error probably won't exist, in which case `install_keras()` should be sufficient.
+```{r}
+library(keras)
+# install_keras(tensorflow="nightly")
+```
+
+
+## Building a Deep Classifier in Keras
+
+We'll work with the IMDB review dataset that comes with keras
+
+```{r}
+imdb <- dataset_imdb(num_words = 5000)
+c(c(train_data, train_labels), c(test_data, test_labels)) %<-% imdb
+### This is equivalent to:
+# imdb <- dataset_imdb(num_words = 5000)
+# train_data <- imdb$train$x
+# train_labels <- imdb$train$y
+# test_data <- imdb$test$x
+# test_labels <- imdb$test$y
+```
+
+Look at the training data (features) and labels (positive/negative).
+
+```{r}
+str(train_data[[1]])
+
+train_labels[[1]]
+
+max(sapply(train_data, max))
+```
+
+Probably a good idea to figure out how to get back to text. Decode review 1:
+```{r}
+word_index <- dataset_imdb_word_index()
+reverse_word_index <- names(word_index)
+names(reverse_word_index) <- word_index
+decoded_review <- sapply(train_data[[1]], 
+                         function(index) {
+                           word <- if (index >= 3)
+reverse_word_index[[as.character(index - 3)]]
+                           if (!is.null(word)) word else "?"
+                           })
+decoded_review
+```
+
+Create "one-hot" vectorization of input features. (Binary indicators of presence or absence of feature - in this case word / token - in "sequence" - in this case review.)
+```{r}
+vectorize_sequences <- function(sequences, dimension = 5000) {
+  results <- matrix(0, nrow = length(sequences), ncol = dimension)
+  for (i in 1:length(sequences))
+    results[i, sequences[[i]]] <- 1 
+  results
+}
+
+x_train <- vectorize_sequences(train_data)
+x_test <- vectorize_sequences(test_data)
+
+# Also change labels from integer to numeric
+y_train <- as.numeric(train_labels)
+y_test <- as.numeric(test_labels)
+```
+
+We need a model architecture. In many cases, this can be built a simple layer building blocks from Keras. Here's a three layer network for our classification problem:
+
+```{r}
+model <- keras_model_sequential() %>%
+  layer_dense(units = 16, activation = "relu", input_shape = c(5000)) %>%
+  layer_dense(units = 16, activation = "relu") %>%
+  layer_dense(units = 1, activation = "sigmoid")
+```
+
+We need to "compile" our model by adding information about our loss function, what optimizer we wish to use, and what metrics we want to keep track of.
+
+```{r}
+model %>% compile(
+  optimizer = "rmsprop",
+  loss = "binary_crossentropy",
+  metrics = c("accuracy")
+)
+```
+
+Create a held-out set of your training data for validation.
+```{r}
+val_indices <- 1:10000 # not great practice if these are ordered
+
+x_val <- x_train[val_indices,]
+partial_x_train <- x_train[-val_indices,]
+y_val <- y_train[val_indices]
+partial_y_train <- y_train[-val_indices]
+```
+
+Fit the model, store the fit history.
+```{r}
+history <- model %>% fit(
+  partial_x_train,
+  partial_y_train,
+  epochs = 20,
+  batch_size = 512,
+  validation_data = list(x_val, y_val)
+)
+```
+
+```{r}
+str(history)
+```
+
+```{r}
+plot(history)
+```
+
+Overfitting. Fit at smaller number of epochs.
+```{r}
+model <- keras_model_sequential() %>%
+  layer_dense(units = 16, activation = "relu", input_shape = c(5000)) %>%
+  layer_dense(units = 16, activation = "relu") %>%
+  layer_dense(units = 1, activation = "sigmoid")
+
+model %>% compile(
+  optimizer = "rmsprop",
+  loss = "binary_crossentropy",
+  metrics = c("accuracy")
+)
+
+model %>% fit(x_train, y_train, epochs = 6, batch_size = 512)
+results <- model %>% evaluate(x_test, y_test)
+```
+
+In the test data, we get accuracy of 87.96% with this model.
+
+So, what happened there? What is the model learning? It learned a function that converts 5000 inputs into 16 hidden / latent / intermediate numbers, then converts those 16 into a different 16 intermediate numbers, and then those into 1 number at the output. Those intermediate functions are nonlinear, otherwise there wouldn't be any gain from stacking them together. But we can get an approximate idea of how these inputs map to the single output by treating each layer as linear and multiplying the weights through: $W^{(5000\times 1)}_{io} \approx W_{i1}^{(5000\times 16)} \times W_{12}^{(16\times 16)} \times W_{2o}^{(16\times 1)}$. Those aggregate weights can give us an approximate idea of the main effect of each input. (This will not work, generally speaking, in more complex models or contexts.)
+
+```{r}
+model.weights.approx <- (get_weights(model)[[1]] %*% get_weights(model)[[3]] %*% get_weights(model)[[5]])[,1]
+top_words <- reverse_word_index[as.character(1:5000)]
+names(model.weights.approx) <- c("<PAD>","<START>","<UNK>",top_words[1:4997])
+
+sort(model.weights.approx, dec=T)[1:20]
+
+sort(model.weights.approx, dec=F)[1:20]
+```
+
+"7" is interesting. It comes from reviews like #168, which ends like this:
+
+```{r}
+sapply(train_data[[168]],function(index) {
+  word <- if (index >= 3) reverse_word_index[[as.character(index - 3)]]
+  if (!is.null(word)) word 
+  else "?"})[201:215]
+```
+
+That means this whole thing is cheating, as far as I'm concerned. Some of the reviews end with the text summarizing the rating with a number out of 10! And then use that to "predict" whether the review is positive or negative (which is probably based on that 10 point scale rating in the first place).
+
+And we can look at these similarly to how we looked at the coefficients from the classifiers in our earlier notebook. I'll also highlight those numbers.
+
+```{r,fig.width=6,fig.height=7}
+# Plot weights
+plot(colSums(x_train),model.weights.approx, pch=19, col=rgb(0,0,0,.3), cex=.5, log="x", main="Weights Learned in Deep Model, IMDB", ylab="<--- Negative Reviews --- Positive Reviews --->", xlab="Total Appearances")
+text(colSums(x_train),model.weights.approx, names(model.weights.approx),pos=4,cex=1.5*abs(model.weights.approx), col=rgb(0,0,0,.5*abs(model.weights.approx)))
+text(colSums(x_train[,c("1","2","3","4","5","6","7","8","9")]),model.weights.approx[c("1","2","3","4","5","6","7","8","9")], names(model.weights.approx[c("1","2","3","4","5","6","7","8","9")]),pos=4,cex=1.5*model.weights.approx[c("1","2","3","4","5","6","7","8","9")], col=rgb(1,0,0,1))
+```
+
+
+### Compare to shallow logistic classifier
+
+It's worth pointing out that "deep" didn't buy us much. If we just estimate with a single sigmoid (logistic) layer, we get nearly identical results, with 87.72% accuracy.
+
+```{r}
+logistic.mod <- keras_model_sequential() %>%
+  layer_dense(units = 1, activation = "sigmoid", input_shape = c(5000))
+
+logistic.mod %>% compile(
+  optimizer = "rmsprop",
+  loss = "binary_crossentropy",
+  metrics = c("accuracy")
+)
+
+logistic.mod %>% fit(x_train, y_train, epochs = 6, batch_size = 512)
+results <- logistic.mod %>% evaluate(x_test, y_test)
+```
+
+This we can interpret directly. It's basically a ridge regression like we saw in the earlier classification notebook.
+
+
+```{r, fig.width=7, fig.height=6}
+logmod.weights <- get_weights(logistic.mod)[[1]][,1]
+top_words <- reverse_word_index[as.character(1:5000)]
+names(logmod.weights) <- c("<PAD>","<START>","<UNK>",top_words[1:4997])
+
+#Most positive words
+sort(logmod.weights,dec=T)[1:20]
+
+#Most negative words
+sort(logmod.weights,dec=F)[1:20]
+
+# Plot weights
+plot(colSums(x_train),logmod.weights, pch=19, col=rgb(0,0,0,.3), cex=.5, log="x", main="Weights Learned in Shallow Logistic Model, IMDB", ylab="<--- Negative Reviews --- Positive Reviews --->", xlab="Total Appearances")
+text(colSums(x_train),logmod.weights, names(logmod.weights),pos=4,cex=10*abs(logmod.weights), col=rgb(0,0,0,3*abs(logmod.weights)))
+```
+
+
+### Compare to Naive Bayes
+
+Just to have another comparison, let's check with Naive Bayes.
+
+```{r}
+library(quanteda)
+
+colnames(x_train) <- colnames(x_test) <-  c("<PAD>","<START>","<UNK>",top_words[1:4997])
+dfm.train <- as.dfm(x_train)
+dfm.test <- as.dfm(x_test)
+```
+
+```{r}
+nb.mod <- textmodel_nb(dfm.train, y_train, distribution = "Bernoulli")
+summary(nb.mod)
+```
+
+```{r}
+y_test.pred.nb <- predict(nb.mod, newdata=dfm.test)
+nb.class.table <- table(y_test,y_test.pred.nb)
+sum(diag(nb.class.table/sum(nb.class.table)))
+```
+
+As we might expect, that's not as good.
+
+As before, Naive Bayes overfits.
+
+```{r, fig.width=7, fig.height=6}
+
+#Most positive words
+sort(nb.mod$PcGw[2,],dec=T)[1:20]
+
+#Most negative words
+sort(nb.mod$PcGw[2,],dec=F)[1:20]
+
+# Plot weights
+plot(colSums(x_train),nb.mod$PcGw[2,], pch=19, col=rgb(0,0,0,.3), cex=.5, log="x", main="Posterior Probabilities, Naive Bayes Classifier, IMDB", ylab="<--- Negative Reviews --- Positive Reviews --->", xlab="Total Appearances")
+text(colSums(x_train),nb.mod$PcGw[2,], names(logmod.weights),pos=4,cex=5*abs(.5-nb.mod$PcGw[2,]), col=rgb(0,0,0,1.5*abs(.5-nb.mod$PcGw[2,])))
+```
+
+## Word Embeddings
+
+### Simple training of task-specific embeddings
+
+Keras has its own "embedding" that you can use as a layer (the first layer) in a model.
+
+```{r}
+max_features <- 5000
+maxlen <- 500
+imdb.s <- dataset_imdb(num_words = max_features)
+c(c(x_train.s, y_train.s), c(x_test.s, y_test.s)) %<-% imdb.s
+x_train.s <- pad_sequences(x_train.s, maxlen = maxlen)
+x_test.s <- pad_sequences(x_test.s, maxlen = maxlen)
+```
+
+```{r}
+emb.mod <- keras_model_sequential() %>%
+  layer_embedding(input_dim = max_features, output_dim = 6,  
+                  input_length = maxlen) %>%
+  layer_flatten() %>%
+  layer_dense(units = 1, activation = "sigmoid")
+emb.mod %>% compile(
+  optimizer = "rmsprop",
+  loss = "binary_crossentropy",
+  metrics = c("acc")
+)
+summary(emb.mod)
+emb.history <- emb.mod %>% fit(
+  x_train.s, y_train.s, 
+  epochs = 6,
+  batch_size = 32,
+  validation_split = 0.2
+)
+```
+
+```{r}
+emb.results <- emb.mod %>% evaluate(x_test.s, y_test.s)
+```
+
+That got us up to 88.68%, the best yet, so the embedding layer bought us something.
+
+I've never seen anybody else do this, but you can look inside the embedding weights themselves to get a sense of what's going on. For space sake, we'll just plot the embeddings of the first 500 words. 
+
+```{r, fig.width=7, fig.height=6}
+embeds.6 <- get_weights(emb.mod)[[1]]
+rownames(embeds.6) <- c("??","??","??","??",top_words[1:4996])
+colnames(embeds.6) <- paste("Dim",1:6)
+
+pairs(embeds.6[1:500,], col=rgb(0,0,0,.5),cex=.5, main="Six-dimensional Embeddings Trained in Classification Model")
+```
+
+Ahhhhh... our 6-dimensional embeddings are pretty close to one-dimensional. Why? Because they are trained for the essentially one-dimensional classification of positive-negative sentiment.
+
+We can tease this out with something like PCA:
+
+```{r, fig.width=7, fig.height=6}
+pc.emb <- princomp(embeds.6)
+
+summary(pc.emb)
+
+# Most positive words (main dimension of embeddings)
+sort(-pc.emb$scores[,1],dec=T)[1:20]
+
+# Most negative words (main dimension of embeddings)
+sort(-pc.emb$scores[,1],dec=F)[1:20]
+
+# Most positive words (2nd dimension of embeddings)
+sort(pc.emb$scores[,2],dec=T)[1:20]
+
+# Most negative words (2nd dimension of embeddings)
+sort(pc.emb$scores[,2],dec=F)[1:20]
+
+```
+
+```{r, fig.width=7, fig.height=6}
+# Plot weights
+plot(colSums(x_train),-pc.emb$scores[,1], pch=19, col=rgb(0,0,0,.3), cex=.5, log="x", main="Principal Component of Embeddings Layer", ylab="<--- Negative Reviews --- Positive Reviews --->", xlab="Total Appearances")
+text(colSums(x_train),-pc.emb$scores[,1], rownames(embeds.6),pos=4,cex=1*abs(pc.emb$scores[,1]), col=rgb(0,0,0,.4*abs(pc.emb$scores[,1])))
+```
+
+This first embedding dimension is very similar to the weights we learned in the shallow logistic network:
+
+```{r}
+cor(logmod.weights[3:4999],-pc.emb$scores[4:5000,1])
+```
+
+The second dimension captures *something* ... perhaps in more nuanced criticism ... that acted as a subtle bit of extra information for our classifier that provided some slight improvement in perforamce. In effect, by letting the model learn six numbers per word instead of one, we gave it the opportunity to learn some more subtle characteristics of review sentiment. 
+
+```{r, fig.width=7, fig.height=6}
+# Plot weights
+plot(colSums(x_train),pc.emb$scores[,2], pch=19, col=rgb(0,0,0,.3), cex=.5, log="x", main="Second Principal Component of Embeddings Layer", ylab="<--- Negative Reviews --- Positive Reviews --->", xlab="Total Appearances")
+text(colSums(x_train),pc.emb$scores[,2], rownames(embeds.6),pos=4,cex=10*abs(pc.emb$scores[,2]), col=rgb(0,0,0,3*abs(pc.emb$scores[,2])))
+```
+
+### Using pretrained embeddings in classifier
+
+The commented out code assumes you have downloaded the 822M zip file `glove.6B.zip` from https://nlp.stanford.edu/projects/glove/ and unzipped the folder (more than 2G). It then reads in the smallest file -- defining 50 dimensional embeddings for 400000 tokens -- 171M, and then creates `embedding_matrix` of 5000 x 50 for the 5000 top words in the imdb data (a 1.9M object).
+
+I have included this object in an rds file, and the `readRDS` command reads in this object directly.
+
+```{r}
+# glove_dir <- "../Embeddings/glove.6B"
+# lines <- readLines(file.path(glove_dir, "glove.6B.50d.txt"))
+
+# embeddings_index <- new.env(hash = TRUE, parent = emptyenv())
+# for (i in 1:length(lines)) {
+#   line <- lines[[i]]
+#   values <- strsplit(line, " ")[[1]]
+#   word <- values[[1]]
+#   embeddings_index[[word]] <- as.double(values[-1])
+# }
+# cat("Found", length(embeddings_index), "word vectors.\n")
+
+max_words=5000
+
+embedding_dim <- 50
+# embedding_matrix <- array(0, c(max_words, embedding_dim))
+# for (word in names(word_index)) {
+#   index <- word_index[[word]]
+#   if (index < max_words) {
+#     embedding_vector <- embeddings_index[[word]]
+#     if (!is.null(embedding_vector))
+#       embedding_matrix[index+1,] <- embedding_vector
+#     }
+# }
+
+# saveRDS(embedding_matrix, file="glove_imdb_example.rds")
+```
+
+```{r}
+embedding_matrix <- readRDS("glove_imdb_example.rds")
+```
+
+```{r}
+glove.mod <- keras_model_sequential() %>%
+  layer_embedding(input_dim = max_words, output_dim = embedding_dim,
+                  input_length = maxlen) %>%
+  layer_flatten() %>%
+  layer_dense(units = 1, activation = "sigmoid")
+summary(glove.mod)
+
+get_layer(glove.mod, index = 1) %>%
+  set_weights(list(embedding_matrix)) %>%
+  freeze_weights()
+
+glove.mod %>% compile(
+  optimizer = "rmsprop",
+  loss = "binary_crossentropy",
+  metrics = c("acc")
+)
+
+glove.history <- glove.mod %>% fit(
+  x_train.s, y_train.s, 
+  epochs = 6,
+  batch_size = 32,
+  validation_split = 0.2
+)
+
+plot(glove.history)
+```
+
+```{r}
+glove.results <- glove.mod %>% evaluate(x_test.s, y_test.s)
+```
+
+Accuracy of 55% Pretty bad. These GloVe embeddings are trained on Wikipedia and the Gigaword corpus. The 50 most important dimensions, relating words to a narrow window of surrounding words, of this very general language set of corpora, are nowhere near as useful as the six (or even one) most important dimension(s) relating words to sentiment within our training data.
+
+To get an idea what's going on ...
+
+```{r}
+library(text2vec)
+
+find_similar_words <- function(word, embedding_matrix, n = 5) {
+  similarities <- embedding_matrix[word, , drop = FALSE] %>%
+    sim2(embedding_matrix, y = ., method = "cosine")
+  
+  similarities[,1] %>% sort(decreasing = TRUE) %>% head(n)
+}
+```
+
+The concept embodied by a word in this review context, e.g., "waste":
+```{r}
+find_similar_words("waste", embeds.6, n=10)
+```
+
+may not be at all what's captured about the word in the GloVe embeddings:
+
+```{r}
+rownames(embedding_matrix) <- c("?",top_words[1:4999])
+find_similar_words("waste", embedding_matrix, n=10)
+```
+
+Or "gem":
+```{r}
+find_similar_words("gem", embeds.6, n=10)
+
+find_similar_words("gem", embedding_matrix, n=10)
+```
+
+Or "wooden":
+```{r}
+find_similar_words("wooden", embeds.6, n=10)
+find_similar_words("wooden", embedding_matrix, n=10)
+```
+
+Or "moving":
+```{r}
+find_similar_words("moving", embeds.6, n=10)
+find_similar_words("moving", embedding_matrix, n=10)
+```
+
+
+In other contexts, pretrained embeddings can be very useful. But not, it appears, this one, at least without further tweaking. A reasonable approach might use pretrained embeddings as a starting point, and allow them to move based on the data from your specific context.
+
+OK, that's enough for now.
+
+
+
