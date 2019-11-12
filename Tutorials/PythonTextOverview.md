@@ -4,14 +4,17 @@
 
 ### Python generics
 
-  * I strongly recommend the Anaconda distribution and Conda package manager.
+  * Anaconda and conda - I strongly recommend the Anaconda distribution and Conda package manager.
+  * Google Colab - You can also use Google Colab as a free place to develop and share Python code in notebook form. This is especially useful as a free way to access GPU or TPU computing, which is necessary for neural network modeling of moderate complexity.
   * For the most part, if you are learning Python new, you should be working in Python 3, at this writing 3.6+. But be aware a great deal has been written in Python 2, typically 2.7, and there are important differences. In addition to some general syntax differences, the main issue in text analysis is the handling of encoding (e.g., UTF-8).
   * You should also learn how to set up "environments" for particular combinations of Python version and packages. This can aid replicability and help with trying different packages without breaking something else that is working.
   * The "NumPy stack" - the basic libraries for numerical computing, scientific computing, and data science in Python. Automatically installed with Anaconda.
   ..* NumPy - provides array / matrix objects and modules for operations on them. (see also Numba - turns NumPy and related code into machine code for much faster processing.) (see also CuPy, a NumPy alternative with NVIDIA CUDA acceleration.)(see also PyTorch, discussed below)
   ..* SciPy ("Sigh Pie") - scientific computing ... linear algebra, optimization, integration, signal processing
   ..* pandas - DataFrame tabular objects and manipulations (file i/o, reshaping data, split-apply-combine); time series and econometrics models. (see also Dask - parallel computing; "Big Data" objects extending NumPy, pandas objects; workflow manager)
-  ..* matplotlib - plotting / graphics. Other visualization libraries, installed with Anaconda, include Bokeh (interactive, for browsers), Datashader (for big data), HoloViews (high level front end to matplotlib, Bokeh, etc can also use Datashader), GeoViews (for geographic data). These and others are incorporated in the "PyViz ecosystem" project supported by Anaconda.
+  ..* matplotlib - plotting / graphics. 
+  ....* seaborn - matplot extension for statistical graphics (much more R-like)
+  ....* Other visualization libraries, installed with Anaconda, include Bokeh (interactive, for browsers), Datashader (for big data), HoloViews (high level front end to matplotlib, Bokeh, etc can also use Datashader), GeoViews (for geographic data). These and others are incorporated in the "PyViz ecosystem" project supported by Anaconda.
   ..* SymPy - symbolic computation (algebra, calculus). (Not generally used in text / NLP work.)
   * Cython - technically its own language. A mix of Python and C. Produces Python modules that are implemented in C/C++, and so are much faster. SpaCy, for example, is written in Cython, as are many parts of SciPy, pandas, and scikit-learn.
 
