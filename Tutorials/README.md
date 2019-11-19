@@ -121,4 +121,14 @@ Measuring and Modeling
    * In the weeds with RNN options (including LSTMs, bi-LSTMs, and GRUs) in Keras. Example here is not NLP/text, but image (MNIST).
    * Notebook .ipynb: [here](https://www.tensorflow.org/guide/keras/rnn)
  
+* Unvetted 3rd party ELMo tutorials
+   * https://github.com/UKPLab/elmo-bilstm-cnn-crf/blob/master/Keras_ELMo_Tutorial.ipynb (Keras/IMDB)
+   * https://github.com/TheShadow29/ALNLP-Notes/blob/master/notebooks/Using-Elmo.ipynb
+   * https://colab.research.google.com/drive/13f6dKakC-0yO6_DxqSqo0Kl41KMHT8A1)
+   
+* Unvetted ULMFit tutorials
+   * https://medium.com/technonerds/using-fastais-ulmfit-to-make-a-state-of-the-art-multi-label-text-classifier-bf54e2943e83
+   * https://towardsdatascience.com/transfer-learning-in-nlp-for-tweet-stance-classification-8ab014da8dde
+
+* (3rd party notebook) 
 
