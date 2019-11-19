@@ -93,8 +93,32 @@ Measuring and Modeling
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroductionToWordfish.nb.html)
    * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroductionToWordfish.Rmd)
    
-* Introduction to Deep Learning with Keras and Tensorflow in R
+* (3rd party demo) [Interactive Demo, (Feedforward) Neural Networks (Daniel Smilkov and Shan Carter, TensorFlow](https://playground.tensorflow.org/)
+
+* Introduction to Deep Learning with Keras and TensorFlow in R
+   * Builds deep and shallow feed-forward ANN models for classification of IMDB data. Discusses interpretation. Compares to classic classifiers. Adds embedding layer with embeddings learned during estimation. Adds pretrained (GloVe) embeddings.
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToKerasAndTensflowInR.nb.html)
    * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToKerasAndTensflowInR.Rmd)
+
+* (3rd party notebook) Learned Word Embeddings and Text Classification in Keras and TensorFlow in Python / Google Colab (TensorFlow Tutorial)
+   * Explains word embeddings. Builds deep ANN classifier for IMDB data using learned embeddings layer. Provides embeddings visualization.
+   * Notebook .ipynb: [here](https://www.tensorflow.org/tutorials/text/word_embeddings)
+
+* (3rd party notebook) Text Classification with Keras and TensorFlow in Python / Google Colab (TensorFlow Hub Authors)
+   * Builds basic ANN classifier for IMDB data using pretrained Swivel embeddings from TensorFlow HUB.
+   * Notebook .ipynb: [here](https://colab.research.google.com/github/tensorflow/hub/blob/master/examples/colab/tf2_text_classification.ipynb)
+
+* (3rd party notebook) Recurrent Neural Network (LSTM) in Keras and TensorFlow (Python / Google Colab)
+   * Bulids deep LSTM classifier for IMDB data.
+   * Notebook .ipynb: [here](https://colab.research.google.com/github/markwest1972/LSTM-Example-Google-Colaboratory/blob/master/LSTM_IMDB_Sentiment_Example.ipynb)
+   * Accompanying blogpost: [Explaining Recurrent Neural Networks, Mark West (2019)](https://www.bouvet.no/bouvet-deler/explaining-recurrent-neural-networks)
+
+* (3rd party notebook) Recurrent Neural Networks (bi-LSTM) in Keras and TensorFlow in Python / Google Colab (TensorFlow tutorial)
+   * Builds shallow and deep / stacked bi-LSTM classifier for IMDB data.
+   * Notebook .ipynb: [here](https://www.tensorflow.org/tutorials/text/text_classification_rnn)
+
+* (3rd party notebook) Keras Recurrent Neural Networks Guide in Python / Google Colab (TensorFlow guide)
+   * In the weeds with RNN options (including LSTMs, bi-LSTMs, and GRUs) in Keras. Example here is not NLP/text, but image (MNIST).
+   * Notebook .ipynb: [here](https://www.tensorflow.org/guide/keras/rnn)
  
 
