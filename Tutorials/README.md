@@ -109,7 +109,7 @@ Measuring and Modeling
    * Notebook .ipynb: [here](https://colab.research.google.com/github/tensorflow/hub/blob/master/examples/colab/tf2_text_classification.ipynb)
 
 * (3rd party notebook) Recurrent Neural Network (LSTM) in Keras and TensorFlow (Python / Google Colab)
-   * Bulids deep LSTM classifier for IMDB data.
+   * Builds deep LSTM classifier for IMDB data.
    * Notebook .ipynb: [here](https://colab.research.google.com/github/markwest1972/LSTM-Example-Google-Colaboratory/blob/master/LSTM_IMDB_Sentiment_Example.ipynb)
    * Accompanying blogpost: [Explaining Recurrent Neural Networks, Mark West (2019)](https://www.bouvet.no/bouvet-deler/explaining-recurrent-neural-networks)
 
@@ -126,9 +126,7 @@ Measuring and Modeling
    * https://github.com/TheShadow29/ALNLP-Notes/blob/master/notebooks/Using-Elmo.ipynb
    * https://colab.research.google.com/drive/13f6dKakC-0yO6_DxqSqo0Kl41KMHT8A1)
    
-* Unvetted ULMFit tutorials
+* Unvetted 3rd party ULMFiT tutorials
    * https://medium.com/technonerds/using-fastais-ulmfit-to-make-a-state-of-the-art-multi-label-text-classifier-bf54e2943e83
    * https://towardsdatascience.com/transfer-learning-in-nlp-for-tweet-stance-classification-8ab014da8dde
-
-* (3rd party notebook) 
 
