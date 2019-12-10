@@ -94,8 +94,8 @@ Measuring and Modeling
 * Topic models and unsupervised learning with gensim (Python)
 
 * Code for Fightin Words and Demo (R)
-   * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-FightinWords.nb.html)
-   * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-FightinWords.Rmd)
+   * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA - FightinWords.nb.html)
+   * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA - FightinWords.Rmd)
    
 * Introduction to Scaling with Wordfish (R)
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroductionToWordfish.nb.html)
