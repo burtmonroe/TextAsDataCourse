@@ -55,6 +55,9 @@ Scraping and Data Wrangling:
 * Scraping with Selenium (Python)
 
 * Dealing with PDFs (pdftools, tabulizer, and textreadr in R; xpdf/pdftotext in Unix; PyPDF2/PyPDF4, PDFQuery/Slate/PDFminer, xpdf, and tabula-py in Python)
+   * R Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-PDFs.nb.html)
+   * R Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-PDFs.Rmd)
+
 
 * Dealing with .doc, .docx, .rtf files (textreadr in R; python-docx and python-docx2txt in Python)
 
@@ -130,3 +133,5 @@ Measuring and Modeling
    * https://medium.com/technonerds/using-fastais-ulmfit-to-make-a-state-of-the-art-multi-label-text-classifier-bf54e2943e83
    * https://towardsdatascience.com/transfer-learning-in-nlp-for-tweet-stance-classification-8ab014da8dde
 
+* Demonstration --- Building a Classifier with BERT (Python / Google Colab / Simple Transformers / PyTorch)
+   * Colab notebook: [here](https://colab.research.google.com/drive/1JKQj-DWHLv_vBdF3VypAIEC6npULOFGy)
