@@ -83,7 +83,8 @@ Measuring and Modeling
 
 * Latent Dirichlet Allocation in R (topicmodels, lda, and MALLET)
 
-* Latent Dirichlet Allocation in Python (lda)
+* Latent Dirichlet Allocation in Python's "lda" package. (See also gensim)
+   * Colab notebook: [here](https://colab.research.google.com/drive/1i7DdjegYt4kJqU2fv9-e00qCrbAtEpt2)
 
 * Introduction to the Structural Topic Model (R)
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroSTM.nb.html)
