@@ -1,0 +1,191 @@
+---
+title: "Dealing with PDFs"
+subtitle: "PLSC 597, Text as Data, Penn State"
+author: "Burt L. Monroe"
+output:
+  html_notebook:
+    df_print: paged
+    code_folding: show
+    highlight: tango
+    theme: united
+    toc: yes
+---
+
+# PDFS in R
+
+Our first example will be the pdf in the file "PDFexamples/N1343969.pdf," which is a four page U.N. document your browser hopefully displays here:
+
+<!-- ```{r, out.width="8.5in", include=TRUE, fig.align="center", fig.cap=c("Page 1"), echo=FALSE}
+knitr::include_graphics("PDFexamples/N1343969.pdf")
+``` -->
+
+![Our first example pdf](PDFexamples/N1343969.pdf)
+
+<!-- \begin{center} <br> -->
+<!-- \includegraphics[width=8in,page=1]{PDFexamples/N1343969.pdf} <br> -->
+<!-- \end{center} -->
+
+
+## pdftools package
+
+```{r}
+library(pdftools)
+```
+
+The key command is `pdf_text`.
+
+```{r}
+pdffilename <- "PDFexamples/N1343969.pdf"
+text_pdftools <- pdf_text(pdffilename)
+```
+
+This gives us a vector of strings, one per page. To look at page 2, you look at the second item in the vector:
+
+```{r}
+options(width=150)
+text_pdftools[2]
+```
+
+Let's split that on the newline character and look at a few:
+
+```{r}
+library(stringr)
+text_pdftools_2_lines <- str_split(text_pdftools[2],"\\n")[[1]]
+text_pdftools_2_lines[1:10]
+```
+
+This seems to get all of the text out, top to bottom -- including headers, page numbers, and "Please recycle" at the end of page 1.
+
+## tabulizer package
+
+Let's try the tabulizer package.
+
+```{r}
+library(tabulizer)
+```
+
+We can try the `extract_text` command:
+
+```{r}
+text_tabulizer <- extract_text(pdffilename)
+text_tabulizer
+```
+
+That returns ONE BIG STRING for the whole document. To get page 2, you would have to do something like extract the substring between the first and second instance of the header.
+
+We get less horizontal white space than with pdftools. Note that the page numbers now appear near the beginning of each page, and the "Please recycle" is in the 8th (??) line of page 1. So that's going to be tricky to notice and get rid of.
+
+Tabulizer is most useful when extracting a table from a pdf.
+
+## textreadr
+
+Let's try textreadr, part of the tidyverse.
+
+```{r}
+library(textreadr)
+```
+
+```{r}
+text_textreader_pdf <- read_pdf(pdffilename)
+```
+
+This comes out as a dataframe, one row per page:
+
+```{r}
+text_textreader_pdf
+```
+
+This is, however, just a wrapper for pdf_text of pdftools, so the text is identical. So, with slightly different syntax, we can extract the same 10 lines of page 2 as we did with pdftools.
+
+```{r}
+str_split(text_textreader_pdf$text[2],"\\n")[[1]][1:10]
+```
+
+## xpdf and pdftotext
+
+If you're on a unix-based system, you can install a standalone utility called `xpdf` which comes with my favorite tool for this purpose, `pdftotext`.
+
+```{bash}
+cd PDFexamples
+pdftotext N1343969.pdf N1343969_straight.txt
+pdftotext -raw N1343969.pdf N1343969_raw.txt
+pdftotext -layout N1343969.pdf N1343969_lo.txt
+pdftotext -f 2 -l 3 N1343969.pdf N1343969_pp23.txt
+
+pdftotext -x 72 -y 72 -W 468 -H 648 -f 2 -l 2 N1343969.pdf N1343969_crop.txt
+
+cd ..
+```
+
+With no option flags (`pdftotext N1343969.pdf N1343969_straight.txt`) pdftotext returns:
+
+```{r}
+straighttext <- readLines("PDFexamples/N1343969_straight.txt")
+straighttext
+```
+
+The `-raw` option flag provides the text in the order it appears in the "content stream" of the pdf file ... in other words, not necessarily in the order a human entered them or that you would read them. This may be useful, but probably not. In any case, with `pdftotext -raw N1343969.pdf N1343969_raw.txt` you get slightly different output, especially with regard to the headers and footers:
+
+```{r}
+rawtext <- readLines("PDFexamples/N1343969_raw.txt")
+rawtext
+```
+
+The `-layout` option tries to mimic, with whitespace, the layout on the page. So `pdftotext -layout N1343969.pdf N1343969_lo.txt` returns:
+
+```{r}
+layouttext <- readLines("PDFexamples/N1343969_lo.txt")
+layouttext
+```
+
+You can add the `-f` and `-l` flags to any of the above to specify a page range. So, to get the "straight" text for just pages 2 and 3, you use `pdftotext -f 2 -l 3 N1343969.pdf N1343969_pp23.txt`:
+
+```{r}
+pages2and3 <- readLines("PDFexamples/N1343969_pp23.txt")
+pages2and3
+```
+
+If you want just a section of a page (or all pages), you can "crop" by setting the starting location "x" and "y", in XX from the upper left of the page, and defining a box of width "W" and height "H". So, to get page 2 with the margins, header, and footer (page number) removed, you could use `pdftotext -x 72 -y 72 -W 468 -H 648 -f 2 -l 2 N1343969.pdf N1343969_crop.txt`:
+
+```{r}
+croppedtext <- readLines("PDFexamples/N1343969_crop.txt")
+croppedtext
+```
+
+## A messier example
+
+Consider this page from the archived French National Assembly, which has been OCR'd.
+
+![A messier example](PDFexamples/FranceNA1994-10-28-1.046-page13.pdf)
+
+```{bash}
+cd PDFexamples
+pdftotext FranceNA1994-10-28-1.046-page13.pdf France_straight.txt
+cd ..
+```
+
+```{r}
+FranceStraight <- readLines("PDFexamples/France_straight.txt")
+FranceStraight
+```
+
+OCR errors aside, that did better than I expected. Note that this example has hyphenated words and pdftotext sews them together, e.g. "rudiments" on line 15 and "ignorance" on line 18.
+
+It looks like it got the columns right, but it can often be hard to detect whether this is correct across a whole document or set of documents.
+
+If we want to be sure we pick out a column at a time, we can use the cropping option. With a little trial and error, this seems to come close:
+
+```{bash}
+cd PDFexamples
+pdftotext -x 30 -y 30 -W 240 -H 740 FranceNA1994-10-28-1.046-page13.pdf France_crop.txt
+cd ..
+```
+
+```{r}
+FranceCropCol1 <- readLines("PDFexamples/France_crop.txt")
+FranceCropCol1
+```
+
+Note there's a little bit of extra junk. I don't know where the "j" in line 32 comes from, for starters.
+
+And those OCR errors. Proceed with this type of document with extreme caution.
