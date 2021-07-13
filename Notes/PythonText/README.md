@@ -18,13 +18,9 @@
 
 ### NLP & text modeling
 
-See the tutorial list for a notebook with an overview to these tools.
-
 #### spaCy - https://spacy.io
-  * There is a spaCy overview notebook here: XX.
-  * Partially ported to R through spacyr. Accessing spaCy in R through spacyr and reticulate is covered here: XX.
-  * spaCy is arguably the default tool for NLP tasks like part of speech tagging and dependency parsing, especially in industry.
-  * "Industrial Strength Natural Language Processing."
+  * "Industrial Strength Natural Language Processing." spaCy is arguably the default tool for NLP tasks like part of speech tagging and dependency parsing, especially in industry. (Although one 2020 survey indicates SparkNLP is more widely used: https://gradientflow.com/2020nlpsurvey/)
+  * Partially ported to R through spacyr.
   * Faster than NLTK for most tasks. Scales. Under active development / large community.
   * NLP: tokenization, named entity recognition, POS tagging, dependency parsing, syntax-driven sentence segmentation, pretrained word embeddings. Models for 17 languages as of this writing. Models are based on convolutional neural nets.
   * Interoperates with numpy and AI/machine learning incl deep learning (TensorFlow, PyTorch, scikit-learn, Gensim)
@@ -32,6 +28,7 @@ See the tutorial list for a notebook with an overview to these tools.
   * Good if you want optimized model for established task. Less good for research on different models. Less flexible than NLTK.
   * Faster than UDPipe, but fewer languages and tends to be a bit less accurate than UDPipe. Stanza authors claim it is less accurate than Stanza.
   * Extensions: Thinc, sense2vec, displaCy
+  * (I have used spaCy in several recent projects.)
 
 #### NLTK (Natural Language Toolkit) - http://www.nltk.org
   * Most established NLP library. Lots of tools for lots of NLP tasks in lots of languages. Much easier to tweak / modify / extend than spaCy. Large user community, lots of examples, etc.
@@ -39,6 +36,7 @@ See the tutorial list for a notebook with an overview to these tools.
   * Classification, tokenization, stemming, tagging, parsing, semantic reasoning.
   * Interfaces to "over 50 corpora and lexical resources such as WordNet."
   * FREE BOOK: Steven Bird, Ewan Klein, and Edward Loper. "Natural Language Processing with Python -- Analyzing Text with the Natural Language Toolkit" updated for Python 3 and NLTK3: http://www.nltk.org/book.
+  * (I used NLTK in several of my older projects.)
 
 #### Stanza (formerly StanfordNLP) - https://stanfordnlp.github.io/stanza/
   * Stanford NLP Group's "Python NLP Package for Many Human Languages."
@@ -48,45 +46,77 @@ See the tutorial list for a notebook with an overview to these tools.
   * Also includes interface for (Java) Stanford CoreNLP.
   * Reference: Peng Qi, Yuhao Zhang, Yuhui Zhang, Jason Bolton and Christopher D. Manning. 2020. Stanza: A Python Natural Language Processing Toolkit for Many Human Languages. In Association for Computational Linguistics (ACL) System Demonstrations.
 
+#### Stanford CoreNLP - https://stanfordnlp.github.io/CoreNLP/ See Stanza.
+  * Widely used, but now more or less subsumed by Stanza, especially for Python users.
+
 #### UDPipe (https://ufal.mff.cuni.cz/udpipe)
   * Trainable "language-agnostic" pipeline for tokenizing, tagging, lemmatizing, and dependency parsing.
-  * Slower than spaCy but generally better accuracy. Has the most languages available of any general NLP tool here.
+  * Slower than spaCy but generally better accuracy. Has the most languages available of any general NLP tool here (except perhaps Polyglot, which is narrower in focus).
   * Focused on Universal Dependencies formalism -- https://universaldependencies.org/ -- and ConLL-U formatted files/data.
   * UDPipe 1 is in C++ with Python bindings available, UDPipe 2 is a Python prototype. (Native access through R is available through R library udpipe). (UDPipe can be slotted into spaCy with the package spacy-udpipe.)
   * 94 models of 61 languages, each consisting of a tokenizer, tagger, lemmatizer and dependency parser,
   * References: 
     * (Straka et al. 2017) Milan Straka and Jana Straková. Tokenizing, POS Tagging, Lemmatizing and Parsing UD 2.0 with UDPipe. In Proceedings of the CoNLL 2017 Shared Task: Multilingual Parsing from Raw Text to Universal Dependencies, Vancouver, Canada, August 2017.
     * (Straka et al. 2016) Straka Milan, Hajič Jan, Straková Jana. UDPipe: Trainable Pipeline for Processing CoNLL-U Files Performing Tokenization, Morphological Analysis, POS Tagging and Parsing. In Proceedings of the Tenth International Conference on Language Resources and Evaluation (LREC 2016), Portorož, Slovenia, May 2016.
+    * (Clair Kelling and I used UDPipe in Kelling and Monroe 2021.)
+
+#### Apache OpenNLP (https://opennlp.apache.org/)
+  * "a machine learning based toolkit for the processing of natural language text."
+  * "OpenNLP supports the most common NLP tasks, such as tokenization, sentence segmentation, part-of-speech tagging, named entity extraction, chunking, parsing, language detection and coreference resolution."
+  * A well-established part of the Apache open-source (Java) ecosystem. 
+  * Perhaps because of it being around since 2011 and being based in Java, openNLP is a little bit more opaque to the social science text as data community and not widely used to my knowledge.
+  * There is a Python wrapper available: https://github.com/curzona/opennlp-python. (There is also an R wrapper, demonstrated in the R NLP tools tutorial.)
+
+#### Flair - https://github.com/flairNLP/flair
+  * "A powerful NLP library. Flair allows you to apply our state-of-the-art natural language processing (NLP) models to your text, such as named entity recognition (NER), part-of-speech tagging (PoS), special support for biomedical data, sense disambiguation and classification, with support for a rapidly growing number of languages."
+  * "A text embedding library. Flair has simple interfaces that allow you to use and combine different word and document embeddings, including our proposed Flair embeddings, BERT embeddings and ELMo embeddings."
+  * "A PyTorch NLP framework. Our framework builds directly on PyTorch, making it easy to train your own models and experiment with new approaches using Flair embeddings and classes."
+  * Most models hosted by HuggingFace.
+  * Reference: Alan Akbik, Duncan Blythe, and Roland Vollgraf. 2018. "Contextual String Embeddings for Sequence Labeling." COLING 2018, 27th International Conference on Computational Linguistics. pp: 1638--1649.
+
+#### AllenNLP - https://github.com/allenai/allennlp https://guide.allennlp.org/
+  * "AllenNLP is an open source library for building deep learning models for natural language processing, developed by the Allen Institute for Artificial Intelligence. It is built on top of PyTorch and is designed to support researchers, engineers, students, etc., who wish to build high quality deep NLP models with ease. It provides high-level abstractions and APIs for common components and models in modern NLP. It also provides an extensible framework that makes it easy to run and manage NLP experiments."
+  * Indicated as the third most used NLP library in industry in 2020 survey.
 
 #### fastText - https://fasttext.cc
   * "Scalable solutions for text representation and classification." Open-source by Facebook AI Research (FAIR) lab.
-  * We are using components of this in our multilingual work.
+  * One of the most efficient tools for calculation of word vectors / embeddings. 
+  * (Mitch Goist and I used this in Goist and Monroe 2020.)
+
+#### gensim - https://radimrehurek.com/gensim
+  * "Topic modelling for humans"
+  * Good for unsupervised NLP tasks (e.g., LDA, LSA/LSI, SVD/NMF, fastText, word2vec, doc2vec). Fast tf-idf and random projections. Fast similarity queries. Parallelized; scales / streams well. Integrates well with neural nets / deep learning. Integrates with NumPy and SciPy.
+  * Doesn't really do NLP per se ... pair with, e.g., SpaCy or NLTK.
+  * Tutorials and notebooks: https://radimrehurek.com/gensim/tutorial.html
+
+#### transformers (and related HuggingFace resources)
+  * Hugging Face is an NLP startup which states "We’re on a journey to advance and democratize NLP for everyone. Along the way, we contribute to the development of technology for the better."
+  * Hugging Face is perhaps best known as the source of the transformers package, which as of this writing contains 30 pretrained models in over 100 languages and eight major transformer-based neural language understanding architectures: BERT, GPT, GPT-2, Transformer-XL, XLNet, XLM, RoBERTa, and DistilBERT. This is pound-for-pound the coolest NLP stuff you can do with a few lines of code.
+  * Hugging Face also has a "datasets" package with over 1000 text/NLP datasets.
+  * Models and datasets are available a the Hugging Face "hub": https://huggingface.co/models, https://huggingface.co/datasets.
+  * (Sam Bestvater and I used the transformers library to implement BERT in Bestvater and Monroe 2021.)
+
+#### SparkNLP - https://nlp.johnsnowlabs.com/
+  * Spark NLP is built on top of "Spark," an ecosystem for large scale distributed data management and analysis.
+  * From wikipedia: "Spark NLP is an open-source text processing library for advanced natural language processing for the Python, Java and Scala programming languages. The library is built on top of Apache Spark and its Spark ML library. Its purpose is to provide an API for natural language processing pipelines that implements recent academic research results as production-grade, scalable, and trainable software. The library offers pre-trained neural network models, pipelines, and embeddings, as well as support for training custom models."
+  * Annotators include: "tokenizer, normalizer, stemming, lemmatizer, regular expression, TextMatcher, chunker, DateMatcher, SentenceDetector, DeepSentenceDetector, POS tagger, ViveknSentimentDetector, sentiment analysis, named entity recognition, conditional random field annotator, deep learning annotator, spell checking and correction, dependency parser, typed dependency parser, document classification, and language detection."
+  * The SparkNLP "Models Hub" includes "pre-trained pipelines with tokenization, lemmatization, part-of-speech tagging, and named entity recognition exist for more than thirteen languages; word embeddings including GloVe, ELMo, BERT, ALBERT, XLNet, Small BERT, and ELECTRA; sentence embeddings including Universal Sentence Embeddings (USE) and Language Agnostic BERT Sentence Embeddings (LaBSE)."
+  * Also Spark OCR. From Wikipedia: "Spark OCR is another  extension of Spark NLP for optical character recognition (OCR) from images, scanned PDF documents, and DICOM files.  It provides several image pre-processing features for improving text recognition results such as adaptive thresholding and denoising, skew detection & correction, adaptive scaling, layout analysis and region detection, image cropping, removing background objects. Due to the tight coupling between Spark OCR and Spark NLP, users can combine NLP and OCR pipelines for tasks such as extracting text from images, extracting data from tables, recognizing and highlighting named entities in PDF documents or masking sensitive text in order to de-identify images."
+
+
+#### Polyglot - https://polyglot.readthedocs.io/en/latest/
+  * NLP for large number of languages ("16-196 for different tasks."). Small community.
+  * Language detection (196 languages), tokenization (196), named entity recognition (40), POS tagging (16), sentiment analysis (136), word embeddings (137), morphology (137), transliteration (69)
 
 #### TextBlob - https://www.textblob.readthedocs.io/
   * "Simplified text processing." High-level interface to NLTK & pattern
   * Noun phrase extraction, part-of-speech tagging, sentiment analysis, classification, machine translation via Google translate, word tokenization, sentence tokenization, word/phrase frequencies, parsing, inflection & lemmatization, spelling correction, integrated with WordNet.
-
-
-
-#### Polyglot
-  * NLP for large number of languages ("16-196 for different tasks."). Small community.
-  * Language detection (196 languages), tokenization (196), named entity recognition (40), POS tagging (16), sentiment analysis (136), word embeddings (137), morphology (137), transliteration (69)
-
-#### Gensim (aka "gensim") - https://radimrehurek.com/gensim
-  * "Topic modelling for humans"
-  * Good for unsupervised NLP tasks (e.g., LDA, LSA/LSI, SVD/NMF, fastText, word2vec, doc2vec). Fast tf-idf and random projections. Fast similarity queries. Parallelized; scales / streams well. Integrates well with neural nets / deep learning. Integrates with NumPy and SciPy.
-  * Doesn't really do NLP per se ... pair with SpaCy or NLTK.
-  * Tutorials and notebooks: https://radimrehurek.com/gensim/tutorial.html
 
 #### pattern https://clips.uantwerpen.be/pages/pattern
   * "web mining module" - Google, Bing, Twitter, and Wikipedia API, web crawler, HTML DOM parser.
   * NLP - POS tagging, n-gram search, sentiment analysis, WordNet - six European languages
   * Some machine learning - vector space model, clustering, SVM.
   * Has database wrappers, network analysis, javascript visualization
-
-#### Flair
-  * New "very simple framework for state-of the-art NLP." In the PyTorch ecosystem.
-  * I have not used Flair.
 
 ### Web crawling and scraping
 
@@ -153,8 +183,6 @@ See the tutorial list for a notebook with an overview to these tools.
   
 Other language tools that can be wrapped from Python. These require installation of Java.            
 
-#### Stanford CoreNLP
-  * Wrap through Stanza.
 
 #### Apache OpenNLP
   * Wrap through package opennlp-python or opennlp_python.
