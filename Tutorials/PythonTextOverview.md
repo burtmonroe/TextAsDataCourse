@@ -16,7 +16,8 @@
   ....* seaborn - matplot extension for statistical graphics (much more R-like)
   ....* Other visualization libraries, installed with Anaconda, include Bokeh (interactive, for browsers), Datashader (for big data), HoloViews (high level front end to matplotlib, Bokeh, etc can also use Datashader), GeoViews (for geographic data). These and others are incorporated in the "PyViz ecosystem" project supported by Anaconda.
   ..* SymPy - symbolic computation (algebra, calculus). (Not generally used in text / NLP work.)
-  * Cython - technically its own language. A mix of Python and C. Produces Python modules that are implemented in C/C++, and so are much faster. SpaCy, for example, is written in Cython, as are many parts of SciPy, pandas, and scikit-learn.
+  * Cython - technically its own language. A mix of Python and C. Produces Python modules that are implemented in C/C++, and so are much faster. SpaCy, for example, is written in Cython, as are many parts of SciPy, pandas, and scikit-learn. (You will also encounter Jython - an implementation of Python that runs on Java - as there are numerous NLP/data science tools built in Java.
+  * Interacting with R. You can use R code and access R objects within a Python process through the Python library rpy2. You can use Python code and access Python objects within an R process through the R library reticulate. R can be used with Python notebooks in Jupyter or Colab; Python can be used with R Notebooks in RStudio.
 
 
 ### NLP & text modeling
