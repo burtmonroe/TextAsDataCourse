@@ -18,34 +18,55 @@
 
 ### NLP & text modeling
 
+See the tutorial list for a notebook with an overview to these tools.
+
 #### spaCy - https://spacy.io
+  * There is a spaCy overview notebook here: XX.
+  * Partially ported to R through spacyr. Accessing spaCy in R through spacyr and reticulate is covered here: XX.
+  * spaCy is arguably the default tool for NLP tasks like part of speech tagging and dependency parsing, especially in industry.
   * "Industrial Strength Natural Language Processing."
-  * Faster than NLTK for most tasks. Scales. Under active development.
-  * NLP: tokenization, named entity recognition, POS tagging, dependency parsing, syntax-driven sentence segmentation, pretrained word embeddings. Models for 9 languages as of this writing. Models are based on convolutional neural nets.
+  * Faster than NLTK for most tasks. Scales. Under active development / large community.
+  * NLP: tokenization, named entity recognition, POS tagging, dependency parsing, syntax-driven sentence segmentation, pretrained word embeddings. Models for 17 languages as of this writing. Models are based on convolutional neural nets.
   * Interoperates with numpy and AI/machine learning incl deep learning (TensorFlow, PyTorch, scikit-learn, Gensim)
-  * Visualizers builtin for syntax and NER.
-  * Good if you want optimized model for established task. Not good for research on different models. Less flexible than NLTK.
-  * Extensions: Thinc, sense2vec, displaCY
+  * Visualizers (through displaCy) builtin for syntax and NER.
+  * Good if you want optimized model for established task. Less good for research on different models. Less flexible than NLTK.
+  * Faster than UDPipe, but fewer languages and tends to be a bit less accurate than UDPipe. Stanza authors claim it is less accurate than Stanza.
+  * Extensions: Thinc, sense2vec, displaCy
 
 #### NLTK (Natural Language Toolkit) - http://www.nltk.org
   * Most established NLP library. Lots of tools for lots of NLP tasks in lots of languages. Much easier to tweak / modify / extend than spaCy. Large user community, lots of examples, etc.
-  * Can be slow. Not integrated with neural network / word embedding approaches.
+  * Can be slow. Not integrated with neural network / word embedding approaches. Definitely not as hip anymore.
   * Classification, tokenization, stemming, tagging, parsing, semantic reasoning.
   * Interfaces to "over 50 corpora and lexical resources such as WordNet."
   * FREE BOOK: Steven Bird, Ewan Klein, and Edward Loper. "Natural Language Processing with Python -- Analyzing Text with the Natural Language Toolkit" updated for Python 3 and NLTK3: http://www.nltk.org/book.
 
-#### TextBlob - https://www.textblob.readthedocs.io/
-  * "Simplified text processing." High-level interface to NLTK & pattern
-  * Noun phrase extraction, part-of-speech tagging, sentiment analysis, classification, machine translation via Google translate, word tokenization, sentence tokenization, word/phrase frequencies, parsing, inflection & lemmatization, spelling correction, integrated with WordNet.
+#### Stanza (formerly StanfordNLP) - https://stanfordnlp.github.io/stanza/
+  * Stanford NLP Group's "Python NLP Package for Many Human Languages."
+  * Tokenization, multi-word token (MWT) expansion, lemmatization, part-of-speech (POS) and morphological features tagging, dependency parsing, and named entity recognition.
+  * Pretrained neural models supporting 66 (human) languages
+  * State of the art performance. Claimed to be as or more accurate than UDPipe.
+  * Also includes interface for (Java) Stanford CoreNLP.
+  * Reference: Peng Qi, Yuhao Zhang, Yuhui Zhang, Jason Bolton and Christopher D. Manning. 2020. Stanza: A Python Natural Language Processing Toolkit for Many Human Languages. In Association for Computational Linguistics (ACL) System Demonstrations.
+
+#### UDPipe (https://ufal.mff.cuni.cz/udpipe)
+  * Trainable "language-agnostic" pipeline for tokenizing, tagging, lemmatizing, and dependency parsing.
+  * Slower than spaCy but generally better accuracy. Has the most languages available of any general NLP tool here.
+  * Focused on Universal Dependencies formalism -- https://universaldependencies.org/ -- and ConLL-U formatted files/data.
+  * UDPipe 1 is in C++ with Python bindings available, UDPipe 2 is a Python prototype. (Native access through R is available through R library udpipe). (UDPipe can be slotted into spaCy with the package spacy-udpipe.)
+  * 94 models of 61 languages, each consisting of a tokenizer, tagger, lemmatizer and dependency parser,
+  * References: 
+    * (Straka et al. 2017) Milan Straka and Jana Straková. Tokenizing, POS Tagging, Lemmatizing and Parsing UD 2.0 with UDPipe. In Proceedings of the CoNLL 2017 Shared Task: Multilingual Parsing from Raw Text to Universal Dependencies, Vancouver, Canada, August 2017.
+    * (Straka et al. 2016) Straka Milan, Hajič Jan, Straková Jana. UDPipe: Trainable Pipeline for Processing CoNLL-U Files Performing Tokenization, Morphological Analysis, POS Tagging and Parsing. In Proceedings of the Tenth International Conference on Language Resources and Evaluation (LREC 2016), Portorož, Slovenia, May 2016.
 
 #### fastText - https://fasttext.cc
   * "Scalable solutions for text representation and classification." Open-source by Facebook AI Research (FAIR) lab.
   * We are using components of this in our multilingual work.
 
-#### StanfordNLP 
-  * Stanford NLP Group's "Python NLP Library for Many Human Languages."
-  * Tokenization, multi-word tokens, lemmatization, POS tagging, dependency parsing
-  * Also includes wrapper for (Java) Stanford CoreNLP
+#### TextBlob - https://www.textblob.readthedocs.io/
+  * "Simplified text processing." High-level interface to NLTK & pattern
+  * Noun phrase extraction, part-of-speech tagging, sentiment analysis, classification, machine translation via Google translate, word tokenization, sentence tokenization, word/phrase frequencies, parsing, inflection & lemmatization, spelling correction, integrated with WordNet.
+
+
 
 #### Polyglot
   * NLP for large number of languages ("16-196 for different tasks."). Small community.
@@ -133,7 +154,7 @@
 Other language tools that can be wrapped from Python. These require installation of Java.            
 
 #### Stanford CoreNLP
-  * Wrap through package StanfordNLP
+  * Wrap through Stanza.
 
 #### Apache OpenNLP
   * Wrap through package opennlp-python or opennlp_python.
