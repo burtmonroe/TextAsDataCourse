@@ -3,6 +3,7 @@
 ### Python generics
 
   * I strongly recommend the Anaconda distribution and Conda package manager.
+  * Google Colab - You can also use Google Colab as a free place to develop and share Python code in notebook form. This is especially useful as a free way to access GPU or TPU computing, which is necessary for neural network modeling of moderate complexity.
   * For the most part, if you are learning Python new, you should be working in Python 3, at this writing 3.6+. But be aware a great deal has been written in Python 2, typically 2.7, and there are important differences. In addition to some general syntax differences, the main issue in text analysis is the handling of encoding (e.g., UTF-8).
   * You should also learn how to set up "environments" for particular combinations of Python version and packages. This can aid replicability and help with trying different packages without breaking something else that is working.
   * The "NumPy stack" - the basic libraries for numerical computing, scientific computing, and data science in Python. Automatically installed with Anaconda.
@@ -11,7 +12,8 @@
       * pandas - DataFrame tabular objects and manipulations (file i/o, reshaping data, split-apply-combine); time series and econometrics models. (see also Dask - parallel computing; "Big Data" objects extending NumPy, pandas objects; workflow manager)
       * matplotlib - plotting / graphics. Other visualization libraries, installed with Anaconda, include Bokeh (interactive, for browsers), Datashader (for big data), HoloViews (high level front end to matplotlib, Bokeh, etc can also use Datashader), GeoViews (for geographic data). These and others are incorporated in the "PyViz ecosystem" project supported by Anaconda.
       * SymPy - symbolic computation (algebra, calculus). (Not generally used in text / NLP work.)
-  * Cython - technically its own language. A mix of Python and C. Produces Python modules that are implemented in C/C++, and so are much faster. SpaCy, for example, is written in Cython, as are many parts of SciPy, pandas, and scikit-learn.
+  * Cython - technically its own language. A mix of Python and C. Produces Python modules that are implemented in C/C++, and so are much faster. SpaCy, for example, is written in Cython, as are many parts of SciPy, pandas, and scikit-learn. (You will also encounter Jython - an implementation of Python that runs on Java - as there are numerous NLP/data science tools built in Java.)
+  * Interacting with R. You can use R code and access R objects within a Python process through the Python library rpy2. You can use Python code and access Python objects within an R process through the R library reticulate. R can be used with Python notebooks in Jupyter or Colab; Python can be used with R Notebooks in RStudio.
 
 
 ### NLP & text modeling
