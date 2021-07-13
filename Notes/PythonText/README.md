@@ -4,7 +4,7 @@
 
   * I strongly recommend the Anaconda distribution and Conda package manager.
   * Google Colab - You can also use Google Colab as a free place to develop and share Python code in notebook form. This is especially useful as a free way to access GPU or TPU computing, which is necessary for neural network modeling of moderate complexity.
-  * For the most part, if you are learning Python new, you should be working in Python 3, at this writing 3.6+. But be aware a great deal has been written in Python 2, typically 2.7, and there are important differences. In addition to some general syntax differences, the main issue in text analysis is the handling of encoding (e.g., UTF-8).
+  * For the most part, if you are learning Python new, you should be working in Python 3, at this writing 3.9+. But be aware a great deal has been written in Python 2, typically 2.7, and there are important differences. In addition to some general syntax differences, the main issue in text analysis is the handling of encoding (e.g., UTF-8).
   * You should also learn how to set up "environments" for particular combinations of Python version and packages. This can aid replicability and help with trying different packages without breaking something else that is working.
   * The "NumPy stack" - the basic libraries for numerical computing, scientific computing, and data science in Python. Automatically installed with Anaconda.
       * NumPy - provides array / matrix objects and modules for operations on them. (see also Numba - turns NumPy and related code into machine code for much faster processing.) (see also CuPy, a NumPy alternative with NVIDIA CUDA acceleration.)(see also PyTorch, discussed below)
@@ -15,6 +15,9 @@
   * Cython - technically its own language. A mix of Python and C. Produces Python modules that are implemented in C/C++, and so are much faster. SpaCy, for example, is written in Cython, as are many parts of SciPy, pandas, and scikit-learn. (You will also encounter Jython - an implementation of Python that runs on Java - as there are numerous NLP/data science tools built in Java.)
   * Interacting with R. You can use R code and access R objects within a Python process through the Python library rpy2. You can use Python code and access Python objects within an R process through the R library reticulate. R can be used with Python notebooks in Jupyter or Colab; Python can be used with R Notebooks in RStudio.
 
+### Text processing libraries
+
+See the Python text manipulation notebook for basic operations with str-typed variables, common string operations with module string, pattern matching with regular expressions in the re module, and manipulation and normalization of unicode strings with module unicodedata.
 
 ### NLP & text modeling
 
@@ -63,7 +66,7 @@
 #### Apache OpenNLP (https://opennlp.apache.org/)
   * "a machine learning based toolkit for the processing of natural language text."
   * "OpenNLP supports the most common NLP tasks, such as tokenization, sentence segmentation, part-of-speech tagging, named entity extraction, chunking, parsing, language detection and coreference resolution."
-  * A well-established part of the Apache open-source (Java) ecosystem. 
+  * A well-established part of the Apache open-source (Java) ecosystem, although it seems to have fallen off in usage. 
   * Perhaps because of it being around since 2011 and being based in Java, openNLP is a little bit more opaque to the social science text as data community and not widely used to my knowledge.
   * There is a Python wrapper available: https://github.com/curzona/opennlp-python. (There is also an R wrapper, demonstrated in the R NLP tools tutorial.)
 
@@ -89,12 +92,12 @@
   * Doesn't really do NLP per se ... pair with, e.g., SpaCy or NLTK.
   * Tutorials and notebooks: https://radimrehurek.com/gensim/tutorial.html
 
-#### transformers (and related HuggingFace resources)
+#### transformers (and related HuggingFace resources https://huggingface.co/)
   * Hugging Face is an NLP startup which states "We’re on a journey to advance and democratize NLP for everyone. Along the way, we contribute to the development of technology for the better."
   * Hugging Face is perhaps best known as the source of the transformers package, which as of this writing contains 30 pretrained models in over 100 languages and eight major transformer-based neural language understanding architectures: BERT, GPT, GPT-2, Transformer-XL, XLNet, XLM, RoBERTa, and DistilBERT. This is pound-for-pound the coolest NLP stuff you can do with a few lines of code.
   * Hugging Face also has a "datasets" package with over 1000 text/NLP datasets.
   * Models and datasets are available a the Hugging Face "hub": https://huggingface.co/models, https://huggingface.co/datasets.
-  * (Sam Bestvater and I used the transformers library to implement BERT in Bestvater and Monroe 2021.)
+  * (Sam Bestvater and I used the transformers library to implement a stance classifier leveraging BERT in Bestvater and Monroe 2021.)
 
 #### SparkNLP - https://nlp.johnsnowlabs.com/
   * Spark NLP is built on top of "Spark," an ecosystem for large scale distributed data management and analysis.
@@ -102,6 +105,8 @@
   * Annotators include: "tokenizer, normalizer, stemming, lemmatizer, regular expression, TextMatcher, chunker, DateMatcher, SentenceDetector, DeepSentenceDetector, POS tagger, ViveknSentimentDetector, sentiment analysis, named entity recognition, conditional random field annotator, deep learning annotator, spell checking and correction, dependency parser, typed dependency parser, document classification, and language detection."
   * The SparkNLP "Models Hub" includes "pre-trained pipelines with tokenization, lemmatization, part-of-speech tagging, and named entity recognition exist for more than thirteen languages; word embeddings including GloVe, ELMo, BERT, ALBERT, XLNet, Small BERT, and ELECTRA; sentence embeddings including Universal Sentence Embeddings (USE) and Language Agnostic BERT Sentence Embeddings (LaBSE)."
   * Also Spark OCR. From Wikipedia: "Spark OCR is another  extension of Spark NLP for optical character recognition (OCR) from images, scanned PDF documents, and DICOM files.  It provides several image pre-processing features for improving text recognition results such as adaptive thresholding and denoising, skew detection & correction, adaptive scaling, layout analysis and region detection, image cropping, removing background objects. Due to the tight coupling between Spark OCR and Spark NLP, users can combine NLP and OCR pipelines for tasks such as extracting text from images, extracting data from tables, recognizing and highlighting named entities in PDF documents or masking sensitive text in order to de-identify images."
+
+#### NLP Architect (https://github.com/IntelLabs/nlp-architect)
 
 
 #### Polyglot - https://polyglot.readthedocs.io/en/latest/
@@ -180,10 +185,5 @@
 #### Google Colab
   * Access to FREE GPU resources for Python deep learning through interactive Jupyter notebooks.
   * Interfaces with TensorFlow, Keras, PyTorch (and OpenCV - computer vision)
-  
-Other language tools that can be wrapped from Python. These require installation of Java.            
 
-
-#### Apache OpenNLP
-  * Wrap through package opennlp-python or opennlp_python.
 
