@@ -148,7 +148,7 @@ See the Python text manipulation notebook for basic operations with str-typed va
 
 #### scikit-learn
   * The go-to library for machine learning in Python. Some text preprocessing
-  * Text preprocessing mostly limited to bag-of-words type approaches.
+  * Text preprocessing includes tokenizers and "vectorizers" (like a Tf-idf vectorizer).
 
 #### Keras
   * High-level interface to neural net "backends" TensorFlow, Theano, and CNTK.
