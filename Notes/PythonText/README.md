@@ -84,7 +84,6 @@ See the Python text manipulation notebook for basic operations with str-typed va
 #### fastText - https://fasttext.cc
   * "Scalable solutions for text representation and classification." Open-source by Facebook AI Research (FAIR) lab.
   * One of the most efficient tools for calculation of word vectors / embeddings. 
-  * (Mitch Goist and I used this in Goist and Monroe 2020.)
 
 #### gensim - https://radimrehurek.com/gensim
   * "Topic modelling for humans"
@@ -107,7 +106,12 @@ See the Python text manipulation notebook for basic operations with str-typed va
   * Also Spark OCR. From Wikipedia: "Spark OCR is another  extension of Spark NLP for optical character recognition (OCR) from images, scanned PDF documents, and DICOM files.  It provides several image pre-processing features for improving text recognition results such as adaptive thresholding and denoising, skew detection & correction, adaptive scaling, layout analysis and region detection, image cropping, removing background objects. Due to the tight coupling between Spark OCR and Spark NLP, users can combine NLP and OCR pipelines for tasks such as extracting text from images, extracting data from tables, recognizing and highlighting named entities in PDF documents or masking sensitive text in order to de-identify images."
 
 #### NLP Architect (https://github.com/IntelLabs/nlp-architect)
+  * "NLP Architect is an open source Python library for exploring state-of-the-art deep learning topologies and techniques for optimizing Natural Language Processing and Natural Language Understanding Neural Networks." "NLP Architect is a model-oriented library designed to showcase novel and different neural network optimizations. The library contains NLP/NLU related models per task, different neural network topologies (which are used in models), procedures for simplifying workflows in the library, pre-defined data processors and dataset loaders and misc utilities. The library is designed to be a tool for model development: data pre-process, build model, train, validate, infer, save or load a model."
+  * NLP models for word chunking, named entity recognition, dependency parsing, intent extraction, sentiment classification, language models
+  * Natural Language Understanding models for aspect-based sentiment analysis, intent detection, noun phrase embeddings, word sense detection, relation identification, cross-document coreference, noun phrase semantic segmentation.
 
+#### torchtext (https://pytorch.org/text/stable/index.html)
+  * torchtext is a library for use with the PyTorch deep learning framework (there are similar libraries torchvision and torchaudio), providing data processing utilities (inlcuding tokenizers, pretrained embeddings, NLP metrics) for text as well as popular datasets.
 
 #### Polyglot - https://polyglot.readthedocs.io/en/latest/
   * NLP for large number of languages ("16-196 for different tasks."). Small community.
@@ -143,8 +147,7 @@ See the Python text manipulation notebook for basic operations with str-typed va
 ### Machine learning / deep learning
 
 #### scikit-learn
-
-  * Machine learning, some text preprocessing
+  * The go-to library for machine learning in Python. Some text preprocessing
   * Text preprocessing mostly limited to bag-of-words type approaches.
 
 #### Keras
@@ -183,7 +186,7 @@ See the Python text manipulation notebook for basic operations with str-typed va
   * I've never used Chainer. See https://docs.chainer.org/en/stable/
 
 #### Google Colab
-  * Access to FREE GPU resources for Python deep learning through interactive Jupyter notebooks.
+  * Access to FREE GPU/TPU resources for Python deep learning through interactive Jupyter notebooks.
   * Interfaces with TensorFlow, Keras, PyTorch (and OpenCV - computer vision)
 
 
