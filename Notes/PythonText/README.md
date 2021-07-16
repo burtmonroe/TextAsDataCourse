@@ -3,14 +3,15 @@
 ### Python generics
 
   * I strongly recommend the Anaconda distribution and Conda package manager.
-  * Google Colab - You can also use Google Colab as a free place to develop and share Python code in notebook form. This is especially useful as a free way to access GPU or TPU computing, which is necessary for neural network modeling of moderate complexity.
+  * Google Colab - You can also use Google Colab as a free place to develop and share Python code in notebook form. This is especially useful as a free way to access GPU or TPU computing, which is necessary for neural network modeling of even moderate complexity.
   * For the most part, if you are learning Python new, you should be working in Python 3, at this writing 3.9+. But be aware a great deal has been written in Python 2, typically 2.7, and there are important differences. In addition to some general syntax differences, the main issue in text analysis is the handling of encoding (e.g., UTF-8).
   * You should also learn how to set up "environments" for particular combinations of Python version and packages. This can aid replicability and help with trying different packages without breaking something else that is working.
+  * Life will be easier if you work in a good Python "IDE". I like PyCharm (https://www.jetbrains.com/pycharm/). Another popular choice is Spyder, which comes with Anaconda.
   * The "NumPy stack" - the basic libraries for numerical computing, scientific computing, and data science in Python. Automatically installed with Anaconda.
       * NumPy - provides array / matrix objects and modules for operations on them. (see also Numba - turns NumPy and related code into machine code for much faster processing.) (see also CuPy, a NumPy alternative with NVIDIA CUDA acceleration.)(see also PyTorch, discussed below)
       * SciPy ("Sigh Pie") - scientific computing ... linear algebra, optimization, integration, signal processing
       * pandas - DataFrame tabular objects and manipulations (file i/o, reshaping data, split-apply-combine); time series and econometrics models. (see also Dask - parallel computing; "Big Data" objects extending NumPy, pandas objects; workflow manager)
-      * matplotlib - plotting / graphics. Other visualization libraries, installed with Anaconda, include Bokeh (interactive, for browsers), Datashader (for big data), HoloViews (high level front end to matplotlib, Bokeh, etc can also use Datashader), GeoViews (for geographic data). These and others are incorporated in the "PyViz ecosystem" project supported by Anaconda.
+      * matplotlib - plotting / graphics. I prefer the extension library "seaborn" (https://seaborn.pydata.org) which is much more R-like. Other visualization libraries, installed with Anaconda, include Bokeh (interactive, for browsers), Datashader (for big data), HoloViews (high level front end to matplotlib, Bokeh, etc can also use Datashader), GeoViews (for geographic data). These and others are incorporated in the "PyViz ecosystem" project (https://pyviz.org/index.html) supported by Anaconda.
       * SymPy - symbolic computation (algebra, calculus). (Not generally used in text / NLP work.)
   * Cython - technically its own language. A mix of Python and C. Produces Python modules that are implemented in C/C++, and so are much faster. SpaCy, for example, is written in Cython, as are many parts of SciPy, pandas, and scikit-learn. (You will also encounter Jython - an implementation of Python that runs on Java - as there are numerous NLP/data science tools built in Java.)
   * Interacting with R. You can use R code and access R objects within a Python process through the Python library rpy2. You can use Python code and access Python objects within an R process through the R library reticulate. R can be used with Python notebooks in Jupyter or Colab; Python can be used with R Notebooks in RStudio.
@@ -129,6 +130,10 @@ See the Python text manipulation notebook for basic operations with str-typed va
 
 ### Web crawling and scraping
 
+#### Requests
+  * "Requests is an elegant and simple HTTP library for Python, built for human beings."
+  * The core library for this sort of thing.
+
 #### Scrapy
   * Web crawler / spider. Downloading pages. Has its own extraction utilities, but can be paired with BeautifulSoup.
   * Probably what you should learn.
@@ -136,13 +141,19 @@ See the Python text manipulation notebook for basic operations with str-typed va
 
 #### BeautifulSoup
   * Classic, easy to learn library for traversing html (and xml) pages to extract the information you want.
-  * Needs at least something like the Requests package to actually download the pages you want.
+  * Needs at least something like the "Requests" package to actually download the pages you want.
 
 #### Selenium
   * Tool for interacting with and extracting information from dynamically generated (javascript) webpages. Does several things that simply aren't possible with Scrapy or BeautifulSoup.
   * Takes over your actual browser ... opens windows, clicks buttons, scrolls pages. Very memory intensive and basically takes over your computer if you try to get too elaborate with it.
 
 #### See also pattern (above)
+
+#### Different filetypes
+  * JSON - package "json"
+  * XML - package "xml" (See also BeautifulSoup)
+  * PDFs - pdfminer/pdfminer.six, PyPDF2 (consider the standalone tool xpdf -- it is, for example, the most reliable tool for extracting Arabic text from pdfs). Image only pdfs you can try pytesseract & cv2 ("open computer vision") for OCR ("optical character recognition").
+
 
 ### Machine learning / deep learning
 
@@ -158,15 +169,16 @@ See the Python text manipulation notebook for basic operations with str-typed va
 #### fastai
   * Keras-like interface to PyTorch (from machine learning education company Fast.ai)
 
-#### TensorFlow
+#### TensorFlow - https://www.tensorflow.org
   * Generally described as the most widely used deep learning framework. Many use through Keras.
+  * Lots of tutorials here: https://www.tensorflow.org/tutorials
 
 #### Theano - https://pypi.org/project/Theano
   * "Optimizing compiler for evaluating mathematical expressions on CPUs and GPUs." Especially matrices and tensors.
   * Abstract hybrid of numpy-like array operations and sympy-like algebra operations. Can be used to implement deep learning algorithms. See: http://deeplearning.net.tutorial
   * I've never used Theano. See http://deeplearning.net/software/theano/
 
-#### PyTorch - https://pytorch.org (from Facebook)
+#### PyTorch - https://pytorch.org 
   * Deep learning platform. "PyTorch enables fast, flexible experimentation and efficient production through a hybrid front-end, distributed training and ecosystem of tools and libraries." Very Pythonic. Only Linux / OSx.
   * Tensor computation (a la NumPy) based on GPUs
   * Has "PyTorch" ecosystem of libraries. Includes fast deep learning (fastai, Horovod, Ignite, PySyft, TensorLy), NLP (Flair, AllenNLP), and machine translation (Translate), dialog models (ParlAI)
@@ -185,7 +197,10 @@ See the Python text manipulation notebook for basic operations with str-typed va
   * Pythonic, CUDA computation.
   * I've never used Chainer. See https://docs.chainer.org/en/stable/
 
-#### Google Colab
+#### Weka - https://pypi.org/project/python-weka-wrapper3/
+  * Weka is a popular Java library for machine learning. Can be wrapped in python with python-weka-wrapper3 library
+
+### Google Colab
   * Access to FREE GPU/TPU resources for Python deep learning through interactive Jupyter notebooks.
   * Interfaces with TensorFlow, Keras, PyTorch (and OpenCV - computer vision)
 
