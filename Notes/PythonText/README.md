@@ -23,7 +23,7 @@ See the Python text manipulation notebook for basic operations with str-typed va
 ### NLP & text modeling
 
 #### spaCy - https://spacy.io
-  * "Industrial Strength Natural Language Processing." spaCy is arguably the default tool for NLP tasks like part of speech tagging and dependency parsing, especially in industry. (Although one 2020 survey indicates SparkNLP is more widely used: https://gradientflow.com/2020nlpsurvey/)
+  * "Industrial Strength Natural Language Processing." spaCy is arguably the default tool for NLP tasks like part of speech tagging and dependency parsing, especially in industry. (Although one 2020 survey indicates, implausibly I think, that SparkNLP is more widely used: https://gradientflow.com/2020nlpsurvey/)
   * Partially ported to R through spacyr.
   * Faster than NLTK for most tasks. Scales. Under active development / large community.
   * NLP: tokenization, named entity recognition, POS tagging, dependency parsing, syntax-driven sentence segmentation, pretrained word embeddings. Models for 17 languages as of this writing. Models are based on convolutional neural nets.
@@ -80,7 +80,7 @@ See the Python text manipulation notebook for basic operations with str-typed va
 
 #### AllenNLP - https://github.com/allenai/allennlp https://guide.allennlp.org/
   * "AllenNLP is an open source library for building deep learning models for natural language processing, developed by the Allen Institute for Artificial Intelligence. It is built on top of PyTorch and is designed to support researchers, engineers, students, etc., who wish to build high quality deep NLP models with ease. It provides high-level abstractions and APIs for common components and models in modern NLP. It also provides an extensible framework that makes it easy to run and manage NLP experiments."
-  * Indicated as the third most used NLP library in industry in 2020 survey.
+  * Indicated as the third most used NLP library in industry in one 2020 survey, although I am skeptical.
 
 #### fastText - https://fasttext.cc
   * "Scalable solutions for text representation and classification." Open-source by Facebook AI Research (FAIR) lab.
@@ -118,6 +118,11 @@ See the Python text manipulation notebook for basic operations with str-typed va
   * NLP for large number of languages ("16-196 for different tasks."). Small community.
   * Language detection (196 languages), tokenization (196), named entity recognition (40), POS tagging (16), sentiment analysis (136), word embeddings (137), morphology (137), transliteration (69)
 
+#### PyNLPl - https://pynlpl.readthedocs.io/
+  * "PyNLPl, pronounced as ‘pineapple’, is a Python library for Natural Language Processing. It contains various modules useful for common, and less common, NLP tasks. PyNLPl can be used for basic tasks such as the extraction of n-grams and frequency lists, and to build simple language model. There are also more complex data types and algorithms. Moreover, there are parsers for file formats common in NLP (e.g. FoLiA/Giza/Moses/ARPA/Timbl/CQL). There are also clients to interface with various NLP specific servers. PyNLPl most notably features a very extensive library for working with FoLiA XML (Format for Linguistic Annotatation)."
+  * Supposedly advantageous for "more exotic" data formats like FoLiA/Giza/Moses/ARPA/Timbl/CQL.
+
+
 #### TextBlob - https://www.textblob.readthedocs.io/
   * "Simplified text processing." High-level interface to NLTK & pattern
   * Noun phrase extraction, part-of-speech tagging, sentiment analysis, classification, machine translation via Google translate, word tokenization, sentence tokenization, word/phrase frequencies, parsing, inflection & lemmatization, spelling correction, integrated with WordNet.
@@ -127,6 +132,14 @@ See the Python text manipulation notebook for basic operations with str-typed va
   * NLP - POS tagging, n-gram search, sentiment analysis, WordNet - six European languages
   * Some machine learning - vector space model, clustering, SVM.
   * Has database wrappers, network analysis, javascript visualization
+
+#### MontyLingua
+
+
+#### Vocabulary
+  * A dictionary that provides lookup for definitions, synonyms, antonyms, parts of speech, translation, usage examples,  pronunciation, and hyphenation, returning simple JSON objects.
+  * Similar to / an alternative to WordNet (which is available through NLTK).
+
 
 ### Web crawling and scraping
 
