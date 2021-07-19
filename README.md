@@ -1,4 +1,4 @@
-# Materials for Text as Data class (PLSC 597) at Penn State and "Advanced Text as Data: Natural Language Processing" (2P) at Essex Summer School in Social Science Data Analysis.
+# Materials for classes: "Text as Data" (PLSC 597) at Penn State & "Advanced Text as Data: Natural Language Processing" (2P) at Essex Summer School in Social Science Data Analysis.
 
 Burt Monroe
 
