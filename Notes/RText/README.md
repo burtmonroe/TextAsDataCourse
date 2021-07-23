@@ -18,7 +18,7 @@ You may also be interested in packages **ore** (https://github.com/jonclayden/or
 Also of note is package **stringdist** (https://github.com/markvanderloo/stringdist) which provides string distance metrics (see Jurafsky and Martin, Chapter 2 for a good discussion of "edit distance") and fuzzy string match searching.
 
 
-## Text-as-data frameworks/ecosystems (Quanteda, tm, tidytext, and corpus)
+## Text-as-data frameworks/ecosystems
 
 Quanteda, tm, and tidytext are general -- partially overlapping, interrelated, and interconnected -- frameworks for text-as-data analysis, and most social scientific text work in R is managed through one of these. Their primary strengths are in the data science aspects of managing/wrangling text data as quantitative data for statistical / machine learning analysis.
 
@@ -81,7 +81,7 @@ Quanteda, tm, and tidytext are general -- partially overlapping, interrelated, a
 * The **spacyR** package provides an R wrapper for the Python/Cython NLP package SpaCy. It provides functions for near-state-of-the-art tokenization, part-of-speech tagging, dependency parsing, named entity recognition, and other NLP tasks. The Python packacge spaCy has more functionality, but you have to use reticulate to access this through R.
 * See notebook here: XX.
 
-**Stanza (Qi, et al. 2020) / StanfordNLP / Stanford CoreNLP / coreNLP**
+**Stanza / StanfordNLP / Stanford CoreNLP / coreNLP**
 
 * Stanza -- formerly StanfordNLP -- is a Python library not available directly in R. I'm not completely sure it can even hypothetically be accessed via reticulate, but it won't install on RStudio Cloud in any case. There is a Python notebook available.
 * Stanford NLP Group's "Python NLP Package for Many Human Languages."
