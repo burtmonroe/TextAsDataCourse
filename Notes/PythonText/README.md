@@ -6,13 +6,15 @@
   * Google Colab - You can also use Google Colab as a free place to develop and share Python code in notebook form. This is especially useful as a free way to access GPU or TPU computing, which is necessary for neural network modeling of even moderate complexity.
   * For the most part, if you are learning Python new, you should be working in Python 3, at this writing 3.9+. But be aware a great deal has been written in Python 2, typically 2.7, and there are important differences. In addition to some general syntax differences, the main issue in text analysis is the handling of encoding (e.g., UTF-8).
   * You should also learn how to set up "environments" for particular combinations of Python version and packages. This can aid replicability and help with trying different packages without breaking something else that is working.
-  * Life will be easier if you work in a good Python "IDE". I like PyCharm (https://www.jetbrains.com/pycharm/). Another popular choice is Spyder, which comes with Anaconda.
+  * Life will be easier if you work in a good Python "IDE". I like PyCharm (https://www.jetbrains.com/pycharm/).
   * The "NumPy stack" - the basic libraries for numerical computing, scientific computing, and data science in Python. Automatically installed with Anaconda.
       * NumPy - provides array / matrix objects and modules for operations on them. (see also Numba - turns NumPy and related code into machine code for much faster processing.) (see also CuPy, a NumPy alternative with NVIDIA CUDA acceleration.)(see also PyTorch, discussed below)
       * SciPy ("Sigh Pie") - scientific computing ... linear algebra, optimization, integration, signal processing
       * pandas - DataFrame tabular objects and manipulations (file i/o, reshaping data, split-apply-combine); time series and econometrics models. (see also Dask - parallel computing; "Big Data" objects extending NumPy, pandas objects; workflow manager)
       * matplotlib - plotting / graphics. I prefer the extension library "seaborn" (https://seaborn.pydata.org) which is much more R-like. Other visualization libraries, installed with Anaconda, include Bokeh (interactive, for browsers), Datashader (for big data), HoloViews (high level front end to matplotlib, Bokeh, etc can also use Datashader), GeoViews (for geographic data). These and others are incorporated in the "PyViz ecosystem" project (https://pyviz.org/index.html) supported by Anaconda.
+      * scikit-learn - go-to (non-neural) machine learning library. Regression, classification, clustering, evaluation, etc.
       * SymPy - symbolic computation (algebra, calculus). (Not generally used in text / NLP work.)
+  
   * Cython - technically its own language. A mix of Python and C. Produces Python modules that are implemented in C/C++, and so are much faster. SpaCy, for example, is written in Cython, as are many parts of SciPy, pandas, and scikit-learn. (You will also encounter Jython - an implementation of Python that runs on Java - as there are numerous NLP/data science tools built in Java.)
   * Interacting with R. You can use R code and access R objects within a Python process through the Python library rpy2. You can use Python code and access Python objects within an R process through the R library reticulate. R can be used with Python notebooks in Jupyter or Colab; Python can be used with R Notebooks in RStudio.
 
@@ -86,15 +88,6 @@ See the Python text manipulation notebook for basic operations with str-typed va
   * They have an impressive list of academic projects that have used AllenNLP here: https://gallery.allennlp.org
   * Not just an annotation pipeline, a framework for PyTorch-based NLP model-building. Has models for complex natural language and natural language generation tasks. Has tools for model interpretation, bias mitigation.
 
-#### fastText - https://fasttext.cc
-  * "Scalable solutions for text representation and classification." Open-source by Facebook AI Research (FAIR) lab.
-  * One of the most efficient tools for calculation of word vectors / embeddings. 
-
-#### gensim - https://radimrehurek.com/gensim
-  * "Topic modelling for humans"
-  * Good for unsupervised NLP tasks (e.g., LDA, LSA/LSI, SVD/NMF, fastText, word2vec, doc2vec). Fast tf-idf and random projections. Fast similarity queries. Parallelized; scales / streams well. Integrates well with neural nets / deep learning. Integrates with NumPy and SciPy.
-  * Doesn't really do NLP per se ... pair with, e.g., SpaCy or NLTK.
-  * Tutorials and notebooks: https://radimrehurek.com/gensim/tutorial.html
 
 #### transformers (and related HuggingFace resources https://huggingface.co/)
   * Hugging Face is an NLP startup which states "We’re on a journey to advance and democratize NLP for everyone. Along the way, we contribute to the development of technology for the better."
@@ -128,6 +121,15 @@ See the Python text manipulation notebook for basic operations with str-typed va
   * "PyNLPl, pronounced as ‘pineapple’, is a Python library for Natural Language Processing. It contains various modules useful for common, and less common, NLP tasks. PyNLPl can be used for basic tasks such as the extraction of n-grams and frequency lists, and to build simple language model. There are also more complex data types and algorithms. Moreover, there are parsers for file formats common in NLP (e.g. FoLiA/Giza/Moses/ARPA/Timbl/CQL). There are also clients to interface with various NLP specific servers. PyNLPl most notably features a very extensive library for working with FoLiA XML (Format for Linguistic Annotatation)."
   * Supposedly advantageous for "more exotic" data formats like FoLiA/Giza/Moses/ARPA/Timbl/CQL.
 
+#### fastText - https://fasttext.cc
+  * "Scalable solutions for text representation and classification." Open-source by Facebook AI Research (FAIR) lab.
+  * One of the most efficient tools for calculation of word vectors / embeddings. 
+
+#### gensim - https://radimrehurek.com/gensim
+  * "Topic modelling for humans"
+  * Good for unsupervised NLP tasks (e.g., LDA, LSA/LSI, SVD/NMF, fastText, word2vec, doc2vec). Fast tf-idf and random projections. Fast similarity queries. Parallelized; scales / streams well. Integrates well with neural nets / deep learning. Integrates with NumPy and SciPy.
+  * Doesn't really do NLP per se ... pair with, e.g., SpaCy or NLTK.
+  * Tutorials and notebooks: https://radimrehurek.com/gensim/tutorial.html
 
 #### TextBlob - https://www.textblob.readthedocs.io/
   * "Simplified text processing." High-level interface to NLTK & pattern
@@ -174,28 +176,12 @@ See the Python text manipulation notebook for basic operations with str-typed va
   * PDFs - pdfminer/pdfminer.six, PyPDF2 (consider the standalone tool xpdf -- it is, for example, the most reliable tool for extracting Arabic text from pdfs). Image only pdfs you can try pytesseract & cv2 ("open computer vision") for OCR ("optical character recognition").
 
 
-### Machine learning / deep learning
-
-#### scikit-learn
-  * The go-to library for machine learning in Python. Some text preprocessing
-  * Text preprocessing includes tokenizers and "vectorizers" (like a Tf-idf vectorizer).
-
-#### Keras
-  * High-level interface to neural net "backends" TensorFlow, Theano, and CNTK.
-  * Slower than working directly with TensorFlow or PyTorch.
-  * Has R implementation.
-
-#### fastai
-  * Keras-like interface to PyTorch (from machine learning education company Fast.ai)
+### Deep learning frameworks
 
 #### TensorFlow - https://www.tensorflow.org
   * Generally described as the most widely used deep learning framework. Many use through Keras.
   * Lots of tutorials here: https://www.tensorflow.org/tutorials
-
-#### Theano - https://pypi.org/project/Theano
-  * "Optimizing compiler for evaluating mathematical expressions on CPUs and GPUs." Especially matrices and tensors.
-  * Abstract hybrid of numpy-like array operations and sympy-like algebra operations. Can be used to implement deep learning algorithms. See: http://deeplearning.net.tutorial
-  * I've never used Theano. See http://deeplearning.net/software/theano/
+  * Softer learning curve than PyTorch, especially with Keras front end.
 
 #### PyTorch - https://pytorch.org 
   * Deep learning platform. "PyTorch enables fast, flexible experimentation and efficient production through a hybrid front-end, distributed training and ecosystem of tools and libraries." Very Pythonic. Only Linux / OSx.
@@ -205,7 +191,21 @@ See the Python text manipulation notebook for basic operations with str-typed va
   * We have several projects in C-SoDA using PyTorch.
   * See https://github.com/huggingface/pytorch-transformers for PyTorch implementations of pre-trained Transformer language models, currently BERT, (OpenAI) GPT, (OpenAI) GPT-2, Transformer-XL
   * See http://nlp.seas.harvard.edu/2018/04/03/attention.html for (annotated) PyTorch implementation of original Transformer from "Attention is All You Need."
-  
+  * Now a torch library for R gives some of this functionality, but it's early days with that.
+
+#### Keras
+  * High-level interface to neural net "backends" TensorFlow, Theano, and CNTK.
+  * Slower than working directly with TensorFlow or PyTorch.
+  * Has R implementation.
+
+#### fastai
+  * Keras-like interface to PyTorch (from machine learning education company Fast.ai)
+
+#### Theano - https://pypi.org/project/Theano
+  * "Optimizing compiler for evaluating mathematical expressions on CPUs and GPUs." Especially matrices and tensors.
+  * Abstract hybrid of numpy-like array operations and sympy-like algebra operations. Can be used to implement deep learning algorithms. See: http://deeplearning.net.tutorial
+  * I've never used Theano. See http://deeplearning.net/software/theano/
+
 #### H2O.ai
   * "Democratizing Artificial Intelligence"
   * Has GUI network builder.
@@ -216,11 +216,5 @@ See the Python text manipulation notebook for basic operations with str-typed va
   * Pythonic, CUDA computation.
   * I've never used Chainer. See https://docs.chainer.org/en/stable/
 
-#### Weka - https://pypi.org/project/python-weka-wrapper3/
-  * Weka is a popular Java library for machine learning. Can be wrapped in python with python-weka-wrapper3 library
-
-### Google Colab
-  * Access to FREE GPU/TPU resources for Python deep learning through interactive Jupyter notebooks.
-  * Interfaces with TensorFlow, Keras, PyTorch (and OpenCV - computer vision)
 
 
