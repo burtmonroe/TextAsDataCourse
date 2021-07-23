@@ -80,7 +80,10 @@ See the Python text manipulation notebook for basic operations with str-typed va
 
 #### AllenNLP - https://github.com/allenai/allennlp https://guide.allennlp.org/
   * "AllenNLP is an open source library for building deep learning models for natural language processing, developed by the Allen Institute for Artificial Intelligence. It is built on top of PyTorch and is designed to support researchers, engineers, students, etc., who wish to build high quality deep NLP models with ease. It provides high-level abstractions and APIs for common components and models in modern NLP. It also provides an extensible framework that makes it easy to run and manage NLP experiments."
-  * Indicated as the third most used NLP library in industry in one 2020 survey, although I am skeptical.
+  * Made a big splash with ELMo ("Embeddings from Language Models") and contextual word embeddings.
+  * Indicated as the third most used NLP library in industry in one 2020 survey.
+  * Demos in which you can try stuff live: https://demo.allennlp.org/named-entity-recognition/named-entity-recognition
+  * They have an impressive list of academic projects that have used AllenNLP here: https://gallery.allennlp.org
 
 #### fastText - https://fasttext.cc
   * "Scalable solutions for text representation and classification." Open-source by Facebook AI Research (FAIR) lab.
