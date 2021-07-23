@@ -3,7 +3,7 @@
 ## R generics
 
 * I strongly recommend working within **RStudio**. Some of the notebooks provided are designed for the Essex Summer School Advanced TADA/NLP course, and may not run as is outside of the RStudio Cloud environment provided for that class.
-* There are many many useful tools for NLP, and for data science generally, within the **tidyverse** and I strongly recommend you become familiar / take advantage of them. A few specific to text/NLP are discussed below. (A few that are more related to data wrangling / big data computation -- like dplyr, purrr -- are discussed in notebooks for Social Data Analytics 501 here: XX.
+* There are many many useful tools for NLP, and for data science generally, within the **tidyverse** and I strongly recommend you become familiar / take advantage of them. A few specific to text/NLP are discussed below. (A few that are more related to data wrangling / big data computation -- like dplyr, purrr -- are discussed in notebooks for Social Data Analytics 501 (https://github.io/SoDA501).
 * Because text data can become large and sparse, many of the tools interact with frameworks that deal better with such data. Notable are **data.table**, which provides a Pandas/dplyr/SQL like data management framework that is more memory efficient than dplyr, and **Matrix**, which provides utilities for sparse matrices.
 * Interacting with Python. You can use R code and access R objects within a Python process through the Python library rpy2. You can use Python code and access Python objects within an R process through the R library reticulate. R can be used with Python notebooks in Jupyter or Colab; Python can be used with R Notebooks in RStudio.
 
@@ -41,12 +41,17 @@ Quanteda, tm, and tidytext are general -- partially overlapping, interrelated, a
 
 **corpustools**
 
+* Offical description: "The corpustools package offers various tools for anayzing text corpora. The backbone is the tCorpus R6 class, which offers features ranging from corpus management tools such as pre-processing, subsetting, Boolean (Lucene) queries and deduplication, to analysis techniques such as corpus comparison, document comparison, semantic network analysis and topic modeling. Furthermore, by using tokenized texts as the backbone, it is made easy to reconstruct texts for a qualitative analysis and/or validation of the results of computational text analysis methods (e.g., topic browsers, keyword-in-context lists, texts with highlighted segments for search results or document comparisons)."
+* "One of the primary goals of corpustools is to make computational text analysis available and intuitive for users that are not experienced programmers. Notably, the authors are both active as researchers in the social sciences, and strive to promote the use of computational text analysis as a research method. This is also why we double down on the feature to reconstruct the original texts to enable a more qualitative investigation and validation of results."
+
 **corpus**
 
 * Official description: "Text corpus data analysis, with full support for international text (Unicode). Functions for reading data from newline-delimited 'JSON' files, for normalizing and tokenizing text, for searching for term occurrences, and for computing term occurrence frequencies, including n-grams." 
 * I am not familiar with the corpus package, although it is under active development and its authorship team has social science roots. It appears to occupy a similar space to quanteda or tm, and out of my own ignorance, I can't say what its advantages are relative to those more commonly used packages. (I am open to enlightenment!)
 
-**TextMiningGUI
+**TextMiningGUI**
+
+* "Graphic interface for text analysis, implement a few methods such as biplot, correspondece analysis, co-occurrence, clustering, topic models, correlations and sentiments."
 
 **RcmdrPlugin.temis** 
 
@@ -76,16 +81,15 @@ Quanteda, tm, and tidytext are general -- partially overlapping, interrelated, a
 
 **Stanza (Qi, et al. 2020) / StanfordNLP / Stanford CoreNLP / coreNLP**
 
-* Stanza -- formerly StanfordNLP -- is a Python library not available directly in R. I'm not completely sure it can even hypothetically be accessed via reticulate,  given that it runs on PyTorch and GPUs, but it won't install on RStudio Cloud in any case. I discuss it in a Python notebook here: XX.
-* Stanza provides a wrapper to coreNLP, the research group's Java library, and it inherits some coreNLP functionality.  
-* Official description: "Stanza is a Python natural language analysis package. It contains tools, which can be used in a pipeline, to convert a string containing human language text into lists of sentences and words, to generate base forms of those words, their parts of speech and morphological features, to give a syntactic structure dependency parse, and to recognize named entities. The toolkit is designed to be parallel among more than 70 languages, using the Universal Dependencies formalism. Stanza is built with highly accurate neural network components that also enable efficient training and evaluation with your own annotated data. The modules are built on top of the PyTorch library. You will get much faster performance if you run the software on a GPU-enabled machine. 
-    * In addition, Stanza includes a Python interface to the CoreNLP Java package and inherits additional functionality from there, such as constituency parsing, coreference resolution, and linguistic pattern matching.
-    * To summarize, Stanza features:
-        * Native Python implementation requiring minimal efforts to set up;
-        * Full neural network pipeline for robust text analytics, including tokenization, multi-word token (MWT) expansion, lemmatization, part-of-speech (POS) and morphological features tagging, dependency parsing, and named entity recognition;
-        * Pretrained neural models supporting 66 (human) languages;
-        * A stable, officially maintained Python interface to CoreNLP.
-* Peng Qi, Yuhao Zhang, Yuhui Zhang, Jason Bolton and Christopher D. Manning. 2020. Stanza: A Python Natural Language Processing Toolkit for Many Human Languages. In Association for Computational Linguistics (ACL) System Demonstrations. 2020.
+* Stanza -- formerly StanfordNLP -- is a Python library not available directly in R. I'm not completely sure it can even hypothetically be accessed via reticulate, but it won't install on RStudio Cloud in any case. There is a Python notebook available.
+* Stanford NLP Group's "Python NLP Package for Many Human Languages."
+* Tokenization, multi-word token (MWT) expansion, lemmatization, part-of-speech (POS) and morphological features tagging, dependency parsing, and named entity recognition.
+* Pretrained neural models supporting 66 (human) languages
+* State of the art performance. Claimed to be as or more accurate than UDPipe.
+* Also includes interface for (Java) Stanford CoreNLP.
+* Reference: Peng Qi, Yuhao Zhang, Yuhui Zhang, Jason Bolton and Christopher D. Manning. 2020. Stanza: A Python Natural Language Processing Toolkit for Many Human Languages. In Association for Computational Linguistics (ACL) System Demonstrations.
+
+
 * **coreNLP**  (https://stanfordnlp.github.io/CoreNLP/) -- Stanford CoreNLP has historically been one of the standard, most commonly used, NLP engines.
     * Official description: "CoreNLP is your one stop shop for natural language processing in Java! CoreNLP enables users to derive linguistic annotations for text, including token and sentence boundaries, parts of speech, named entities, numeric and time values, dependency and constituency parses, coreference, sentiment, quote attributions, and relations. CoreNLP currently supports 6 languages: Arabic, Chinese, English, French, German, and Spanish."
     * Unfortunately, the R wrapper provided in the *coreNLP* package no longer seems to function (or, to be precise, I cannot get it to install, on RStudio Cloud or on my own machine, despite having done so before). Your mileage may vary: https://cran.r-project.org/web/packages/coreNLP/index.html.
@@ -97,7 +101,7 @@ Quanteda, tm, and tidytext are general -- partially overlapping, interrelated, a
 * Official description: "The Apache OpenNLP library is a machine learning based toolkit for the processing of natural language text written in Java. It supports the most common NLP tasks, such as tokenization, sentence segmentation, part-of-speech tagging, named entity extraction, chunking, parsing, and coreference resolution."
 * Because Apache OpenNLP is written in Java, this R package requires a successful installation of Java along with the package rJava, so be mindful of this if you attempt to install on your own machines.
 * The models/tasks available for each language are listed here: http://opennlp.sourceforge.net/models-1.5/. As of this writing, there are tokenizers, sentence detectors, and two differently trained part-of-speech taggers each for English, Danish, German, Spanish, Dutch, Portuguese, and Swedish, and a varying number of named entity recognizers for English, Spanish, and Dutch.
-* Some usage examples are provided in the NLP in R tutorial here: XX.
+* Some usage examples are provided in the "NLP in R" tutorial here.
 
 **sparkNLP**
 
@@ -106,7 +110,8 @@ Quanteda, tm, and tidytext are general -- partially overlapping, interrelated, a
 
 **cleanNLP**
 * Provides a tidytext interface for NLP "backends" of stringi (just tokenization), udpipe, the Python library spaCy, and the Python port of (Stanford) coreNLP. 
-* It interacts with Python and requires the successful installation of the Python package **cleannnlp**.
+* It interacts with Python and requires the successful installation of the Python package 
+* **cleannnlp**.
 
 **korPus**
 
@@ -115,7 +120,7 @@ Quanteda, tm, and tidytext are general -- partially overlapping, interrelated, a
 
 **Other popular libraries accessible through Python
 
-All of the following are discussed in Python notebooks, and are hypothetically accessible in R through reticulate.
+All of the following are desribed in the Python notes: https://github.io/burtmonroeTextAsDataCourse. I imagine you can access nltk in R through reticulate, although I don't think I've tried. I doubt the others are even hypothetically accessible in R through reticulate.
 
 * **nltk**
 * **AllenNLP**
@@ -126,9 +131,12 @@ All of the following are discussed in Python notebooks, and are hypothetically a
 
 **topicmodels**
 
-**stm**
+**stm** (Structural Topic Model) - https://www.structuraltopicmodel.com
+* Official description: "The Structural Topic Model is a general framework for topic modeling with document-level covariate information. The covariates can improve inference and qualitative interpretability and are allowed to affect topical prevalence, topical content or both. The software package implements the estimation algorithms for the model and also includes tools for every stage of a standard workflow from reading in and processing raw text through making publication quality figures."
+* Notebook available: https://burtmonroe.github.io/TextAsDataCourse/Tutorials/
 
-**lda**
+**lda** (Latent Dirichlet Allocation)
+* Notebook available: https://burtmonroe.github.io/TextAsDataCourse/Tutorials/
 
 **tidylda**
 
@@ -167,7 +175,7 @@ All of the following are discussed in Python notebooks, and are hypothetically a
 
 * Official description: "Basic classes and methods for Natural Language Processing." Provides some of the underlying infrastructure for udpipe, openNLP, and cleanNLP.
 
-**tif - Text Interchange Format
+**tif - Text Interchange Format**
 
 * Official description: "This package describes and validates formats for storing common object arising in text analysis as native R objects. Representations of a text corpus, document term matrix, and tokenized text are included. The tokenized text format is extensible to include other annotations. There are two versions of the corpus and tokens objects; packages should accept both and return or coerce to at least one of these.
 * Lincoln Mullen describes tif, which he adopted in the tokenizers package: "The Text Interchange Formats are a set of standards defined at an rOpenSci sponsored meeting in London in 2017. The formats allow R text analysis packages to target defined inputs and outputs for corpora, tokens, and document-term matrices. By adhering to these recommendations, R packages can buy into an interoperable ecosystem."
