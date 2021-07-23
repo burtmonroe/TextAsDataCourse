@@ -1,5 +1,7 @@
 # Open source Tools for Text as Data / NLP in Python
 
+Notes for students in my Text as Data/NLP courses at Penn State / Essex
+
 ### Python generics
 
   * I strongly recommend the Anaconda distribution and Conda package manager.
