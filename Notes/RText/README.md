@@ -1,5 +1,7 @@
 # Open source Tools for Text as Data / NLP in R
 
+Notes for students in my Text as Data/NLP courses at Penn State / Essex
+
 ## R generics
 
 * I strongly recommend working within **RStudio**. Some of the notebooks provided are designed for the Essex Summer School Advanced TADA/NLP course, and may not run as is outside of the RStudio Cloud environment provided for that class.
