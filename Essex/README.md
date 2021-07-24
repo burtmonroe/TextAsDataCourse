@@ -6,9 +6,9 @@ Kenneth Benoit. 2020. “Text as Data: An Overview.” In Robert Franzese and Lu
 
 Jacob Eisenstein. 2018. “Introduction.” Natural Language Processing https://github.com/jacobeisenstein/gt-nlp-class/blob/master/notes/eisenstein-nlp-notes.pdf
 
-Notes: (Open Source Tools for Text as Data / NLP in R)[https://burtmonroe.github.io/TextAsDataCourse/Notes/RText/]
+Notes: [Open Source Tools for Text as Data / NLP in R](https://burtmonroe.github.io/TextAsDataCourse/Notes/RText/)
 
-Notes: (Open Source Tools for Text as Data / NLP in Python)[https://burtmonroe.github.io/TextAsDataCourse/Notes/PythonText/]
+Notes: [Open Source Tools for Text as Data / NLP in Python](https://burtmonroe.github.io/TextAsDataCourse/Notes/PythonText/)
 
 
 ### Day 2 (Jul 27) - Language Models and NLP Pipelines for Sequence Labeling
