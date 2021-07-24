@@ -1,30 +1,42 @@
 Tutorials / Notebooks / Code
 
+(Produced for courses "Text as Data" (Penn State) and "Advanced Text as Data / NLP" (Essex)
+
 NLP / Text as Data Frameworks in R and Python
 
 * R
-   * Open Source Tools for Text as Data in R
+   * [Open Source Tools for Text as Data in R](https://burtmonroe.github.io/TextAsDataCourse/Notes/RText/)
    
-   * Introduction to Text Processing with Quanteda (R)
+   * Introduction to Text Processing with Quanteda (R) (Warning - this currently uses syntax that has since been deprecated)
       * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToQuanteda.nb.html)    
       * Notebook .Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToQuanteda.Rmd)
       
-   * Introduction to tidytext (R)
+   * (3rd party) Text as Data with tidytext: Great tutorials in the book: https://www.tidytextmining.com
    
-   * Introduction to tm (R)
+   * NLP Pipelines in R (Primary focus is on UDPipe and openNLP, with spacyr separated out to other notebook)
+  
+   * Introduction to spacyr and spaCy through R (R)
+
 
 * Python
+* 
    * [Open Source Tools for Text as Data in Python](https://burtmonroe.github.io/TextAsDataCourse/Notes/PythonText/)
    
    * Introduction to NLP with spaCy (Python)
       * Notebook html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/Introduction%20to%20NLP%20with%20spaCy.html)
-      
+   
    * Introduction to NLP with textblob, nltk, and pattern (Python)
       * Notebook html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/Introduction%20to%20NLP%20with%20TextBlob%2C%20NLTK%2C%20and%20pattern.html)
       
-   * Introduction to fastText (Python)
-   
-   * Introduction to Polyglot (Python)
+   * Introduction to NLP with Stanza / coreNLP (Python)
+
+   * (3rd party demos /guide) AllenNLP: Demos (https://demo.allennlp.org/) and Guide (https://guide.allennlp.org) (Python)
+
+   * (3rd party tutorials) sparkNLP
+
+   * (3rd party tutorials) NLP-Architect
+
+   * Introduction to NLP with Flair
 
 Scraping and Data Wrangling:
 
