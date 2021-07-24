@@ -15,6 +15,10 @@ Notes: [Open Source Tools for Text as Data / NLP in Python](https://burtmonroe.g
 
 Dan Jurafsky & James Martin (2020), Speech & Language Processing (3rd edition draft). Chapters 3, 8, 14. “N-gram Language Models,” “Sequence Labeling for Parts of Speech and Named Entities,” “Dependency Parsing.” https://web.stanford.edu/~jurafsky/slp3/
 
+R Tutorials: NLP Pipelines in R + spaCy in R (RStudio Cloud)
+
+Python Tutorials: Intro to spaCy + Intro to Stanza (Google Colab)
+
 
 ### Day 3 (Jul 28) - Word Embeddings
 
