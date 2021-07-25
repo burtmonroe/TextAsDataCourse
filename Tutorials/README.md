@@ -1,13 +1,25 @@
-Tutorials / Notebooks / Code
+# Tutorials / Notebooks / Code
 
-(Produced for courses "Text as Data" (Penn State) and "Advanced Text as Data / NLP" (Essex)
+Burt Monroe (Penn State)
+Produced for Penn State and Essex Courses in "Text as Data"
 
-NLP / Text as Data Frameworks in R and Python
+## String Processing and Regular Expressions in R & Python
 
-* R
+* Introduction to String Manipulation and Regular Expressions in R
+    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToTextManipulation.nb.html)
+    * Notebook .Rmd [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToTextManipulation.Rmd)
+    
+* Introduction to String Manipulation and Regular Expressions in Python
+    * Colab notebook [here](https://colab.research.google.com/drive/1wCVf8xaoTAsKya5uuuo5knvizbWgheE_?usp=sharing)
+
+
+## NLP / Text-as-Data Frameworks in R and Python
+
+### In R
+
    * [Open Source Tools for Text as Data in R](https://burtmonroe.github.io/TextAsDataCourse/Notes/RText/)
    
-   * Introduction to Text Processing with Quanteda (R) (Warning - this currently uses syntax that has since been deprecated)
+   * Introduction to Text-as-Data with quanteda (R)
       * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToQuanteda.nb.html)    
       * Notebook .Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToQuanteda.Rmd)
       
@@ -18,8 +30,8 @@ NLP / Text as Data Frameworks in R and Python
    * Introduction to spacyr and spaCy through R (R)
 
 
-* Python
-* 
+### In Python
+ 
    * [Open Source Tools for Text as Data in Python](https://burtmonroe.github.io/TextAsDataCourse/Notes/PythonText/)
    
    * Introduction to NLP with spaCy (Python)
@@ -39,16 +51,6 @@ NLP / Text as Data Frameworks in R and Python
    * Introduction to NLP with Flair
 
 Scraping and Data Wrangling:
-
-* Introduction to String Manipulation and Regular Expressions in R
-    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToTextManipulation.nb.html)
-    * Notebook .Rmd [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToTextManipulation.Rmd)
-    
-* Introduction to String Manipulation and Regular Expressions in Python
-    * Notebook html [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/Intro%2Bto%2BString%2BManipulation%2Band%2BRegular%2BExpressions%2Bin%2BPython.html)
-    * Notebook ipynb [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/Intro%2Bto%2BString%2BManipulation%2Band%2BRegular%2BExpressions%2Bin%2BPython.ipynb)
-        * Requires [fruit.txt](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/fruit.txt)
-        * Requires [sentences.txt](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/sentences.txt)
         
 * Scraping with rvest (R) (Example: United Nations meeting summaries)
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-ScrapingWithRvest_UNMeetingSummaries.nb.html)
