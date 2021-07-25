@@ -1,8 +1,11 @@
 ---
-title: "An Introduction to Text Processing with Quanteda"
-subtitle: "PLSC 597, Text as Data, Penn State"
+title: "An Introduction to Text as Data with quanteda"
 author: "Burt L. Monroe"
+subtitle: Penn State and Essex courses in "Text as Data"
 output:
+  html_document:
+    toc: yes
+    df_print: paged
   html_notebook:
     code_folding: show
     highlight: tango
@@ -11,23 +14,43 @@ output:
     df_print: paged
 ---
 
+Updated July 2021.
 
-# Introduction #
+The **quanteda** package (https://quanteda.io) is a very general and well-documented ecosystem for text analysis in R. A very large percentage of what is typically done in social science text-as-data research can be done with, or at least through, quanteda. Among the "competitors" to quanteda are the classic package **tm** and the tidyverse-consistent package **tidytext**. These actually are interrelated, with shared code and conversion utilities available, so they aren't necessarily in conflict.
 
-We are going to use the Quanteda R package in this section. If you need to, run this command (minus the #) to install quanteda:
+Official description: 
+
+>The package is designed for R users needing to apply natural language processing to texts, from documents to final analysis. Its capabilities match or exceed those provided in many end-user software applications, many of which are expensive and not open source. The package is therefore of great benefit to researchers, students, and other analysts with fewer financial resources. While using quanteda requires R programming knowledge, its API is designed to enable powerful, efficient analysis with a minimum of steps. By emphasizing consistent design, furthermore, quanteda lowers the barriers to learning and using NLP and quantitative text analysis even for proficient R programmers.
+
+In addition to the extensive documentation, Stefan Muller and Ken Benoit have a very helpful cheatsheet here: https://muellerstefan.net/files/quanteda-cheatsheet.pdf.
+
+In this notebook, we will use quanteda to turn a collection of texts, a corpus, into quantitative data, with each document represented by the counts of the "words" in it. Since we do away with word order this is called a **bag-of-words** representation.
+
+Install the following packages if you haven't.
 
 ```{r}
-# install.packages("quanteda", dependencies = TRUE)
+# install.packages("quanteda", dependencies=TRUE)
+# install.packages("tokenizers", dependencies=TRUE)
+# install.packages("quanteda.textplots", dependencies=TRUE)
+# install.packages("RColorBrewer", dependencies=TRUE)
 ```
 
-Now load it:
+Note that quanteda has in recent versions moved analysis and plotting functions to new packages **quanteda.textplots**, **quanteda.textmodels** (classification and scaling models), and **quanteda.textstats**.
+
+Now load quanteda:
 ```{r}
 library(quanteda)
 ```
 
+If you are working on RStudio Cloud, you may have received a warning message about the "locale." You set the locale for British English ("en_GB") with the `stri_locale_set` comman in the already loaded stringi package. You may  wish to set it to assume you are working in a different context (e.g., "en_US" for US English) or language (e.g., "pt_BR" for Brazilian Portuguese). This seems to happen every time an RStudio Cloud project with quanteda loaded is reopened, so you have to reissue this command to make the warning message go away.
+
+```{r}
+stringi::stri_locale_set("en_GB")
+```
+
 # A first corpus #
 
-Quanteda comes with several corpora included. Lets load in the corpus of presidential inaugural addresses and see what it looks like:
+Quanteda comes with several corpora included. Lets load in the corpus of US presidential inaugural addresses and see what it looks like:
 
 ```{r}
 corp <- quanteda::data_corpus_inaugural
@@ -35,43 +58,169 @@ corp <- quanteda::data_corpus_inaugural
 summary(corp)
 ```
 
-# Simple qualitative questions #
-
-## What's a document look like? ##
-
-Let's look at one document (Washington's first inaugural)
+What does a document look like? Let's look at one document (George Washington's first inaugural), which can be accessed with the `as.character` method. (The previous command `texts` has been deprecated.)
 
 ```{r}
-texts(data_corpus_inaugural)[1]
+as.character(corp[1])
 ```
 
-## How is "word" used? (Key Words in Context - KWIC) ##
+# Tokenizing - what is in the bag of words?
 
-Let's get a sense of how words have been used with the "kwic" command. KWIC stands for "key words in context."
+The first task is **tokenizing**. You can apply a tokenizer in quanteda with the `tokens` command, turning a "corpus" object -- or just a vector of texts -- into a "tokens" object. In the latest version of Quanteda, most commands operate on a tokens object.
+
+The examples from the help file will be used to show a few of the options:
 
 ```{r}
-kwic(data_corpus_inaugural, "humble", window=4)
-
-kwic(data_corpus_inaugural, "tombstones", window=4)
+txt <- c(doc1 = "A sentence, showing how tokens() works.",
+         doc2 = "@quantedainit and #textanalysis https://example.com?p=123.",
+         doc3 = "Self-documenting code??",
+         doc4 = "£1,000,000 for 50¢ is gr8 4ever \U0001f600")
+tokens(txt)
 ```
 
-# Simple quantitative questions #
-
-## A document-term matrix ##
-
-A very common goal of text preprocessing is to generate a document-term matrix (or document-feature matrix), where each row represents a document, each column represents a "term" (or other textual feature like a punctuation mark or a bigram) and the entries are the counts of the term in the current document.
-
-For this we will use quanteda's "dfm" command with some commonly chosen preprocessing options.
+The `what` option selects different tokenizers. The default is `word` which replaces a slower and less subtle `word1` legacy version.
 
 ```{r}
-doc_term_matrix <- quanteda::dfm(corp,
-                                 tolower = TRUE,               # make all letters lower case
-                                 stem = FALSE,                 # do not stem
-                                 remove_punct = TRUE,          # remove punctuation
-                                 remove = stopwords("english"), # ignore common words on a "stop" list
-                                 ngrams = 1)                   # count unigrams
+tokens(txt, what = "word1")
 ```
 
+For some purposes you may wish to tokenize by characters:
+
+```{r}
+tokens(txt[1], what = "character")
+```
+
+You can "tokenize" (the usual term is "segment") by sentence in Quanteda, but note that they recommend the *spacyr* package (discussed in a separate notebook) for better sentence segmentation. Let's try it on Washington's inaugural:
+
+```{r}
+tokens(corp[1], what = "sentence")
+```
+
+Wow, those are long sentences. Out of curiosity, let's look at Trump's:
+```{r}
+tokens(corp[58], what = "sentence")
+```
+
+Those are ... shorter.
+
+There are a number of options you can apply with the `tokens` command, controlling how the tokenizer deals with punctuation, numbers, symbols, hyphenization, etc. Again, just the help file examples:
+
+```{r}
+# removing punctuation marks but keeping tags and URLs
+tokens(txt[1:2], remove_punct = TRUE)
+
+# splitting hyphenated words
+tokens(txt[3])
+tokens(txt[3], split_hyphens = TRUE)
+
+# symbols and numbers
+tokens(txt[4])
+tokens(txt[4], remove_numbers = TRUE)
+tokens(txt[4], remove_numbers = TRUE, remove_symbols = TRUE)
+```
+
+## External tokenizers
+
+You can use other tokenizers, like those from the "tokenizers" package. The output of a command like `tokenizers::tokenize_words` can be passed to the tokens command:
+
+```{r}
+# install.packages("tokenizers")
+library(tokenizers)
+tokens(tokenizers::tokenize_words(txt[4]), remove_symbols = TRUE)
+
+# using pipe notation
+tokenizers::tokenize_words(txt, lowercase = FALSE, strip_punct = FALSE) %>%
+  tokens(remove_symbols = TRUE)
+
+tokenizers::tokenize_characters(txt[3], strip_non_alphanum = FALSE) %>%
+    tokens(remove_punct = TRUE)
+
+tokenizers::tokenize_sentences(
+    "The quick brown fox.  It jumped over the lazy dog.") %>%
+    tokens()
+```
+
+Look carefully -- what did it do differently?
+
+Let's make a fairly generic tokens object from our inaugural speeches corpus.
+
+```{r}
+inaugural_tokens <- quanteda::tokens(corp,
+                       what = "word",
+                       remove_punct = TRUE, # default FALSE
+                       remove_symbols = TRUE, # default FALSE
+                       remove_numbers = FALSE,
+                       remove_url = TRUE, # default FALSE
+                       remove_separators = TRUE,
+                       split_hyphens = FALSE,
+                       include_docvars = TRUE,
+                       padding = FALSE,
+                       verbose = quanteda_options("verbose")
+                       )
+```
+
+This produces a `tokens` class object. Expand the object in your RStudio Environment tab to take a look at it.
+
+Foremost, it's a list with one entry per document consisting of a character vector of the document's tokens.
+
+```{r}
+inaugural_tokens[["2017-Trump"]][1:30]
+```
+
+## Tokens vs. types
+
+It also has a vector of the "types" -- the vocabulary of tokens in the whole corpus/object. This attribute can be accessed through the `attr` function.
+
+```{r}
+attr(inaugural_tokens,"types")[1:30]
+length(attr(inaugural_tokens, "types"))
+```
+
+Just over 10000 unique tokens have been used. Notice `the` appears third and never again. But ... `The` does:
+
+```{r}
+which(attr(inaugural_tokens,"types")=="The")
+```
+
+Why are they "the" and "The" different types? Why is "Fellow-Citizens" one type?
+
+Under the hood, the `tokens` vector isn't a vector of strings. It's a vector of integers, indicating the index of the token in the type vector. So every time `the` appears, it is stored as the integer 3.
+
+By default, the `tokens` object also retains all of the document metadata that came with the corpus.
+
+## Key Words in Context
+
+The tokens object also provides access to a variety of quanteda utilities. For example, a very helpful traditional qualitative tool is the Key Words in Context or `kwic` command:
+
+```{r}
+kwic(inaugural_tokens, "humble", window=3)
+
+kwic(inaugural_tokens, "tombstones", window=4)
+```
+
+Hmmm. Moving on.
+
+## Stemming
+
+Stemming is the truncation of words in an effort to associate related words with a common token, e.g., "baby" and "babies" -> "babi". 
+
+The tokenizers package provides a wrapper to the `wordStem` function from the SnowballC package, which applies a standard stemmer called the Porter stemmer. (The function takes as input a vector of texts or corpus, and returns a list, each element a vector of the stems for the corresponding text.)
+
+```{r}
+tokenizers::tokenize_word_stems(corp)$`2017-Trump`[1:50]
+```
+
+# From text to data - the document-term-matrix
+
+Quanteda is focused largely on bag-of-words (or bag-of-tokens or bag-of-terms) models that work from a document-term matrix. where each row represents a document, each column represents a type (a "term" in the vocabulary) and the entries are the counts of tokens matching the term in the current document.
+
+For this we will use quanteda's "dfm" command with some commonly chosen preprocessing options. In older version os quanteda, the dfm function was applied to a corpus, with tokenizing and normalizing options applied there. It is now applied to a tokens object where most of that has already been done. Here, we'll add case-folding, merging `the` and `The`, among other things, into a single type.
+
+```{r}
+doc_term_matrix <- quanteda::dfm(inaugural_tokens,
+                                 tolower = TRUE  # case-fold
+                                 )
+```
 
 What kind of object is doc_term_matrix? 
 
@@ -79,184 +228,247 @@ What kind of object is doc_term_matrix?
 class(doc_term_matrix)
 ```
 
-
-Typing the dfm's name will show an object summary. This is a matrix, so how many rows does it have? How many columns? What does "92.6% sparse" mean?
+Typing the dfm's name will show an object summary. This is a matrix, so how many rows does it have? How many columns? What does "91.89% sparse" mean?
 
 ```{r}
 doc_term_matrix
 ```
 
-Let's peak inside it a bit:
+You can peak inside it, indexing it like you would a `matrix` or `Matrix` object:
 ```{r}
 doc_term_matrix[1:5,1:5]
 ```
 
-Why did it count "fellow-citizens" as a single term?
-
-## What are the most frequent terms? ##
+## What are the most frequent terms?
 
 What are the most frequent terms?
 ```{r}
 topfeatures(doc_term_matrix,40)
 ```
 
+You can get the same thing through sorting a column sum of the dtm:
+```{r column-sum}
+word_freq <- colSums(doc_term_matrix)
+sort(word_freq,decreasing=TRUE)[1:40]
+```
+
+## Stopwords
+
+For some purposes, you may wish to remove "stopwords." There are stopword lists accessible through the `stopwords` function, exported from the automatically loaded `stopwords` package. The default is English from the Snowball collection. Get a list of sources with `stopwords_getsources()` and a list of languages for the source with `stopwords_getlanguages()`
+
+The default English list is fairly short.
+```{r}
+stopwords('en')[1:10] #Snowball
+length(stopwords('en'))
+```
+
+This one's three times longer.
+```{r}
+stopwords('en', source='smart')[1:10]
+length(stopwords('en', source='smart'))
+```
+
+This one's almost ten times as long and is ... interesting
+```{r}
+stopwords('en', source='stopwords-iso')[1:10]
+length(stopwords('en', source='stopwords-iso'))
+```
+
+The beginning of a German list.
+```{r}
+stopwords('de')[1:10]
+```
+
+A slice from an Ancient Greek list:
+```{r}
+stopwords('grc',source='ancient')[264:288]
+```
+
+Lets case-fold our tokens object to lowercase, remove the stopwords, then make a new dtm and see how it's different.
+
+```{r}
+inaugural_tokens.nostop <- inaugural_tokens %>%
+                            tokens_tolower() %>%
+                            tokens_remove(stopwords('en'))
+dtm.nostop <- dfm(inaugural_tokens.nostop)
+dtm.nostop
+```
+
+We've got about 1000 fewer features, and it is slightly *more* sparse. Why?
+
+What are the most frequent tokens now?
+```{r}
+topfeatures(dtm.nostop,40)
+```
+
 ## How is this document different from those documents? ##
 
-Besides "tombstones," what other words made their inaugural debut in 2017?
+I'm just curious. Besides "tombstones," what other words made their inaugural debut in 2017?
 
 ```{r}
 unique_to_trump <- as.vector(colSums(doc_term_matrix) == doc_term_matrix["2017-Trump",])
 colnames(doc_term_matrix)[unique_to_trump]
 ```
 
-## Can I draw those slick wordclouds? ##
+OK!
 
-Ugh, well, yes. Wordclouds are an abomination -- I'll rant about that at a later date -- but ...
+## The impact of preprocessing decisions #
 
-```{r}
-set.seed(100)
-textplot_wordcloud(doc_term_matrix, min_count = 100, random_order = FALSE,
-                   rotation = .25, 
-                   color = RColorBrewer::brewer.pal(8,"Dark2"))
-
-set.seed(100)
-textplot_wordcloud(doc_term_matrix["2017-Trump",], min_count = 3, random_order = FALSE,
-                   rotation = .25, 
-                   color = RColorBrewer::brewer.pal(8,"Dark2"))
-```
-
-# The impact of preprocessing decisions #
-
-We can also change the settings. What happens if we don't lower case and don't remove punctuation?
+We can also change the settings. What happens if we don't remove punctuation?
 
 ```{r}
-doc_term_matrix <- quanteda::dfm(corp,
-                                 tolower = FALSE,
-                                 stem = FALSE,
-                                 remove_punct = FALSE,
-                                 remove = stopwords("english"),
-                                 ngrams = 1)
-doc_term_matrix
-topfeatures(doc_term_matrix,40)
+inaugural_tokens.wpunct <- quanteda::tokens(corp,
+                          what = "word",
+                          remove_punct = FALSE) %>%
+                          tokens_tolower() %>%
+                          tokens_remove(stopwords('en'))
+  
+dtm.wpunct <- dfm(inaugural_tokens.wpunct)
+dtm.wpunct
+topfeatures(dtm.wpunct,40)
 ```
 
 How big is it now? How sparse is it now?
 
 
-What happens if we lower case, remove punctuation, and stem?
+What happens if we lower case and stem?
 
 ```{r}
-doc_term_matrix <- quanteda::dfm(corp,
-                                 tolower = TRUE,
-                                 stem = TRUE,
-                                 remove_punct = TRUE,
-                                 remove = stopwords("english"),
-                                 ngrams = 1)
-doc_term_matrix
-topfeatures(doc_term_matrix,40)
+inaugural_tokens.stems <- quanteda::tokens(corp,
+                          what = "word",
+                          remove_punct = TRUE) %>%
+                          tokens_tolower() %>%
+                          tokens_remove(stopwords('en')) %>%
+                          tokens_wordstem()
+  
+dtm.stems <- dfm(inaugural_tokens.stems)
+dtm.stems
+topfeatures(dtm.stems,40)
 ```
 
-
-What happens if we lower case, remove punctuation, don't stem and don't remove stop words?
-
-```{r}
-doc_term_matrix <- quanteda::dfm(corp,
-                                 tolower = TRUE,
-                                 stem = FALSE,
-                                 remove_punct = TRUE,
-                                 #remove = stopwords("english"),
-                                 ngrams = 1)
-doc_term_matrix
-topfeatures(doc_term_matrix,40)
-```
-
-# Zipf's Law and a power law #
+## Zipf's Law and a power law 
 
 It's somewhat difficult to get your head around these sorts of things but there are statistical regularities here. For example, these frequencies tend to be distributed by "Zipf's Law" and by a (related) "power law."
-```{r}
-plot(1:ncol(doc_term_matrix),sort(colSums(doc_term_matrix),dec=T), main = "Zipf's Law?", ylab="Frequency", xlab = "Frequency Rank")
-plot(1:ncol(doc_term_matrix),sort(colSums(doc_term_matrix),dec=T), main = "Zipf's Law?", ylab="Frequency", xlab = "Frequency Rank", log="xy")
 
-# For power law, we need the number of words that appear at any given frequency
-# We'll get this by getting a vector of total frequencies (I probably should have done this before since I've used it multiple times
-word_freq <-colSums(doc_term_matrix)
-# Now we'll treat those like a categorical variable by making it a "factor". The categories are "1", "2", ..."17" ...etc.
-# Summary gives us counts of each "category" (maxsum is used to be sure it doesn't stop at 100 and lump everything else as "Other"
+```{r zipf}
+plot(1:ncol(doc_term_matrix),sort(colSums(doc_term_matrix),dec=T), main = "Zipf's Law?", ylab="Frequency", xlab = "Frequency Rank")
+```
+
+That makes the "long tail" clear. The grand relationship becomes clearer in a logarithmic scale:
+
+```{r zipf-log}
+plot(1:ncol(doc_term_matrix),sort(colSums(doc_term_matrix),dec=T), main = "Zipf's Law?", ylab="Frequency", xlab = "Frequency Rank", log="xy")
+```
+
+For the power law, we need the number of words that appear at any given frequency. We'll turn `word_freq` into a categorical variable by making it a "factor". The categories are "1", "2", ..."17" ...etc. and then us e `summary` to give us counts of each "category." (The `maxsum` option is used to be sure it doesn't stop at 100 and lump everything else as "Other"
+
+```{r power-law}
 words_with_freq <- summary(as.factor(word_freq),maxsum=10000)
 freq_bin <- as.integer(names(words_with_freq))
 
-plot(freq_bin, words_with_freq, main="Power Law?", xlab="Word Frequency", ylab="Number of Words")
 plot(freq_bin, words_with_freq, main="Power Law?", xlab="Word Frequency", ylab="Number of Words", log="xy")
 
 ```
 
+Zipf's law implies that, in a new corpus say, a small number of terms will be very common (we'll know a lot about them, but they won't help us distinguish documents), a large number of terms will be very rare (we'll know very little about them), and that there will be some number of terms we *have never seen before*. This "out-of-vocabulary" (OOV) problem is an important one in some applications.
 
-# A step toward word order mattering: n-grams #
+## A step toward word order mattering: n-grams
 
-Let's go back to preprocessing choices. What happens if we count bigrams?
-```{r}
-doc_term_matrix <- quanteda::dfm(corp,
-                                 tolower = TRUE,
-                                 stem = FALSE,
-                                 remove_punct = TRUE,
-                                 remove = stopwords("english"),
-                                 ngrams = 2)
-doc_term_matrix
-topfeatures(doc_term_matrix,40)
+Let's go back to preprocessing choices. What happens if we count bigrams? Let's first do it without removing stopwords.
+
+```{r bigrams}
+inaugural_tokens.2grams <- inaugural_tokens %>%
+                          tokens_tolower() %>%
+                          tokens_ngrams(n=2)
+  
+dtm.2grams <- dfm(inaugural_tokens.2grams)
+dtm.2grams
+topfeatures(dtm.2grams,40)
 ```
 
-How big is it? How sparse? Why are the stop words still there?
+How big is it? How sparse? It doesn't give us a lot of sense of content, but it does offer some rudimentary insights into how English is structured.
 
-# Exercise #2 - Due 7:00 am, Tuesday morning, September 10
+For example, we can create a rudimentary statistical language model that "predicts" the next word based on bigram frequencies. We apply Bayes' Theorem by calculating the frequency of bigrams starting with the current word and then and then scaling that by dividing by the total frequency (see Jurafsky and Marting, *Speech and Language Processing*, Chapter 3: https://web.stanford.edu/~jurafsky/slp3/ for more detail / nuance).
 
-Rename this .Rmd file "Exercise2_YourName.Rmd" substituting your name in. Edit the Rmd file to answer the questions below, inserting and editing "code chunks" as necessary. Anything labeled "Challenge" requires a little more than I demonstrated above and is completely optional. Click "Preview" above to examine your formatted answers. When you're happy with it, choose "Knit to html" in the Preview tab above, which creates an ".html" file. Email me your .Rmd and .html files. (You have probably along the way also created a ".nb.html" file. You don't need to send that.)
+If the current word is "american" what is probably next, in this corpus?
 
-**1)** Define a word's "context" as a window of five words/tokens before and after a word's usage. In what contexts does the word "Roman" appear in this corpus?  
-
-
-
-**2)** Which president used the most exclamation points in his inaugural address?
-
-
-
-**3)** Make a document-term matrix with the original settings above, and call it `exercise_dtm`:
-```{r}
-exercise_dtm    <- quanteda::dfm(corp,
-                                 tolower = TRUE,               # make all letters lower case
-                                 stem = FALSE,                 # do not stem
-                                 remove_punct = TRUE,          # remove punctuation
-                                 remove = stopwords("english"), # ignore common words on a "stop" list
-                                 ngrams = 1)                   # count unigrams
+First we find the right bigrams using a regular expression. See the regular expressions notebook for more detail if that is unfamiliar.
+```{r american_bigrams}
+american_bigrams <- grep("^american_",colnames(dtm.2grams),value=TRUE)
+american_bigrams
 ```
 
-**a)** What terms appear **only** in the document containing Abraham Lincoln's first inaugural address?
+Most likely bigrams starting with "american":
+```{r}
+freq_american_bigrams <- colSums(dtm.2grams[,american_bigrams])
+most_likely_bigrams <- sort(freq_american_bigrams/sum(freq_american_bigrams),dec=TRUE)[1:10]
+most_likely_bigrams
+```
+
+Let's see what happens if we remove the stopwords first.
+```{r bigrams-nostop}
+inaugural_tokens.2grams.nostop <- inaugural_tokens %>%
+                          tokens_tolower() %>%
+                          tokens_remove(stopwords('en')) %>%
+                          tokens_ngrams(n=2)
+  
+dtm.2grams.nostop <- dfm(inaugural_tokens.2grams.nostop)
+dtm.2grams.nostop
+topfeatures(dtm.2grams.nostop,40)
+```
+
+How big is it? How sparse? It gives some interesting content -- "great_nation", "almighty_god", "public_debt" -- but some confusing contructions, e.g. "people_world" which is really things like "people_of_the_world." 
+
+## Can I draw those slick wordclouds? ##
+
+Ugh, well, yes, if you must. Wordclouds are an abomination -- I'll rant about that at a later date -- but here's Trump's first inaugural in a wordcloud ...
+
+```{r wordcloud, fig.width=6}
+library(quanteda.textplots)
+
+set.seed(100)
+textplot_wordcloud(dtm.nostop["2017-Trump",], min_count = 1, random_order = FALSE,
+                   rotation = .25, 
+                   color = RColorBrewer::brewer.pal(8,"Dark2"))
+```
 
 
-**Challenge:** How many terms appeared **first** in Abraham Lincoln's first inaugural address?
+# Practice Exercises
 
+Save a copy of the notebook and use it to answer the questions below. Those labeled "Challenge" require more than demonstrated above.
 
-**b)** How many times has the word "slave" been used in inaugural addresses?
-
-
-**Challenge:** How many times has a word that **included** "slave" (like "slavery" or "enslaved") been used in inaugural addresses?
-
-
-**c)** Plot a word cloud of President Kennedy's 1961 inaugural address.
+**1)** Use the `inaugural_tokens.nostop` object. Define a word's "context" as a window of five words/tokens before and after a word's usage. In what contexts does the word "Roman" appear in this corpus?  
 
 
 
-**4)** Construct a dfm of **trigrams** (lower case, not stemmed, no stop words removed).
+**2)** Using `dtm.wpunct`, which president used the most exclamation points in his inaugural address?
+
+
+**3)** Use `dtm.nostop` for these questions. 
+
+**a)** Do any terms appear **only** in the document containing Abraham Lincoln's first inaugural address?
+
+**b)** **Challenge**: How many terms appeared **first** in Abraham Lincoln's first inaugural address?
+
+**c)** How many times has the word "slave" been used in inaugural addresses?
+
+**d)** **Challenge**: How many times has a word that **included** "slave" (like "slavery" or "enslaved") been used in inaugural addresses?
+
+
+**4)** Construct a dtm of **trigrams** (lower case, not stemmed, no stop words removed).
 
 **a)** How big is the matrix? How sparse is it?
 
 
 **b)** What are the 50 most frequent trigrams?
 
-**Challenge:** How many trigrams appear only once?
+**c)** **Challenge** How many trigrams appear only once?
 
-**c)** Plot a "word" cloud of trigrams in President Kennedy's 1961 inaugural address.
+**5)** Tokenize the following tweet using the built-in `word` tokenizer, the `tokenize_words` tokenizer from the `tokenizers` package, and the `tokenize_tweets` tokenizer from the `tokenizers` package, and explain what's different.
 
-**Challenge:** Why is it so different from the unigram cloud?
+```{r tweet-exercise}
+tweet <- "https://t.co/9z2J3P33Uc FB needs to hurry up and add a laugh/cry button 😬😭😓🤢🙄😱 Since eating my feelings has not fixed the world's problems, I guess I'll try to sleep... HOLY CRAP: DeVos questionnaire appears to include passages from uncited sources https://t.co/FNRoOlfw9s well played, Senator Murray Keep the pressure on: https://t.co/4hfOsmdk0l @datageneral thx Mr Taussig It's interesting how many people contact me about applying for a PhD and don't spell my name right."
+```
 
 
 

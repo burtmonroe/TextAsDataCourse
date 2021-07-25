@@ -1,8 +1,11 @@
 ---
 title: "An Introduction to String Manipulation and Regular Expressions in R"
-subtitle: "PLSC 597, Text as Data, Penn State"
 author: "Burt L. Monroe"
+subtitle: Penn State and Essex courses in "Text as Data"
 output:
+  html_document:
+    toc: yes
+    df_print: paged
   html_notebook:
     code_folding: show
     highlight: tango
@@ -13,9 +16,6 @@ output:
 
 (NB: This has its roots in a workshop co-written and delivered by Matt Denny and myself.)
 
-
-
-
 For text manipulation in R, I recommend the `stringr` package, which is part of the "tidyverse." There is a fantastic "cheat sheet" available [here](https://github.com/rstudio/cheatsheets/blob/master/strings.pdf). All `stringr` functions start with `str_`.
 
 (A little bit in the weeds ... First, a lot of this *can* be done in base R, but it can be less straightforward or intuitive. Second, almost all of `stringr` is a "wrapper" for commands in the package `stringi`, providing a more intuitive and consistent syntax, especially if you are also working with other elements of the tidyverse. So, not only *can* you do most of the following with `stringi`, you actually *are* doing most of this with `stringi` "under the hood.")
@@ -24,6 +24,8 @@ Install `stringr` if you need to, and load it:
 
 ```{r}
 #install.packages("stringr", dependencies = TRUE)
+# the following is necessary for the str_view command to work 
+#install.packages*"htmlwidgets", dependencies = TRUE)
 library(stringr)
 ```
 
@@ -187,7 +189,7 @@ zebra_fruit[1:10]
 
 ## Cleaning and normalizing strings
 
-You can do case-folding with `str_to_lower` (or`str_to_upper`). Base R commaned is `tolower`.
+You can do case-folding with `str_to_lower` (or`str_to_upper`). Base R command is `tolower`.
 
 ```{r}
 str_to_lower(combined_string) 
@@ -606,6 +608,5 @@ appropriations_data
 #### Other languages
 
 Remember ... other programming languages handle regular expressions slightly differently. In particlar, Python does not use the "double escape" idiom.
-```
 
 
