@@ -6,8 +6,9 @@ Produced for Penn State and Essex Courses in "Text as Data"
 ## String Processing and Regular Expressions in R & Python
 
 * Introduction to String Manipulation and Regular Expressions in R
-    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToTextManipulation.nb.html)
+    * Notebook html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToTextManipulation.html)
     * Notebook .Rmd [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToTextManipulation.Rmd)
+    * Available on Essex RStudioCloud (Day 1 - Review project)
     
 * Introduction to String Manipulation and Regular Expressions in Python
     * Colab notebook [here](https://colab.research.google.com/drive/1wCVf8xaoTAsKya5uuuo5knvizbWgheE_?usp=sharing)
@@ -20,8 +21,9 @@ Produced for Penn State and Essex Courses in "Text as Data"
    * [Open Source Tools for Text as Data in R](https://burtmonroe.github.io/TextAsDataCourse/Notes/RText/)
    
    * Introduction to Text-as-Data with quanteda (R)
-      * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToQuanteda.nb.html)    
+      * Notebook html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToQuanteda.html)    
       * Notebook .Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToQuanteda.Rmd)
+      * Available on Essex RStudioCloud (Day 1 - Review project)
       
    * (3rd party) Text as Data with tidytext: Great tutorials in the book: https://www.tidytextmining.com
    
