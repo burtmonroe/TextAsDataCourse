@@ -10,6 +10,8 @@ Notes: [Open Source Tools for Text as Data / NLP in R](https://burtmonroe.github
 
 Notes: [Open Source Tools for Text as Data / NLP in Python](https://burtmonroe.github.io/TextAsDataCourse/Notes/PythonText/)
 
+Slides: [https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day1-Introduction](https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day1-Introduction)
+
 R Notebooks for Day 1 at [https://rstudio.cloud/spaces/153773/project/2727270](https://rstudio.cloud/spaces/153773/project/2727270).
 
 Python notebook on string manipulation and regular expressions: [here](https://colab.research.google.com/drive/1wCVf8xaoTAsKya5uuuo5knvizbWgheE_?usp=sharing)
