@@ -2,17 +2,17 @@
 
 ### Day 1 (Jul 26) - Introduction and Overview
 
-Kenneth Benoit. 2020. “Text as Data: An Overview.” In Robert Franzese and Luigi Curini, eds. SAGE Handbook of Research Methods in Political Science and International Relations. https://kenbenoit.net/pdfs/CURINI_FRANZESE_Ch26.pdf
+Kenneth Benoit. 2020. “Text as Data: An Overview.” In Robert Franzese and Luigi Curini, eds. SAGE Handbook of Research Methods in Political Science and International Relations. [here](https://kenbenoit.net/pdfs/CURINI_FRANZESE_Ch26.pdf)
 
-Jacob Eisenstein. 2018. “Introduction.” Natural Language Processing https://github.com/jacobeisenstein/gt-nlp-class/blob/master/notes/eisenstein-nlp-notes.pdf
+Jacob Eisenstein. 2018. “Introduction.” Natural Language Processing [here](https://github.com/jacobeisenstein/gt-nlp-class/blob/master/notes/eisenstein-nlp-notes.pdf)
 
 Notes: [Open Source Tools for Text as Data / NLP in R](https://burtmonroe.github.io/TextAsDataCourse/Notes/RText/)
 
 Notes: [Open Source Tools for Text as Data / NLP in Python](https://burtmonroe.github.io/TextAsDataCourse/Notes/PythonText/)
 
-R Notebooks for Day 1 at https://rstudio.cloud.
+R Notebooks for Day 1 at [https://rstudio.cloud].
 
-Python notebook on string manipulation and regular expressions: https://colab.research.google.com/drive/1wCVf8xaoTAsKya5uuuo5knvizbWgheE_?usp=sharing
+Python notebook on string manipulation and regular expressions: [here](https://colab.research.google.com/drive/1wCVf8xaoTAsKya5uuuo5knvizbWgheE_?usp=sharing)
 
 
 ### Day 2 (Jul 27) - Language Models and NLP Pipelines for Sequence Labeling
