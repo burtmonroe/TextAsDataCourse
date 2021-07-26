@@ -10,6 +10,10 @@ Notes: [Open Source Tools for Text as Data / NLP in R](https://burtmonroe.github
 
 Notes: [Open Source Tools for Text as Data / NLP in Python](https://burtmonroe.github.io/TextAsDataCourse/Notes/PythonText/)
 
+R Notebooks for Day 1 at https://rstudio.cloud.
+
+Python notebook on string manipulation and regular expressions: https://colab.research.google.com/drive/1wCVf8xaoTAsKya5uuuo5knvizbWgheE_?usp=sharing
+
 
 ### Day 2 (Jul 27) - Language Models and NLP Pipelines for Sequence Labeling
 
