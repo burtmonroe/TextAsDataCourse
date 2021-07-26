@@ -14,7 +14,7 @@ Produced for Penn State and Essex Courses in "Text as Data"
     * Colab notebook [here](https://colab.research.google.com/drive/1wCVf8xaoTAsKya5uuuo5knvizbWgheE_?usp=sharing)
 
 
-## NLP / Text-as-Data Frameworks in R and Python
+## NLP / Text-as-Data Frameworks in R & Python
 
 ### In R
 
@@ -52,7 +52,7 @@ Produced for Penn State and Essex Courses in "Text as Data"
 
    * Introduction to NLP with Flair
 
-Scraping and Data Wrangling:
+## Scraping and Data Wrangling:
         
 * Scraping with rvest (R) (Example: United Nations meeting summaries)
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-ScrapingWithRvest_UNMeetingSummaries.nb.html)
@@ -83,7 +83,9 @@ Scraping and Data Wrangling:
 
 * Introduction to encoding, Unicode, UTF-8 and similar concepts
 
-Measuring and Modeling
+## Measuring and Modeling
+
+Note: Many R Notebooks below use syntax now deprecated in quanteda. They should be updated shortly (July 2021)
 
 * Introduction to Cosine Similarity (R)
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-CosineSimTutorial.nb.html)
@@ -116,6 +118,8 @@ Measuring and Modeling
 * Introduction to Scaling with Wordfish (R)
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroductionToWordfish.nb.html)
    * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/IntroductionToWordfish.Rmd)
+
+## Neural NLP / Deep Learning
    
 * (3rd party demo) [Interactive Demo, (Feedforward) Neural Networks (Daniel Smilkov and Shan Carter, TensorFlow](https://playground.tensorflow.org/)
 
