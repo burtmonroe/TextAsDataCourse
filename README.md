@@ -6,7 +6,7 @@ Burt Monroe
 
 Penn State PLSC 597 - "Text as Data" - Fall 2021 Syllabus.
 
-Essex 2P - "Advanced Text as Data: NLP" - [Summer 2021 Course Outline/Details](https://essexsummerschool.com/summer-school-facts/courses/2021-course-list/advanced-methods-for-text-as-data-natural-language-processing/).
+Essex 2P - "Advanced Text as Data: NLP" - [Summer 2021 Course Outline/Details](https://essexsummerschool.com/summer-school-facts/courses/2021-course-list/advanced-methods-for-text-as-data-natural-language-processing/). [Summer 2021 schedule and materials](https://burtmonroe.github.io/TextAsDataCourse/Essex)
 
 Penn State PLSC 597 - "Text as Data" - [Fall 2019 Syllabus](https://burtmonroe.github.io/TextAsDataCourse/TADASyllabus-Fall2019.pdf)
 
