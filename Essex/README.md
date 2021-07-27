@@ -21,9 +21,11 @@ Python notebook on string manipulation and regular expressions: [here](https://c
 
 Dan Jurafsky & James Martin (2020), Speech & Language Processing (3rd edition draft). Chapters 3, 8, 14. “N-gram Language Models,” “Sequence Labeling for Parts of Speech and Named Entities,” “Dependency Parsing.” [here](https://web.stanford.edu/~jurafsky/slp3/)
 
-R Tutorials: NLP Pipelines in R + spaCy in R (RStudio Cloud)
+Slides: [https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day2-NLPPipelines.pdf](https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day2-NLPPipelines.pdf)
 
-Python Tutorials: Intro to spaCy + Intro to Stanza (Google Colab)
+R Tutorials for Day 2 on RStudio Cloud: NLP Pipelines in R + spaCy in R (RStudio Cloud)
+
+Python Tutorials on NLP Annotation Pipelines (spaCy and Stanza for now) [here]https://colab.research.google.com/drive/1Us7Hx5xF5pdx-JM3t_6QB8SZZhHfrc0Q?usp=sharing)
 
 
 ### Day 3 (Jul 28) - Word Embeddings
