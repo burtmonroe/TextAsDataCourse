@@ -25,7 +25,7 @@ Slides: [https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day2-NLPPi
 
 R Tutorials for Day 2 on RStudio Cloud: NLP Pipelines in R + spaCy in R (RStudio Cloud)
 
-Python Tutorials on NLP Annotation Pipelines (spaCy and Stanza for now) [here]https://colab.research.google.com/drive/1Us7Hx5xF5pdx-JM3t_6QB8SZZhHfrc0Q?usp=sharing)
+Python Tutorials on NLP Annotation Pipelines (spaCy and Stanza for now) [here](https://colab.research.google.com/drive/1Us7Hx5xF5pdx-JM3t_6QB8SZZhHfrc0Q?usp=sharing)
 
 
 ### Day 3 (Jul 28) - Word Embeddings
@@ -34,6 +34,9 @@ Dan Jurafsky & James Martin (2020), Speech & Language Processing (3rd edition dr
 
 Pedro Rodriguez and Arthur Spirling (Forthcoming) “Word embeddings: What works, what doesn’t, and how to tell the difference for applied research.” Journal of Politics. [here](https://github.com/ArthurSpirling/EmbeddingsPaper/blob/master/Paper/Embeddings_SpirlingRodriguez.pdf)
 
+Slides: [https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day3-WordEmbeddings.pdf](https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day3-WordEmbeddings.pdf)
+
+Python Tutorial on Estimating Word Embeddings with gensim: https://colab.research.google.com/drive/1eSzd2z5B3CDeTxpdMXCIh3bm1L-gYzCr?usp=sharing
 
 
 ### Day 4-5 (Jul 29-30) - Neural Networks and Deep Learning for NLP
