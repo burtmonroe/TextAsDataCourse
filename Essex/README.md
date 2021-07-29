@@ -12,7 +12,7 @@ Notes: [Open Source Tools for Text as Data / NLP in Python](https://burtmonroe.g
 
 Slides: [https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day1-Introduction](https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day1-Introduction)
 
-R Notebooks for Day 1 at [https://rstudio.cloud/spaces/153773/project/2727270](https://rstudio.cloud/spaces/153773/project/2727270).
+R Notebooks for Day 1 [https://rstudio.cloud/](https://rstudio.cloud/).
 
 Python notebook on string manipulation and regular expressions: [here](https://colab.research.google.com/drive/1wCVf8xaoTAsKya5uuuo5knvizbWgheE_?usp=sharing)
 
@@ -47,9 +47,15 @@ Jay Alammar. 2016. “A Visual and Interactive Guide to the Basics of Neural Net
 
 Jay Alammar. 2016. “A Visual and Interactive Look at Basic Neural Network Math.” [here](https://jalammar.github.io/feedforward-neural-networks-visual-interactive/)
 
-Christopher Olah. 2014. “Deep Learning, NLP, and Representations.” [here](http://colah.github.io/posts2014-07-NLP-RNNs-Representations/)
+Christopher Olah. 2014. “Deep Learning, NLP, and Representations.” [here](http://colah.github.io/posts/2014-07-NLP-RNNs-Representations/)
 
 Kakia Chatsiou and Slava Jankin Mikhaylov. 2020. “Deep Learning for Political Science.” In Robert Franzese and Luigi Curini, eds. SAGE Handbook of Research Methods in Political Science and International Relations. [here](https://arxiv.org/pdf/2005.06540.pdf)
+
+Slides: [https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day4-DeepLearningNLP.pdf](https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day4-DeepLearningNLP.pdf)
+
+R Tutorial on Text Classification with Keras and Tensorflow, on RStudio Cloud in Day 4 Project
+
+Python Tutorial on Text Classification with Keras and Tensorflow: https://colab.research.google.com/drive/1MG2_5Hx5dwN77hmVNY0aUiGo99k2mPGb?usp=sharing
 
 
 ### Day 6 (Aug 2) - From Recurrent Neural Networks to Transformers
