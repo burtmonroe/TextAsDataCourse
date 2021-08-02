@@ -57,8 +57,26 @@ R Tutorial on Text Classification with Keras and Tensorflow, on RStudio Cloud in
 
 Python Tutorial on Text Classification with Keras and Tensorflow: https://colab.research.google.com/drive/1MG2_5Hx5dwN77hmVNY0aUiGo99k2mPGb?usp=sharing
 
+### Aug 2
 
-### Day 6 (Aug 2) - From Recurrent Neural Networks to Transformers
+Study guide for exams: https://docs.google.com/document/d/1eZGUUzqTJCfQjQiJAn1DqhaVWeDoH4RSvOU8TC3WIqE/edit?usp=sharing
+
+Slides: [https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day5-DeepLearningNLP2.pdf](https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day5-DeepLearningNLP2.pdf)
+
+Text Classification with Keras and Tensorflow 2: Dropout and Weight Regularization (Python): https://colab.research.google.com/drive/1kGhXArEbWDP_A4TtlB1cgSubekIsX4VP?usp=sharing
+
+Text Classification with Keras and Tensorflow 2: Dropout and Weight Regularization (R): https://colab.research.google.com/drive/1hq9eCrWjDOkpMUY0QJ9fAOHWagcBSXU7?usp=sharing
+
+Text Classification with Keras and Tensorflow 3: Pretrained Embeddings (Python): https://colab.research.google.com/drive/1pkJNzWDdqTaVzZFQ1RnkAxx87Wkyr31T?usp=sharing
+
+Text Classification with Keras and Tensorflow 3: Pretrained Embeddings (R): Coming shortly.
+
+Text Classification with Keras and Tensorflow 4: Incorporating an Embedding Layer (Python): https://colab.research.google.com/drive/1_6m2DVFQJPZH5UENZDs7jkrOU6kjyuCu?usp=sharing
+
+Text Classification with Keras and Tensorflow 4: Incorporating an Embedding Layer (R): Coming shortly.
+
+
+### Aug 3 - From Recurrent Neural Networks to Transformers
 
 Dan Jurafsky & James Martin (2020), Speech & Language Processing (3rd edition draft). Chapter 9, “Deep Learning Architectures for Sequence Processing.” [here](https://web.stanford.edu/~jurafsky/slp3/)
 
@@ -70,7 +88,7 @@ Suggested: Han Zhang and Jennifer Pan. 2019. “CASM: A Deep-Learning Approach f
 
 
 
-### Day 7 (Aug 3) - Contextual Embeddings, Pretrained Language Models, and Transfer Learning
+### Aug 4 - Contextual Embeddings, Pretrained Language Models, and Transfer Learning
 
 Noah Smith. 2019. “Contextual Word Vectors: A Contextual Introduction.”
 
@@ -81,14 +99,14 @@ Jay Alammar. 2019. “A Visual Guide to Using BERT for the First Time.” [here]
 Zhanna Terechskenko, Fridolin Linder, Vishakh Padmakumar, Michael Liu, Jonathan Nagler, Joshua A. Tucker, and Richard Bonneau. 2020. “A Comparison of Methods in Political Science Text Classification: Transfer Learning Language Models for Politics.” [here](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3724644)
 
 
-### Day 8 (Aug 4) - Multilingual Text as Data and Machine Translation
+### Aug 5 - Multilingual Text as Data and Machine Translation
 
 Mitchell Goist and Burt L. Monroe. 2020. “Scaling the Tower of Babel: Common-Space Analysis of Political Text in Multiple Languages.”
 
 Leah C. Windsor, James G. Cupit, Alistair J. Windsor. 2019. “Automated content analysis across six languages.” PloS ONE 14(11):e0224425. [here](https://doi.org/10.1371/journal.pone.0224425)
 
 
-### Day 9 (Aug 5) - Natural Language Understanding and Natural Language Generation
+### Aug 6 - Natural Language Understanding and Natural Language Generation / Fairness & Bias in NLP
 
 TBA. May include 
 
@@ -96,7 +114,3 @@ Jay Alammar. 2019. “The Illustrated GPT-2 (Visualizing Transformer Language Mo
 
 Jay Alammar. 2020. "How GPT-3 Works: Visualizations and Animations." [here](https://jalammar.github.io/how-gpt3-works-visualizations-animations/)
 
-
-### Day 10 (Aug 6) - Fairness and Bias in NLP
-
-TBA.
