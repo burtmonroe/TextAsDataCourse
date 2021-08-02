@@ -38,6 +38,8 @@ Slides: [https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day3-WordE
 
 Python Tutorial on Estimating Word Embeddings with gensim: https://colab.research.google.com/drive/1eSzd2z5B3CDeTxpdMXCIh3bm1L-gYzCr?usp=sharing
 
+3rd party tutorial on how to estimate your own GloVe embeddings in R with text2vec, http://text2vec.org/glove.html, and a replication of that same example from within quanteda is here: https://quanteda.io/articles/pkgdown/replication/text2vec.html
+
 
 ### Day 4-5 (Jul 29-30) - Neural Networks and Deep Learning for NLP
 
