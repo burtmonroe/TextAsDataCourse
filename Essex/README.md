@@ -75,7 +75,7 @@ Text Classification with Keras and Tensorflow 3: Pretrained Embeddings (R): Comi
 
 Text Classification with Keras and Tensorflow 4: Incorporating an Embedding Layer (Python): https://colab.research.google.com/drive/1_6m2DVFQJPZH5UENZDs7jkrOU6kjyuCu?usp=sharing
 
-Text Classification with Keras and Tensorflow 4: Incorporating an Embedding Layer (R): Coming shortly.
+Text Classification with Keras and Tensorflow 4: Incorporating an Embedding Layer (R): https://colab.research.google.com/drive/1n1Al0lplHxY78P5vPATBp6kLUUYz6maA?usp=sharing
 
 
 ### Aug 3 - From Recurrent Neural Networks to Transformers
