@@ -88,6 +88,23 @@ Suggested: Andrew Halterman. 2019. “Geolocating Political Events.” [here](ht
 
 Suggested: Han Zhang and Jennifer Pan. 2019. “CASM: A Deep-Learning Approach for Identifying Collective Action Events from Text and Image Data.” Sociological Methodology 49(1): 1-57. [here](http://jenpan.com/jen_pan/casm.pdf)
 
+Slides: [https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day6-RNNsToTransformers.pdf](https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day6-RNNsToTransformers.pdf)
+
+Text Classification with Keras and Tensorflow 5: LSTMs and Bi-LSTMs (Python)
+
+Text Classification with Keras and Tensorflow 5: LSTMs and Bi-LSTMs (R)
+
+Text Classification with Keras and Tensorflow 6: CNNs (Python)
+
+Text Classification with Keras and Tensorflow 6: CNNs (R)
+
+Third party notebooks on Transformers that may be of interest:
+
+    - Original Tensor2Tensor notebook (deprecated) (has illustration of self-attention): https://colab.research.google.com/github/tensorflow/tensor2tensor/blob/master/tensor2tensor/notebooks/hello_t2t.ipynb
+    
+    - Successor Trax notebook: https://colab.research.google.com/github/google/trax/blob/master/trax/intro.ipynb
+    
+    - Text Classification with Transformer (Apoorv Nandan, 2020) - https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/text_classification_with_transformer.ipynb#scrollTo=anLSsILXyULq (IMDB sentiment)
 
 
 ### Aug 4 - Contextual Embeddings, Pretrained Language Models, and Transfer Learning
