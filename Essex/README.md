@@ -115,7 +115,11 @@ Jay Alammar. 2018. “The Illustrated BERT, ELMo and Co. (How NLP Cracked Transf
 
 Jay Alammar. 2019. “A Visual Guide to Using BERT for the First Time.” [here](http://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/)
 
-Zhanna Terechskenko, Fridolin Linder, Vishakh Padmakumar, Michael Liu, Jonathan Nagler, Joshua A. Tucker, and Richard Bonneau. 2020. “A Comparison of Methods in Political Science Text Classification: Transfer Learning Language Models for Politics.” [here](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3724644)
+Zhanna Terechskenko, Fridolin Linder, Vishakh Padmakumar, Michael Liu, Jonathan Nagler, Joshua A. Tucker, and Richard Bonneau. 2020. “A Comparison of Methods in Political Science Text Classification: Transfer Learning Language Models for Politics.” [here](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3724644
+
+Slides: [https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day7-TransferLearning.pdf](https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day7-TransferLearning.pdf)
+
+Text Classification with Keras and Tensorflow - BERT: https://colab.research.google.com/drive/1OQbZQZtoOB7Kg3RR_nqh52gDivuPkaEU?usp=sharing
 
 
 ### Aug 5 - Multilingual Text as Data and Machine Translation
