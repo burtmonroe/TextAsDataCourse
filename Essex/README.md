@@ -128,6 +128,10 @@ Mitchell Goist and Burt L. Monroe. 2020. “Scaling the Tower of Babel: Common-S
 
 Leah C. Windsor, James G. Cupit, Alistair J. Windsor. 2019. “Automated content analysis across six languages.” PloS ONE 14(11):e0224425. [here](https://doi.org/10.1371/journal.pone.0224425)
 
+Slides: [https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day8-Multilingual.pdf](https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day8-Multilingual.pdf)
+
+Text Translation Using Pretrained Transformer (Encoder-Decoder) Language Models: https://colab.research.google.com/drive/1d6SZzl1Rnxr25e8_ecR1vZGG156aOUk-?usp=sharing
+
 
 ### Aug 6 - Natural Language Understanding / Semantic Change / Fairness & Bias in NLP
 
