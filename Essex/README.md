@@ -71,7 +71,7 @@ Text Classification with Keras and Tensorflow 2: Dropout and Weight Regularizati
 
 Text Classification with Keras and Tensorflow 3: Pretrained Embeddings (Python): https://colab.research.google.com/drive/1pkJNzWDdqTaVzZFQ1RnkAxx87Wkyr31T?usp=sharing
 
-Text Classification with Keras and Tensorflow 3: Pretrained Embeddings (R): Coming shortly.
+Text Classification with Keras and Tensorflow 3: Pretrained Embeddings (R): Not currently functional.
 
 Text Classification with Keras and Tensorflow 4: Incorporating an Embedding Layer (Python): https://colab.research.google.com/drive/1_6m2DVFQJPZH5UENZDs7jkrOU6kjyuCu?usp=sharing
 
@@ -100,11 +100,11 @@ Text Classification with Keras and Tensorflow 6: CNNs (R)
 
 Third party notebooks on Transformers that may be of interest:
 
-    - Original Tensor2Tensor notebook (deprecated) (has illustration of self-attention): https://colab.research.google.com/github/tensorflow/tensor2tensor/blob/master/tensor2tensor/notebooks/hello_t2t.ipynb
+  - Original Tensor2Tensor notebook (deprecated) (has illustration of self-attention): https://colab.research.google.com/github/tensorflow/tensor2tensor/blob/master/tensor2tensor/notebooks/hello_t2t.ipynb
     
-    - Successor Trax notebook: https://colab.research.google.com/github/google/trax/blob/master/trax/intro.ipynb
+  - Successor Trax notebook: https://colab.research.google.com/github/google/trax/blob/master/trax/intro.ipynb
     
-    - Text Classification with Transformer (Apoorv Nandan, 2020) - https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/text_classification_with_transformer.ipynb#scrollTo=anLSsILXyULq (IMDB sentiment)
+  - Text Classification with Transformer (Apoorv Nandan, 2020) - https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/text_classification_with_transformer.ipynb#scrollTo=anLSsILXyULq (IMDB sentiment)
 
 
 ### Aug 4 - Contextual Embeddings, Pretrained Language Models, and Transfer Learning
@@ -129,11 +129,17 @@ Mitchell Goist and Burt L. Monroe. 2020. “Scaling the Tower of Babel: Common-S
 Leah C. Windsor, James G. Cupit, Alistair J. Windsor. 2019. “Automated content analysis across six languages.” PloS ONE 14(11):e0224425. [here](https://doi.org/10.1371/journal.pone.0224425)
 
 
-### Aug 6 - Natural Language Understanding and Natural Language Generation / Fairness & Bias in NLP
+### Aug 6 - Natural Language Understanding / Semantic Change / Fairness & Bias in NLP
 
-TBA. May include 
+Emily M. Bender and Alexander Koller. 2020. "Climbing towards NLU: On Meaning, Form, and Understanding in the Age of Data." https://aclanthology.org/2020.acl-main.463.pdf
 
-Jay Alammar. 2019. “The Illustrated GPT-2 (Visualizing Transformer Language Models)” [here]( http://jalammar.github.io/illustrated-gpt2/)
+Orestis Papakyriakopoulos, Simon Hegelich, Juan Carlos Medina Serrano, and Fabienne Marco. 2020. "Bias in Word Embeddings." https://dl.acm.org/doi/pdf/10.1145/3351095.3372843
 
-Jay Alammar. 2020. "How GPT-3 Works: Visualizations and Animations." [here](https://jalammar.github.io/how-gpt3-works-visualizations-animations/)
+Suggested on semantic change ("classic", canonical cite): William L. Hamilton, Jure Leskovec, Dan Jurafsky. 2016. "Diachronic Word Embeddings Reveal Statistical Laws of Semantic Change." ACL-2016 https://cs.stanford.edu/people/jure/pubs/diachronic-acl16.pdf
+
+Suggested on semantic change (State of the Art): Dominik Schlechtweg, Barbara McGillivray, Simon Hengchen, Haim Dubossarsky, Nina Tahmasebi. 2020. "SemEval-2020 Task 1: Unsupervised Lexical Semantic Change Detection." https://arxiv.org/pdf/2007.11464.pdf
+
+(I'll squeeze in the requested task of "custom named entity recognition" if I can.) 
+
+
 
