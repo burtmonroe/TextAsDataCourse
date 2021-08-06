@@ -146,4 +146,4 @@ Suggested on semantic change (State of the Art): Dominik Schlechtweg, Barbara Mc
 (I'll squeeze in the requested task of "custom named entity recognition" if I can.) 
 
 
-
+Slides: [Part 1](https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day9-NLUBiasEtc-Part1.pdf) and [Part 2](https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day9-NLUBiasEtc-Part2.pdf)
