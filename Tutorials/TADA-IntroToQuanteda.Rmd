@@ -14,7 +14,7 @@ output:
     df_print: paged
 ---
 
-Updated July 2021.
+Updated September 2021.
 
 The **quanteda** package (https://quanteda.io) is a very general and well-documented ecosystem for text analysis in R. A very large percentage of what is typically done in social science text-as-data research can be done with, or at least through, quanteda. Among the "competitors" to quanteda are the classic package **tm** and the tidyverse-consistent package **tidytext**. These actually are interrelated, with shared code and conversion utilities available, so they aren't necessarily in conflict.
 
@@ -45,7 +45,7 @@ library(quanteda)
 If you are working on RStudio Cloud, you may have received a warning message about the "locale." You set the locale for British English ("en_GB") with the `stri_locale_set` comman in the already loaded stringi package. You may  wish to set it to assume you are working in a different context (e.g., "en_US" for US English) or language (e.g., "pt_BR" for Brazilian Portuguese). This seems to happen every time an RStudio Cloud project with quanteda loaded is reopened, so you have to reissue this command to make the warning message go away.
 
 ```{r}
-stringi::stri_locale_set("en_GB")
+# stringi::stri_locale_set("en_GB")
 ```
 
 # A first corpus #
@@ -360,7 +360,7 @@ That makes the "long tail" clear. The grand relationship becomes clearer in a lo
 plot(1:ncol(doc_term_matrix),sort(colSums(doc_term_matrix),dec=T), main = "Zipf's Law?", ylab="Frequency", xlab = "Frequency Rank", log="xy")
 ```
 
-For the power law, we need the number of words that appear at any given frequency. We'll turn `word_freq` into a categorical variable by making it a "factor". The categories are "1", "2", ..."17" ...etc. and then us e `summary` to give us counts of each "category." (The `maxsum` option is used to be sure it doesn't stop at 100 and lump everything else as "Other"
+For the power law, we need the number of words that appear at any given frequency. We'll turn `word_freq` into a categorical variable by making it a "factor". The categories are "1", "2", ..."17" ...etc. and then use `summary` to give us counts of each "category." (The `maxsum` option is used to be sure it doesn't stop at 100 and lump everything else as "Other"
 
 ```{r power-law}
 words_with_freq <- summary(as.factor(word_freq),maxsum=10000)
@@ -388,7 +388,7 @@ topfeatures(dtm.2grams,40)
 
 How big is it? How sparse? It doesn't give us a lot of sense of content, but it does offer some rudimentary insights into how English is structured.
 
-For example, we can create a rudimentary statistical language model that "predicts" the next word based on bigram frequencies. We apply Bayes' Theorem by calculating the frequency of bigrams starting with the current word and then and then scaling that by dividing by the total frequency (see Jurafsky and Marting, *Speech and Language Processing*, Chapter 3: https://web.stanford.edu/~jurafsky/slp3/ for more detail / nuance).
+For example, we can create a rudimentary statistical language model that "predicts" the next word based on bigram frequencies. We apply Bayes' Theorem by calculating the frequency of bigrams starting with the current word and then scaling that by dividing by the total frequency (see Jurafsky and Martin, *Speech and Language Processing*, Chapter 3: https://web.stanford.edu/~jurafsky/slp3/ for more detail / nuance).
 
 If the current word is "american" what is probably next, in this corpus?
 
@@ -464,11 +464,11 @@ Save a copy of the notebook and use it to answer the questions below. Those labe
 
 **c)** **Challenge** How many trigrams appear only once?
 
-**5)** Tokenize the following tweet using the built-in `word` tokenizer, the `tokenize_words` tokenizer from the `tokenizers` package, and the `tokenize_tweets` tokenizer from the `tokenizers` package, and explain what's different.
+**5)** Tokenize the following string of tweets using the built-in `word` tokenizer, the `tokenize_words` tokenizer from the `tokenizers` package, and the `tokenize_tweets` tokenizer from the `tokenizers` package, and explain what's different.
 
-```{r tweet-exercise}
-tweet <- "https://t.co/9z2J3P33Uc FB needs to hurry up and add a laugh/cry button 😬😭😓🤢🙄😱 Since eating my feelings has not fixed the world's problems, I guess I'll try to sleep... HOLY CRAP: DeVos questionnaire appears to include passages from uncited sources https://t.co/FNRoOlfw9s well played, Senator Murray Keep the pressure on: https://t.co/4hfOsmdk0l @datageneral thx Mr Taussig It's interesting how many people contact me about applying for a PhD and don't spell my name right."
-```
+>https://t.co/9z2J3P33Uc FB needs to hurry up and add a laugh/cry button 😬😭😓🤢🙄😱 Since eating my feelings has not fixed the world's problems, I guess I'll try to sleep... HOLY CRAP: DeVos questionnaire appears to include passages from uncited sources https://t.co/FNRoOlfw9s well played, Senator Murray Keep the pressure on: https://t.co/4hfOsmdk0l @datageneral thx Mr Taussig It's interesting how many people contact me about applying for a PhD and don't spell my name right.
+
+
 
 
 
