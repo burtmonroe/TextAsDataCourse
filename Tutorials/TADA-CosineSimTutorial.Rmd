@@ -1,8 +1,11 @@
 ---
-title: "Cosine Similarity and tf-idf Weighting"
+title: "Term Weighting (including tf-idf) and Cosine Similarity"
 subtitle: "PLSC 597, Text as Data, Penn State"
 author: "Burt L. Monroe"
 output:
+  html_document:
+    toc: yes
+    df_print: paged
   html_notebook:
     code_folding: show
     highlight: tango
@@ -10,21 +13,29 @@ output:
     toc: yes
     df_print: paged
 ---
+Updated September 2021
+
 # Introduction
 
-This is a brief look at how cosine similarity is calculated, how it can be used to compare documents, and the impact of tf-idf weighting.
+This is a brief look at how document similarity, especially cosine similarity, is calculated, how it can be used to compare documents, and the impact of term weighting procedures, including tf-idf.
 
-To keep things simple, we'll again use the inaugural speech corpus that comes with quanteda.
+Within  `quanteda` , the `dfm_weight` and `dfm_tfidf` commands provide easy access to various weighting schemes. Within the `quanteda` ecosystem, the `quanteda.textstats` package provides easy access to efficient calculation of similarities with its `dfm` objects. Both of these maintain the computational advantages of the underlying sparse matrix objects. We will also calculate some of these less efficiently "by hand" using dense matrices to show the component steps.
 
-If you need to, run this command to install quanteda:
+It is worth noting that the `quanteda.textstats` package provides a variety of other statistics, such as Fleischman readability scores, which I don't discuss here but which you may find of use.
+
+To keep things simple, we'll again use the inaugural speech corpus that comes with `quanteda`.
+
+If you need to, run this chunk to install `quanteda` and `quanteda.textstats`:
 
 ```{r}
 # install.packages("quanteda", dependencies = TRUE)
+# install.packages("quanteda.textstats", dependencies = TRUE)
 ```
 
-Now load it:
+Now load them:
 ```{r}
 library(quanteda)
+library(quanteda.textstats)
 ```
 
 Lets again load in the corpus of presidential inaugural addresses and see what it looks like:
@@ -35,28 +46,185 @@ corp <- quanteda::data_corpus_inaugural
 summary(corp)
 ```
 
-As a reminder, we previously used quanteda's `dfm` command to generate a document-term matrix from this corpus, e.g.:
+As before, we can use quanteda's `tokens` command to tokenize and the `dfm` command to generate a document-term matrix from this tokens object, e.g.:
 
 ```{r}
-dtm <- quanteda::dfm(corp,
-                                 tolower = TRUE,    # casefold
-                                 stem = FALSE,                 # do not stem
-                                 remove_punct = TRUE,          # remove punctuation
-                                 #remove = stopwords("english"), # ignore common words on a "stop" list
-                                 ngrams = 1)                   # count unigrams
+inaugural_tokens <- quanteda::tokens(corp,
+                       what = "word",
+                       remove_punct = TRUE, # default FALSE
+                       remove_symbols = TRUE, # default FALSE
+                       remove_numbers = FALSE,
+                       remove_url = TRUE, # default FALSE
+                       remove_separators = TRUE,
+                       split_hyphens = FALSE,
+                       include_docvars = TRUE,
+                       padding = FALSE,
+                       verbose = quanteda_options("verbose")
+                       )
+
+dtm <- quanteda::dfm(inaugural_tokens,
+                                 tolower = TRUE    # casefold
+)
+```
+
+The most frequent terms can be seen a couple of ways. One is the `textstat_frequency` command, which calculates overall (i.e., corpus) frequency and also shows document frequencies (the number of documents in which it appears).
+
+```{r}
+dtm %>%
+  textstat_frequency() %>% 
+  head(10)
+```
+
+The most frequent terms are essentially the 
+"stop words." Most of these terms are used in every inaugural, although there are exceptions ("a", "our", and "we" are left out of one each).
+
+You can, of course, remove words on a stopwords list and get a more substantive-sounding list of most frequent terms:
+
+```{r}
+inaugural_tokens_nostop <- inaugural_tokens %>%
+                            tokens_tolower() %>%
+                          tokens_remove(stopwords('en'))
+dtm_nostop <- dfm(inaugural_tokens_nostop)
+
+dtm_nostop %>%
+  textstat_frequency() %>% 
+  head(10)
+```
+
+
+# Document representation and weighting
+
+The variable `dtm` as calculated above, represents each document as a row of the document-term matrix, with values equal to the raw count of the term indexed by each column.
+
+For example, the 601st to 610th entry in the representation of Obama's 2009 inaugural (document 56) are:
+
+```{r}
+dtm[56,601:610]
+```
+
+## Document-incidence matrix
+
+You may for some purposes, wish to represent a document just by the presence or absence of terms. This is sometimes called a **document-incidence matrix** and often makes sense for a corpus of short documents, like tweets. 
+
+```{r}
+dim <- dfm_weight(dtm, scheme="boolean")
+dim[56,601:610]
+```
+
+Here, the corpus frequency and document frequency of a given term will be the same.
+
+```{r}
+dim %>%
+  textstat_frequency() %>%
+  head(10)
+```
+  
+You can see that the entry for "america" is now simply "1", indicating that the term is present at least once, but not keeping the information that it appears eight times in the speech.
+
+We can think of both the original document-frequency matrix and the document-incidence matrix as "weighted" representations, in which terms are weighted by frequency in the former case, and equally in the latter.
+
+In the document-frequency matrix, the most heavily weighted terms are obviously the most common terms:
+
+```{r}
+dtm %>%
+  dfm_subset(subset= docid(dtm)=="2009-Obama") %>%
+  textstat_frequency() %>% 
+  head(10)
+```
+
+In the document-incidence matrix, all terms are weighted equally and the "most frequent" terms list is essentially random (in this case it is the order in which the terms are encountered in the corpus):
+
+```{r}
+dim %>%
+  dfm_subset(subset= docid(dim)=="2009-Obama") %>%
+  textstat_frequency() %>% 
+  head(10)
+```
+
+## Term frequency and logged term frequency
+
+For many purposes, it makes sense to transform count data to logged count data. This can be done here with the dfm_weight command as well. Note that $\log (f_{dw})$ is ill-defined where counts equal zero. Smoothing, or addition of a prior, solves this problem, but at the expense of needing to create a dense matrix. A common approach to maintain sparsity is to calculate either $\log(1+f_{dw})$, which equals zero when the count equals zero, or $1+\log(f_{dw})$ *only for non-zero values*, leaving zero counts as zeros. The "logcount" weighting scheme in the `dfm_weight` command does the latter. (Note that if a base isn't specified, it assumes base 10, whereas the generic `log` function would assume natural logarithm, i.e., `base=exp(1)`.)
+
+```{r}
+dtm %>%
+  dfm_weight(scheme="logcount",base=exp(1)) %>%
+  dfm_subset(subset= docid(dim)=="2009-Obama") %>%
+  textstat_frequency() %>% 
+  head(10)
+```
+
+## Document frequency and tf-idf
+
+The most commonly used weighting scheme is **tf-idf**. The general idea is to take a term frequency or logged term frequency and *downweight* that according to (logged) document frequency. The intuition is that the most important words are those that are used a lot in a given document but relatively rare in the corpus overall.
+
+Note that many sources allow for a wide variety of interpretations of both "tf" and "idf." In particular, Manning & Schutze  are inconsistent about the "default" for "tf", stating $\log(1+f_{dw})$ in some instances and $1+\log(f_{dw})$ (for $f_{dw} > 0$) in others. The most common implmentation of "df" is $log\frac{D}{d_w}$, where $d_w$ is the number of documents in which word $w$ appears, and $D$ is the total number of documents. These implementations maintain or even increase sparsity, with zero counts remaining zeros, and new zeros for any words that appear in all documents.
+
+The little run from the Obama speech is then:
+```{r}
+dtm.w <- dfm_tfidf(dtm)
+dtm.w[56,601:610]
+```
+
+The most heavily weighted words in the Obama speech become:
+
+```{r}
+dtm.w %>%
+  dfm_subset(subset= docid(dtm)=="2009-Obama") %>%
+  textstat_frequency(force=TRUE) %>%
+  head(10)
+
+# force=TRUE is needed for quanteda to summarize "frequencies" that have been weighted
+```
+
+You may wish to access the weighted values more directly, without using the `textstat_frequency` command.
+```{r}
+obama_tfidf <- dtm.w %>%
+  dfm_subset(subset= docid(dtm)=="2009-Obama") %>%
+  as.numeric()
+names(obama_tfidf) <- colnames(dtm)
+
+sort(obama_tfidf,dec=T)[1:10]
 ```
 
 # Cosine similarity
 
-Let's calculate the cosine similarity between documents using just counts. First, let's make a regular matrix object out of our dtm, for pedagogical purposes. (That is, it's easier to understand what's going on if we make this a "dense" matrix, but it's not something we would normally do.)
+## With quanteda
+
+You can calculate cosine similarity efficiently with the `textstat_simil` command:
+
+```{r}
+cos_dtm <- textstat_simil(dtm, method="cosine")
+dim(cos_dtm)
+```
+
+This is a $D \times D$ symmetric matrix.
+
+You can find the most similar documents to a given document using the given row (or column) of the similarity matrix. For example, the most similar speeches to Kennedy's (1961) inaugural are as follows:
+
+```{r}
+sort(cos_dtm[,"1961-Kennedy"],dec=T)
+```
+
+This doesn't make much sense. Let's see what happens if we use tf-idf.
+
+```{r}
+cos_dtm.w <- textstat_simil(dtm.w, method="cosine")
+sort(cos_dtm.w[,"1961-Kennedy"],dec=T)
+```
+
+It's still not completely intuitive -- Kennedy and Reagan don't seem superficially to be similar -- but note that the similarities are greater with *every* post-war (WWII) president, except Trump, than with *any* pre-war president. We'll look in more detail at the calculation to determine what's going on.
+
+## Cosine similarity step by step
+
+Let's again calculate the cosine similarity between documents using just counts, but this time doing it step by step. First, let's make a regular matrix object out of our dtm. (It's easier to understand what's going on if we make this a "dense" matrix, but it's not something we would normally do.)
 
 ```{r}
 dtmat <- as.matrix(dtm)
 ```
 
-## The L2-norm
+### The L2-norm
 
- Then let's "norm" the documents to length 1 using the L2 norm. The L2 norm is the square root of the sum of squares for each document:
+Now let's "norm" the documents to length 1 using the $L_2$ norm. The $L_2$ norm is the square root of the sum of squares for each document -- the "length" of the document vector, or the "Euclidean distance" of its tip from the origin:
 
 ```{r}
  l2.dtmat <- sqrt(rowSums(dtmat^2))
@@ -69,7 +237,7 @@ dtmat.l2normed <- sweep(dtmat,1,l2.dtmat,"/")
 summary(rowSums(dtmat.l2normed^2))
 ```
 
-## The dot product
+### The dot product
 
 To find the cosine similarity between any two, calculate the dot product of these vectors (multiply the two vectors element by element, and then sum those up).
 
@@ -83,6 +251,8 @@ cos.obama1.trump1
 
 To find the cosine similarity for all pairs, take the matrix crossproduct. (That is, calculate the dot product of every row / document with every other row / document -- this will result in a 58 $\times$ 58 matrix.) This matrix has all ones on its diagonal -- why? This matrix is symmetric -- why?
 
+
+
 ```{r}
 cos.dtmat <- dtmat.l2normed %*% t(dtmat.l2normed)
 dim(cos.dtmat)
@@ -90,7 +260,9 @@ dim(cos.dtmat)
 sort(cos.dtmat[,"1961-Kennedy"],dec=T)
 ```
 
-A couple things are strange here. It looks like most inaugurals are relatively similar to one another (.8 + seems like a pretty high number) and it seems odd that Coolidge would be the most similar to Kennedy. Let's break down what words are contributing the most to the similarity rankings:
+As we should, we get the same answer for the speeches most similar to the Kennedy inaugural.
+
+Now let's focus on the strangeness. It looks like most inaugurals are relatively similar to one another (.8 + seems like a pretty high number) and it seems odd that Coolidge would be the most similar to Kennedy. Let's break down what words are contributing the most to the similarity rankings by looking at the contributions of individual words to the dot-product:
 
 ```{r}
 sort(dtmat.l2normed["1961-Kennedy",]*dtmat.l2normed["1925-Coolidge",], dec=T)[1:20]
@@ -98,18 +270,10 @@ sort(dtmat.l2normed["1961-Kennedy",]*dtmat.l2normed["1925-Coolidge",], dec=T)[1:
 
 Ahhhh! The cosine similarity is being driven by the relative use of common words ... the, of, and, to, and so on. This is arguably what we want in some applications like stylometry, where we are trying to guess authorship for example, but almost definitely not what we're after here.
 
-# Tf-idf weighting
-
-A common approach is to instead represent documents by tf-idf weighted counts of words. Quanteda has this as a built in function.
-
-Calculate the tf-idf weighted dfm and do the same:
+Let's look instead at the tf-idf cosine similarities.
 
 ```{r}
-dtm.w <- dfm_tfidf(dtm)
 dtmat.w <- as.matrix(dtm.w)
-
-sort(dtmat["2009-Obama",],dec=T)[1:40]
-sort(dtmat.w["2009-Obama",],dec=T)[1:40]
 
 l2.dtmat.w <- sqrt(rowSums(dtmat.w^2))
 dtmat.w.l2normed <- sweep(dtmat.w,1,l2.dtmat.w,"/")
@@ -118,10 +282,9 @@ cos.dtmat.w <- dtmat.w.l2normed %*% t(dtmat.w.l2normed)
 dim(cos.dtmat.w)
 
 sort(cos.dtmat.w[,"1961-Kennedy"],dec=T)
-
 ```
 
-Similarities are lower, but they reflect similarity among distinctive content. So, why is Reagan the most similar to Kennedy?
+Same answer as before. Similarities are lower, but they reflect similarity among distinctive content. That is, they are similar in what makes them different from the others. So, why is Reagan the most similar to Kennedy?
 
 ```{r}
 sort(dtmat.w.l2normed["1961-Kennedy",]*dtmat.w.l2normed["1981-Reagan",], dec=T)[1:20]
@@ -130,6 +293,10 @@ sort(dtmat.w.l2normed["1961-Kennedy",]*dtmat.w.l2normed["1981-Reagan",], dec=T)[
 This suggests they both framed their presidencies as an opportunity to "begin" something new, for example, and were relatively unusual in doing so.
 
 ```{r}
-kwic(data_corpus_inaugural,"begin", window=4)
+kwic(inaugural_tokens,"begin", window=4)
 ```
 
+
+### PMI, Fightin' Words, and "keyness" approaches to weighting
+
+Finally, I will note that an alternative approach to tf-idf weighting is to represent each document by a vector of "keyness" statistics. The `textstat_keyness` command provides several, such as chi-squared and PMI (pointwise mutual information). I personally often use the "Fightin' Words" statistic (zeta), calculated with each document as a "group" to be compared to the others. In this example, this gives results that are correlated with tf-idf, but with some minor qualitative differences.
