@@ -28,29 +28,25 @@ Produced for Penn State and Essex Courses in "Text as Data"
    * (3rd party) Text as Data with tidytext: Great tutorials in the book: https://www.tidytextmining.com
    
    * NLP Pipelines in R (Primary focus is on UDPipe and openNLP, with spacyr separated out to other notebook)
-  
-   * Introduction to spacyr and spaCy through R (R)
+      * Colab: Introduction to NLP Annotation Pipelines in R: [here](https://colab.research.google.com/drive/15UcuXNYuhR9wuHbKp4J1HUsOB6GOX6oV?usp=sharing)
+      * Colab: Introduction to spacyr and spaCy through R: [here](https://colab.research.google.com/drive/1wrYUNqp--v7tA_umgqajoy9A0ugzGUfz?usp=sharing)
+ 
 
 
 ### In Python
  
    * [Open Source Tools for Text as Data in Python](https://burtmonroe.github.io/TextAsDataCourse/Notes/PythonText/)
    
-   * Introduction to NLP with spaCy (Python)
-      * Notebook html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/Introduction%20to%20NLP%20with%20spaCy.html)
-   
-   * Introduction to NLP with textblob, nltk, and pattern (Python)
-      * Notebook html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/Introduction%20to%20NLP%20with%20TextBlob%2C%20NLTK%2C%20and%20pattern.html)
+   * Introduction to Bag of Words data with CountVectorizer (Python)
+      * Colab: [here](https://colab.research.google.com/drive/1YQ-b7VmPBgpe9utqk_aDyY5KYbyRgXQm?usp=sharing)
+       
+   * Introduction to NLP Annotation Pipelines in Python [spaCy, Stanza/CoreNLP, NLTK, and Flair] (Python)
+      * Colab: [here](https://colab.research.google.com/drive/1Us7Hx5xF5pdx-JM3t_6QB8SZZhHfrc0Q?usp=sharing)
       
-   * Introduction to NLP with Stanza / coreNLP (Python)
+   * (Old/minimal) Introduction to NLP with textblob, nltk, and pattern (Python)
+      * Notebook html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/Introduction%20to%20NLP%20with%20TextBlob%2C%20NLTK%2C%20and%20pattern.html)
 
    * (3rd party demos /guide) AllenNLP: Demos (https://demo.allennlp.org/) and Guide (https://guide.allennlp.org) (Python)
-
-   * (3rd party tutorials) sparkNLP
-
-   * (3rd party tutorials) NLP-Architect
-
-   * Introduction to NLP with Flair
 
 ## Scraping and Data Wrangling:
         
@@ -91,13 +87,12 @@ Note: Many R Notebooks below use syntax now deprecated in quanteda. They should 
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-CosineSimTutorial.nb.html)
    * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-CosineSimTutorial.Rmd)
 
-* Introduction to Dictionary-based Sentiment Analysis (R)
-   * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-SentimentAnalysisWithLexicoder.nb.html)
-   * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-SentimentAnalysisWithLexicoder.Rmd)
-
+* Introduction to Dictionary-based Analysis in R
+   * Colab: [here](https://colab.research.google.com/drive/1EX4eWKqt7tkBukMxy4jqJ_SS0iAbOvhL?usp=sharing)
+   
 * Introduction to Text Classification (Naive Bayes, Logistic/ridge/LASSO, Support Vector Machine, Random Forests, and ensembling) (R)
-   * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-Classification.nb.html)
-   * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-Classification.Rmd)
+   * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-ClassificationV2.nb.html)
+   * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-ClassificationV2.Rmd)
 
 * Latent Dirichlet Allocation in R (topicmodels, lda, and MALLET)
 
