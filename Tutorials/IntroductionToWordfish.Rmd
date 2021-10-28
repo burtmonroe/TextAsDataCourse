@@ -1,15 +1,21 @@
 ---
-title: "An Introduction to the Scaling with Wordfish"
+title: "An Introduction to Scaling with Wordfish"
+subtitle: Prepared for Text as Data, Penn State
+author: Burt L. Monroe
 output:
-  html_document:
-    df_print: paged
-    toc: yes
   html_notebook:
     code_folding: show
     highlight: tango
     theme: united
     toc: yes
+  html_document:
+    df_print: paged
+    toc: yes
 ---
+
+Revised October 2021.
+
+The code for the example (that in the first four code chunks) is that provided in the documentation: https://tutorials.quanteda.io/machine-learning/wordfish/
 
 ## Wordfish
 
@@ -17,14 +23,17 @@ Wordfish is built into quanteda, so it's easy to run. We'll also compare the Wor
 
 ```{r}
 library(quanteda)
+library(quanteda.textmodels)
+library(quanteda.textplots)
 library(stm)
 ```
 
 We'll use the example provided in the quanteda documentation, based on the speeches of 14 members of the Irish parliament on the 2010 budget.
 
 ```{r}
-dfmat_irish <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
-tmod_wf <- textmodel_wordfish(dfmat_irish, dir = c(6,5))
+toks_irish <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
+dfmat_irish <- dfm(toks_irish)
+tmod_wf <- textmodel_wordfish(dfmat_irish, dir = c(6, 5))
 summary(tmod_wf)
 ```
 
@@ -60,7 +69,7 @@ text(tmod_wf$psi,zeta_wf, names(zeta_wf), pos=4, cex=.6)
 
 This captures more what the impact of each word here is.
 
-First, note that the most "governmenty" words are stop words, suggesting the dimension is partially based on length of document. Naturally the government talks more, as the are introducing the budget under debate.
+First, note that the most "governmenty" words are function/stop words, suggesting the dimension is partially based on length of document. Naturally the government talks more, as they are introducing the budget under debate.
 
 ```{r}
 cor(log(rowSums(dfmat_irish)),tmod_wf$theta)
@@ -72,9 +81,12 @@ Beyond these, the government talks of its "schemes" and "investments" and "measu
 
 So, in this case, Wordfish is capturing something resembling government / opposition contrasts. But it's not clear that this is based on things we care about, that this is meaningful for the parties in the "middle", or that this is meaningful for intraparty positions. And it's hopefully clear that this is *not* an ideological scaling.
 
+It is an example where Wordfish provides the most plausible results -- a corpus focused on one specific issue. In a broader corpus, topical content is likely to define dimensional scaling. A better approach in that instance is something like WordShoal (Lauderdale and Herzog) which scales within topics and then combines those dimensions.
+
+
 ## Scaling with a two-topic model
 
-We've seen some indicators that a two-topic model can do a similar job. Let's try STM.
+We've seen some indicators that a two-topic model can do a similar job. (STM provides a warning message to that effect when you estimate a two-topic model.) Let's try STM.
 
 ```{r}
 dfmat_irish_stm <- quanteda::convert(dfmat_irish, to = "stm")
@@ -98,15 +110,15 @@ Let's look at those topics.
 labelTopics(irish_stmfit)
 ```
 
-FREX in fact does seem to indicate similar concepts, at its extremes, to our zeta measure above, in its extremes.
+FREX in fact does seem to indicate similar concepts, at its extremes, to our zeta measure above, in its extremes. FREX shows topic 1 to be the opposition end -- references to the taoiseach and his party with some ideological content ("bankers", "border") -- and topic 2 to be the government end -- references to investment and innovation.
 
-Note, however, that the equivalent of "positions" -- the thetas indicating topic proportion -- and they are also mostly shoved to the extremes.
+Note, however, that the equivalent of "positions" -- the thetas indicating topic proportion -- are mostly shoved to the extremes, suggesting that this specific two-topic model is mainly acting as a government/opposition classifier. 
 
 ```{r}
 compare.df <- cbind(name=rownames(docvars(dfmat_irish)),wordfish = tmod_wf$theta, stm = irish_stmfit$theta[,2])
 compare.df
 ```
 
-
+It does hopefully make clear the mathematical similarities between unsupervised topic modeling and unsupervised scaling -- one can be interpreted as the other -- despite the ostensibly very different conceptual measurement objectives,
 
 
