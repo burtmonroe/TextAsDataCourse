@@ -90,7 +90,7 @@ Suggested: Han Zhang and Jennifer Pan. 2019. “CASM: A Deep-Learning Approach f
 
 Slides: [https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day6-RNNsToTransformers.pdf](https://burtmonroe.github.io/TextAsDataCourse/Essex/EssexNLP-Day6-RNNsToTransformers.pdf)
 
-Text Classification with Keras and Tensorflow 5: LSTMs and Bi-LSTMs (Python)
+Text Classification with Keras and Tensorflow 5: LSTMs and Bi-LSTMs (Python): https://colab.research.google.com/drive/1TDYGoskrMCbWGyS4X_kj8Ftzc6hURgz8?usp=sharing
 
 Text Classification with Keras and Tensorflow 5: LSTMs and Bi-LSTMs (R)
 
