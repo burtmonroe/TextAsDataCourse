@@ -152,7 +152,8 @@ Produced for Penn State and Essex Courses in "Text as Data"
    * Notebook nb.html: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToKerasAndTensflowInR.nb.html)
    * Notebook Rmd: [here](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToKerasAndTensflowInR.Rmd)
 
-* Text Classification with Keras and Tensorflow 5: LSTMs and Bi-LSTMs (Python)
+* Text Classification with Keras and Tensorflow 5: LSTMs and Bi-LSTMs (Python):
+   * https://colab.research.google.com/drive/1TDYGoskrMCbWGyS4X_kj8Ftzc6hURgz8?usp=sharing
 
 * Text Classification with Keras and Tensorflow 5: LSTMs and Bi-LSTMs (R)
 
